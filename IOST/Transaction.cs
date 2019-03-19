@@ -8,8 +8,6 @@
         public Options Options { get; internal set; }
         public Rpcpb.TransactionRequest TransactionRequest { get; internal set; }
 
-        public Func<object, string> JSONSerializer { get; set; } = JsonConvert.SerializeObject;
-
         public Transaction(Options options)
         {
             Options = options;
@@ -25,7 +23,7 @@
 
         public void AddAction(string contractID, string abi, params object[] args)
         {
-            TransactionRequest.Actions.Add(NewAction(contractID, abi, JSONSerializer(args)));
+            TransactionRequest.Actions.Add(NewAction(contractID, abi, IOST.JSONSerializer(args)));
         }
 
         public void AddApprove(string token, double amount)

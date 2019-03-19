@@ -1,11 +1,8 @@
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Numerics;
-using System.Text;
-
 namespace IOST
 {
+    using System;
+    using Newtonsoft.Json;
+
     public class IOST
     {
         /// <summary>
