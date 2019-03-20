@@ -1,6 +1,6 @@
 ﻿namespace IOST
 {
-    public struct Options
+    public class Options
     {
         public long GasLimit { get; set; }
         public long GasRatio { get; set; }

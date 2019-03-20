@@ -6,10 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Cryptography.ECDSA.Secp256K1" Version="1.1.2" />
     <PackageReference Include="Google.Api.Gax.Grpc" Version="2.6.0" />
     <PackageReference Include="Google.Protobuf" Version="3.7.0" />
-    <PackageReference Include="Google.Protobuf.Tools" Version="3.7.0" />
     <PackageReference Include="Grpc" Version="1.19.0" />
+    <PackageReference Include="SHA3.Net" Version="1.1.1" />
+    <PackageReference Include="Sodium.Core" Version="1.2.0" />
+    <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="4.5.0" />
   </ItemGroup>
 
 </Project>

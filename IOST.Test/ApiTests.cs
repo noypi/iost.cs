@@ -10,7 +10,7 @@ namespace IOST.Test
         private string _TestServerUrl = "192.168.254.99:30002";
 
         [TestMethod]
-        public async Task GetNodeInfo()
+        public async Task TestGetNodeInfo()
         {
             var iost = new Client(_TestServerUrl);
             var nodeInfoResponse = await iost.GetNodeInfo();

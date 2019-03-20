@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IOST", "IOST\IOST.csproj", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IOST.Test", "IOST.Test\IOST.Test.csproj", "{16FE166A-0E80-4B6C-B17E-5E12F7C9D699}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IOST.DevTools", "IOST.DevTools\IOST.DevTools.csproj", "{9B579CAA-063D-4F11-A6A9-3BBF47B35407}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{16FE166A-0E80-4B6C-B17E-5E12F7C9D699}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{16FE166A-0E80-4B6C-B17E-5E12F7C9D699}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{16FE166A-0E80-4B6C-B17E-5E12F7C9D699}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B579CAA-063D-4F11-A6A9-3BBF47B35407}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B579CAA-063D-4F11-A6A9-3BBF47B35407}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B579CAA-063D-4F11-A6A9-3BBF47B35407}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B579CAA-063D-4F11-A6A9-3BBF47B35407}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

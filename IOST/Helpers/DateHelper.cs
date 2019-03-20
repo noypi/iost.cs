@@ -1,10 +1,8 @@
-namespace IOST
+namespace IOST.Helpers
 {
     using System;
-    using System.Collections.Generic;
-    using System.Text;
 
-    public class Helpers
+    public class DateHelper
     {
         public const int TicksPerMicrosecond = 10;
         public const int NanosecondsPerTick = 100;
