@@ -1,5 +1,6 @@
 namespace IOST
 {
+    using System;
     using System.Collections.Generic;
     using global::IOST.Crypto;
 
@@ -26,20 +27,20 @@ namespace IOST
             {
                 _keys[p] = keypair;
             }
-
-            if (!_keys.ContainsKey("active"))
-            {
-                _keys["active"] = keypair;
-            }
         }
 
-        internal void Sign(Transaction tx)
+        internal void Sign(Transaction tx, string perm)
         {
+            if (!_keys.ContainsKey(perm))
+            {
+                throw new ArgumentException($"perm: '{perm}' not found.");
+            }
+
             var txRequest = tx.TransactionRequest;
             var txBytes = tx.BytesForSigning();
             txRequest.Publisher = _ID;
 
-            var kp = _keys["active"];
+            var kp = _keys[perm];
             var sig = kp.Sign(IOST.CryptoHashSha3_256(txBytes));
 
             var sigPb = new Rpcpb.Signature();
