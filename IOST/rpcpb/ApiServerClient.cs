@@ -5,7 +5,7 @@
     using Grpc.Core;
     using Rpcpb;
 
-    public class ApiServerClient : ClientBase<ApiServerClient>
+    public class ApiServerClient : ClientBase<ApiServerClient>, IDisposable
     {
         // Methods
         private static readonly
@@ -177,7 +177,8 @@
                                                                                 arg => MessageExtensions.ToByteArray(arg),
                                                                                 SendTransactionResponse.Parser.ParseFrom);
 
-        private string _host = null;
+        private readonly string _host = null;
+        private Channel _channel = null;
 
         public ApiServerClient(CallInvoker callInvoker) : base(callInvoker)
         {
@@ -185,6 +186,7 @@
 
         public ApiServerClient(Channel channel) : base(channel)
         {
+            _channel = channel;
         }
 
         protected ApiServerClient(ClientBaseConfiguration configuration) : base(configuration)
@@ -266,6 +268,12 @@
         protected override ApiServerClient NewInstance(ClientBaseConfiguration configuration)
         {
             return new ApiServerClient(configuration);
+        }
+
+        public void Dispose()
+        {
+            _channel?.ShutdownAsync();
+            _channel = null;
         }
     }
 }

@@ -98,10 +98,9 @@ namespace IOST
 
             return _client.SendTransaction(tx.TransactionRequest)
                           .ContinueWith<string>((task) => 
-                          {
-                              task.Wait();
-                              return task.Result.Hash;
-                          });
+                           {
+                               return task.Result?.Hash;
+                           });
         }
     }
 }

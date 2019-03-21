@@ -17,7 +17,7 @@
                 Time = DateHelper.UnixNano(),
                 GasLimit = options.GasLimit,
                 GasRatio = options.GasRatio,
-                Expiration = options.ExpirationInMillis,
+                Expiration = DateHelper.UnixNano() + (options.ExpirationInMillis * 1000000),
                 Delay = options.Delay
             };
         }

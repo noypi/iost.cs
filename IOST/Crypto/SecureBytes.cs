@@ -5,7 +5,7 @@ namespace IOST.Crypto
 
     public class SecureBytes
     {
-        readonly byte[] _entropy;
+        private readonly byte[] _entropy;
         private readonly byte[] _protected;
 
         public SecureBytes(byte[] data)
@@ -14,18 +14,13 @@ namespace IOST.Crypto
             _entropy = new byte[16];
             rand.GetBytes(_entropy);
 
-            _protected = data;
-            ProtectedData.Protect(_protected, _entropy, DataProtectionScope.CurrentUser);
+            _protected = ProtectedData.Protect(data, _entropy, DataProtectionScope.CurrentUser);
         }
 
         public void UseUnprotected(Action<byte[]> action)
         {
-            byte[] unprotected = new byte[_protected.Length];
-            Array.Copy(_protected, unprotected, _protected.Length);
-
-            ProtectedData.Unprotect(unprotected, _entropy, DataProtectionScope.CurrentUser);
+            byte[] unprotected = ProtectedData.Unprotect(_protected, _entropy, DataProtectionScope.CurrentUser);
             action(unprotected);
-
             DestroyData(unprotected);
         }
 

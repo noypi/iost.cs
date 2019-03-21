@@ -1,11 +1,12 @@
 namespace IOST
 {
+    using System;
     using System.Threading;
     using System.Threading.Tasks;
     using Grpc.Core;
     using Rpcpb;
 
-    public class Client
+    public class Client : IDisposable
     {
         private ApiServerClient _asc = null;
 
@@ -94,5 +95,9 @@ namespace IOST
                        .ResponseAsync;
         }
 
+        public void Dispose()
+        {
+            _asc?.Dispose();
+        }
     }
 }
