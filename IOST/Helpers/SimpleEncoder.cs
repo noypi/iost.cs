@@ -3,6 +3,7 @@ namespace IOST.Helpers
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
     using System.Text;
 
     public class SimpleEncoder : IDisposable
@@ -48,7 +49,7 @@ namespace IOST.Helpers
 
         public SimpleEncoder Put(String s)
         {
-            return Put(UnicodeEncoding.Unicode.GetBytes(s));
+            return Put(UnicodeEncoding.ASCII.GetBytes(s));
         }
 
         public SimpleEncoder Put(byte[] data)
@@ -91,7 +92,7 @@ namespace IOST.Helpers
 
         public byte[] GetBytes()
         {
-            return _buffer.GetBuffer();
+            return _buffer.GetBuffer().Take((int)_buffer.Position).ToArray();
         }
 
         public void Dispose()
