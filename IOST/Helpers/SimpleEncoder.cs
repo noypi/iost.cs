@@ -48,8 +48,7 @@ namespace IOST.Helpers
 
         public SimpleEncoder Put(String s)
         {
-            return Put(UnicodeEncoding.Unicode.GetByteCount(s))
-                        .Append(UnicodeEncoding.Unicode.GetBytes(s));
+            return Put(UnicodeEncoding.Unicode.GetBytes(s));
         }
 
         public SimpleEncoder Put(byte[] data)
