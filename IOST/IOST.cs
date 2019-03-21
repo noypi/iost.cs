@@ -7,11 +7,6 @@ namespace IOST
     public class IOST
     {
         /// <summary>
-        /// Configure gas limit, gas ratio, delay, expiration
-        /// </summary>
-        public Options Options { get; internal set; }
-
-        /// <summary>
         /// Used to serialize objects to JSON string
         /// </summary>
         public static Func<object, string> JSONSerializer { get; set; } = JsonConvert.SerializeObject;
@@ -50,6 +45,11 @@ namespace IOST
         /// Get Secp256k1 public key (compressed)
         /// </summary>
         public static Func<byte[], byte[]> CryptoGetPubkeySecp256k1Compressed { get; set; } = (seckey) => Cryptography.ECDSA.Secp256K1Manager.GetPublicKey(seckey, true);
+
+        /// <summary>
+        /// Configure gas limit, gas ratio, delay, expiration
+        /// </summary>
+        public Options Options { get; private set; }
 
         private readonly TxBuilder _txBuilder;
 

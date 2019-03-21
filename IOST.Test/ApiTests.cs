@@ -7,7 +7,7 @@ namespace IOST.Test
     public class ApiTests
     {
         //private string _TestServerUrl = "localhost:30002";
-        private string _TestServerUrl = "192.168.254.99:30002";
+        private readonly string _TestServerUrl = "192.168.254.99:30002";
 
         [TestMethod]
         public async Task TestGetNodeInfo()

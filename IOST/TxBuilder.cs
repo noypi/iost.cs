@@ -6,7 +6,7 @@ namespace IOST
 {
     public class TxBuilder
     {
-        private Options _options;
+        private readonly Options _options;
 
         internal TxBuilder(Options options)
         {
@@ -24,7 +24,7 @@ namespace IOST
         }
 
         public Transaction NewAccount(string name, string creator, string ownerkey, string activekey,
-                                        long initialRAM, double initialGasPledge)
+                                        int initialRAM, double initialGasPledge)
         {
             if (!ValidatePubKey(ownerkey) || !ValidatePubKey(activekey))
             {
@@ -42,6 +42,7 @@ namespace IOST
 
         protected bool ValidatePubKey(string key)
         {
+            throw new Exception("not implemented");
             return false;
         }
     }
