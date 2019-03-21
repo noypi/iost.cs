@@ -3,6 +3,7 @@ namespace IOST
     using System;
     using System.Collections.Generic;
     using global::IOST.Crypto;
+    using Protobuf = Google.Protobuf;
 
     public class Keychain
     {
@@ -43,10 +44,12 @@ namespace IOST
             var kp = _keys[perm];
             var sig = kp.Sign(IOST.CryptoHashSha3_256(txBytes));
 
-            var sigPb = new Rpcpb.Signature();
-            sigPb.PublicKey = Google.Protobuf.ByteString.CopyFrom(kp.PubKey, 0, kp.PubKey.Length);
-            sigPb.Algorithm = kp.Algo.AlgorithmType;
-            sigPb.Signature_ = Google.Protobuf.ByteString.CopyFrom(sig, 0, sig.Length);
+            var sigPb = new Rpcpb.Signature()
+            {
+                PublicKey = Protobuf.ByteString.CopyFrom(kp.PubKey, 0, kp.PubKey.Length),
+                Algorithm = kp.Algo.AlgorithmType,
+                Signature_ = Protobuf.ByteString.CopyFrom(sig, 0, sig.Length)
+            };
 
             txRequest.PublisherSigs.Add(sigPb);
         }

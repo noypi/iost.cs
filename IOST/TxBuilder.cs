@@ -42,8 +42,17 @@ namespace IOST
 
         protected bool ValidatePubKey(string key)
         {
-            throw new Exception("not implemented");
-            return false;
+            bool bRet = false;
+            try
+            {
+                byte[] k = IOST.Base58Decode(key);
+                bRet = (k.Length == 32);
+            }
+            catch(Exception)
+            {
+                bRet = false;
+            }
+            return bRet;
         }
     }
 }

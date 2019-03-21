@@ -47,6 +47,16 @@ namespace IOST
         public static Func<byte[], byte[]> CryptoGetPubkeySecp256k1Compressed { get; set; } = (seckey) => Cryptography.ECDSA.Secp256K1Manager.GetPublicKey(seckey, true);
 
         /// <summary>
+        /// Base58 decoder
+        /// </summary>
+        public static Func<string, byte[]> Base58Decode { get; set; } = Cryptography.ECDSA.Base58.Decode;
+
+        /// <summary>
+        /// Base58 encoder
+        /// </summary>
+        public static Func<byte[], string> Base58Encode { get; set; } = Cryptography.ECDSA.Base58.Encode;
+
+        /// <summary>
         /// Configure gas limit, gas ratio, delay, expiration
         /// </summary>
         public Options Options { get; private set; }
