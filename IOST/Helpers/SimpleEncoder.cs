@@ -14,11 +14,6 @@ namespace IOST.Helpers
             _buffer.SetLength(cap);
         }
 
-        public SimpleEncoder(byte[] buf)
-        {
-            _buffer.SetLength(65536);
-        }
-
         private SimpleEncoder Append(byte[] data)
         {
             _buffer.Write(data, 0, data.Length);
@@ -36,6 +31,11 @@ namespace IOST.Helpers
             return Append(EncodeHelper.ToBytes(n));
         }
 
+        public SimpleEncoder Put(uint n)
+        {
+            return Append(EncodeHelper.ToBytes(n));
+        }
+
         public SimpleEncoder Put(double n)
         {
             return Append(EncodeHelper.ToBytes(n));
@@ -48,8 +48,8 @@ namespace IOST.Helpers
 
         public SimpleEncoder Put(String s)
         {
-            return Put(UnicodeEncoding.Default.GetByteCount(s))
-                        .Append(UnicodeEncoding.Default.GetBytes(s));
+            return Put(UnicodeEncoding.Unicode.GetByteCount(s))
+                        .Append(UnicodeEncoding.Unicode.GetBytes(s));
         }
 
         public SimpleEncoder Put(byte[] data)
@@ -75,6 +75,18 @@ namespace IOST.Helpers
             {
                 Put(b);
             }
+            return this;
+        }
+
+        public SimpleEncoder PutList<T>(IList<T> ls, Func<T, byte[]> itemToBytes)
+        {
+            var bb = new byte[ls.Count][];
+            for (int i = 0; i < ls.Count; i++)
+            {
+                bb[i] = itemToBytes(ls[i]);
+            }
+            Put(bb);
+
             return this;
         }
 

@@ -18,7 +18,8 @@
                 GasLimit = options.GasLimit,
                 GasRatio = options.GasRatio,
                 Expiration = DateHelper.UnixNano() + (options.ExpirationInMillis * 1000000),
-                Delay = options.Delay
+                Delay = options.Delay,
+                ChainId = options.ChainId
             };
         }
 
@@ -27,7 +28,7 @@
             TransactionRequest.Actions.Add(NewAction(contractID, abi, IOST.JSONSerializer(args)));
         }
 
-        public void AddApprove(string token, double amount)
+        public void AddApprove(string token, string amount)
         {
             TransactionRequest.AmountLimit.Add(
                     new Rpcpb.AmountLimit()
@@ -46,28 +47,12 @@
                    .Put(tx.GasRatio * 100)
                    .Put(tx.GasLimit * 100)
                    .Put(tx.Delay)
-                   .Put(tx.Signers);
-
-            var actionBytes = new byte[tx.Actions.Count][];
-            for(int i=0; i<tx.Actions.Count; i++)
-            {
-                actionBytes[i] = ActionToBytes(tx.Actions[i]);
-            }
-            encoder.Put(actionBytes);
-
-            var amountBytes = new byte[tx.AmountLimit.Count][];
-            for (int i = 0; i < tx.AmountLimit.Count; i++)
-            {
-                amountBytes[i] = AmountLimitToBytes(tx.AmountLimit[i]);
-            }
-            encoder.Put(amountBytes);
-
-            var signBytes = new byte[tx.Signatures.Count][];
-            for (int i = 0; i < tx.Signatures.Count; i++)
-            {
-                signBytes[i] = SignatureToBytes(tx.Signatures[i]);
-            }
-            encoder.Put(signBytes);
+                   .Put(tx.ChainId)
+                   .Put(new byte[]{ }) // reserved
+                   .Put(tx.Signers)
+                   .PutList<Rpcpb.Action>(tx.Actions, ActionToBytes)
+                   .PutList<Rpcpb.AmountLimit>(tx.AmountLimit, AmountLimitToBytes)
+                   .PutList<Rpcpb.Signature>(tx.Signatures, SignatureToBytes);
 
             return encoder.GetBytes();
         }

@@ -7,8 +7,16 @@ namespace IOST.Helpers
     {
         public static byte[] ToBytes(long n)
         {
-            return EnsureBigEndian( 
+            var bb = EnsureBigEndian( 
                         BitConverter.GetBytes(n));
+            return bb;
+        }
+
+        public static byte[] ToBytes(uint n)
+        {
+            var bb = EnsureBigEndian(
+                        BitConverter.GetBytes(n));
+            return bb;
         }
 
         public static byte[] ToBytes(int n)
@@ -19,21 +27,21 @@ namespace IOST.Helpers
 
         public static byte[] ToBytes(double n)
         {
-            return EnsureBigEndian(
+            var bb = EnsureBigEndian(
                         BitConverter.GetBytes(n));
+            return bb;
         }
 
         public static byte[] ToBytes(bool n)
         {
-            return EnsureBigEndian(
-                        BitConverter.GetBytes(n));
+            return BitConverter.GetBytes(n);
         }
 
         private static byte[] EnsureBigEndian(byte[] bb)
         {
             if (BitConverter.IsLittleEndian)
             {
-                return bb.Reverse().ToArray();
+                Array.Reverse(bb);
             }
             return bb;
         }
