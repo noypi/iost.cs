@@ -30,17 +30,18 @@
 
         public void AddApprove(string token, string amount)
         {
-            TransactionRequest.AmountLimit.Add(
-                    new Rpcpb.AmountLimit()
-                    {
-                        Token = token,
-                        Value = amount
-                    });
+            TransactionRequest.AmountLimit
+                              .Add(NewAmountLimit(token, amount));
         }
 
         public byte[] BytesForSigning()
         {
             var tx = TransactionRequest;
+            return ToBytesForSigning(tx);
+        }
+
+        public static byte[] ToBytesForSigning(Rpcpb.TransactionRequest tx)
+        {
             var encoder = new Helpers.SimpleEncoder(65536);
             encoder.Put(tx.Time)
                    .Put(tx.Expiration)
@@ -48,7 +49,7 @@
                    .Put(tx.GasLimit * 100)
                    .Put(tx.Delay)
                    .Put(tx.ChainId)
-                   .Put(new byte[]{ }) // reserved
+                   .Put(new byte[] { }) // reserved
                    .Put(tx.Signers)
                    .PutList<Rpcpb.Action>(tx.Actions, ActionToBytes)
                    .PutList<Rpcpb.AmountLimit>(tx.AmountLimit, AmountLimitToBytes)
@@ -57,7 +58,7 @@
             return encoder.GetBytes();
         }
 
-        protected Rpcpb.Action NewAction(string contract, string name, string data)
+        public static Rpcpb.Action NewAction(string contract, string name, string data)
         {
             return new Rpcpb.Action()
             {
@@ -67,9 +68,17 @@
             };
         }
 
-        protected byte[] ActionToBytes(Rpcpb.Action action)
+        public static Rpcpb.AmountLimit NewAmountLimit(string token, string value)
         {
-            var tx = TransactionRequest;
+            return new Rpcpb.AmountLimit()
+            {
+                Token = token,
+                Value = value
+            };
+        }
+
+        protected static byte[] ActionToBytes(Rpcpb.Action action)
+        {
             var se = new Helpers.SimpleEncoder(65536);
             se.Put(action.Contract)
               .Put(action.ActionName)
@@ -77,18 +86,16 @@
             return se.GetBytes();
         }
 
-        protected byte[] AmountLimitToBytes(Rpcpb.AmountLimit amountLimit)
+        protected static byte[] AmountLimitToBytes(Rpcpb.AmountLimit amountLimit)
         {
-            var tx = TransactionRequest;
             var se = new Helpers.SimpleEncoder(65536);
             se.Put(amountLimit.Token)
               .Put(amountLimit.Value);
             return se.GetBytes();
         }
 
-        protected byte[] SignatureToBytes(Rpcpb.Signature signature)
+        protected static byte[] SignatureToBytes(Rpcpb.Signature signature)
         {
-            var tx = TransactionRequest;
             var se = new Helpers.SimpleEncoder(65536);
             se.Put((byte)signature.Algorithm)
               .Put(signature.Signature_.ToByteArray())
