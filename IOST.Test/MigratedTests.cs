@@ -78,12 +78,19 @@ namespace IOST.Test
 
             string expectedHash = "/gB8TJQibGI7Kem1v4vJPcJ7vHP48GuShYfd/7NhZ3w=";
             var base64 = System.Convert.ToBase64String(hash);
-            var base58 = IOST.Base58Encode(hash);
-            Assert.AreEqual(expectedHash, base64);
+            Assert.AreEqual(expectedHash, base64, "hashing bytes");
 
             var expectedPubKey = "lDS+SdM+aiVHbDyXapvrsgyKxFg9mJuHWPZb/INBRWY=";
             var expectedPrivKey = "gkpobuI3gbFGstgfdymLBQAGR67ulguDzNmLXEJSWaGUNL5J0z5qJUdsPJdqm+uyDIrEWD2Ym4dY9lv8g0FFZg==";
             var expectedED25519Sig = "/K1HM0OEbfJ4+D3BmalpLmb03WS7BeCz4nVHBNbDrx3/A31aN2RJNxyEKhv+VSoWctfevDNRnL1kadRVxSt8CA==";
+
+            var seckey = Convert.FromBase64String(expectedPrivKey);
+            var actualPubkey = IOST.CryptoGetPubkeyEd25519(seckey);
+            Assert.AreEqual(Convert.ToBase64String(actualPubkey), expectedPubKey, "getting public key");
+
+            var signedBytes = IOST.CryptoSignEd25519(hash, seckey);
+            var actualSigned = Convert.ToBase64String(signedBytes);
+            Assert.AreEqual(expectedED25519Sig, actualSigned, "signing hash");
         }
 
         /// <summary>
