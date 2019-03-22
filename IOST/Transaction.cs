@@ -41,7 +41,7 @@
 
         public static byte[] ToBytesForSigning(Rpcpb.TransactionRequest tx, Encoding textEncoding = null)
         {
-            textEncoding = textEncoding ?? Encoding.Unicode;
+            textEncoding = textEncoding ?? IOST.DefaultTextEncoding;
 
             var encoder = new Helpers.SimpleEncoder(65536);
             encoder.TextEncoding = textEncoding;

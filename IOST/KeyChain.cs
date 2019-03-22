@@ -30,6 +30,8 @@ namespace IOST
             }
         }
 
+        public byte[] GetPublicKey(string perm) => _keys[perm].PubKey;
+
         public void Sign(Transaction tx, string perm)
         {
             if (!_keys.ContainsKey(perm))

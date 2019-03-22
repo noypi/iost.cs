@@ -29,6 +29,11 @@ namespace IOST
         public static Func<byte[], byte[], byte[]> CryptoSignEd25519 { get; set; } = Sodium.PublicKeyAuth.SignDetached;
 
         /// <summary>
+        /// Ed225519 verify
+        /// </summary>
+        public static Func<byte[], byte[], byte[], bool> CryptoVerifyEd25519 { get; set; } = Sodium.PublicKeyAuth.VerifyDetached;
+
+        /// <summary>
         /// Secp256k1 sign implementation
         /// </summary>
         public static Func<byte[], byte[], byte[]> CryptoSignSecp256k1 { get; set; } = Cryptography.ECDSA.Secp256K1Manager.SignCompressedCompact;

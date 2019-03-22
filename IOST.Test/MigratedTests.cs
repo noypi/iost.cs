@@ -45,11 +45,36 @@ namespace IOST.Test
             var client = new Client(_TestServerUrl);
             var iost = new IOST(client, new Options { ExpirationInMillis = 5000 });
 
+            var kc = new Keychain("admin");
+            kc.AddKey(
+                IOST.Base58Decode(
+                    "2yquS3ySrGWPEKywCPzX4RTJugqRh7kJSo5aehsLYPEWkUxBWA39oMrZ7ZxuM4fgyXYs2cPwh5n8aNNpH5x2VyK1"), 
+                    "active");
+
+            var adminPubkey = IOST.Base58Encode( kc.GetPublicKey("active") );
             var tx = iost.CreateTx()
-                        .Transfer("iost", "admin", "42DuuQxdepiQFctVcGHyiBmnEC53otCERRnELXF62aC8", 10.000, "");
+                         .Transfer("iost", adminPubkey, "42DuuQxdepiQFctVcGHyiBmnEC53otCERRnELXF62aC8", 10.000, "");
+
+            var hash = await iost.Send(tx, kc, "active");
+            Debug.WriteLine(hash);
+            Assert.IsFalse(string.IsNullOrEmpty(hash));
+        }
+
+        [TestMethod]
+        public async Task TestBalance()
+        {
+            var client = new Client(_TestServerUrl);
+            var iost = new IOST(client, new Options { ExpirationInMillis = 5000 });
 
             var kc = new Keychain("admin");
-            kc.AddKey(IOST.Base58Decode("2yquS3ySrGWPEKywCPzX4RTJugqRh7kJSo5aehsLYPEWkUxBWA39oMrZ7ZxuM4fgyXYs2cPwh5n8aNNpH5x2VyK1"), "active");
+            kc.AddKey(
+                IOST.Base58Decode(
+                    "2yquS3ySrGWPEKywCPzX4RTJugqRh7kJSo5aehsLYPEWkUxBWA39oMrZ7ZxuM4fgyXYs2cPwh5n8aNNpH5x2VyK1"),
+                    "active");
+
+            var adminPubkey = IOST.Base58Encode(kc.GetPublicKey("active"));
+            var tx = new Transaction(iost.Options);
+            Contract.Token.Token.BalanceOf(tx, "token.iost", adminPubkey);
 
             var hash = await iost.Send(tx, kc, "active");
             Debug.WriteLine(hash);
@@ -60,26 +85,28 @@ namespace IOST.Test
         /// Example generating keys
         /// </summary>
         [TestMethod]
-        public void PrintPublickKeyFroTesting()
+        public void PrintNewPrivateKeyForTesting()
         {
             var seckey = IOST.CryptoGeneratePrivateKeyEd25519(IOST.CryptoRandomSeed(32));
             var pubkey = IOST.CryptoGetPubkeyEd25519(seckey);
 
             var base58 = IOST.Base58Encode(seckey);
-            Debug.WriteLine("base58 public key:", base58);
+            Debug.WriteLine("base58 private key:" + base58);
+            Debug.WriteLine("base58 public key:" + IOST.Base58Encode(pubkey));
         }
 
         /// <summary>
         /// Example generating keys
         /// </summary>
         [TestMethod]
-        public void PrintPrivateKeyForTesting()
+        public void PrintPublickKeyFroTesting()
         {
             var seckey = IOST.Base58Decode(ExamplePrivKey);
             var pubkey = IOST.CryptoGetPubkeyEd25519(seckey);
 
             var base58 = IOST.Base58Encode(pubkey);
-            Debug.WriteLine("base58 private key:", base58);
+            Debug.WriteLine("base58 private key:" + ExamplePrivKey);
+            Debug.WriteLine("base58 public key:" + base58);
         }
 
         /// <summary>
@@ -106,7 +133,7 @@ namespace IOST.Test
             var hash = IOST.CryptoHashSha3_256(txBytes);
 
             string expectedHash = "/gB8TJQibGI7Kem1v4vJPcJ7vHP48GuShYfd/7NhZ3w=";
-            var base64 = System.Convert.ToBase64String(hash);
+            var base64 = Convert.ToBase64String(hash);
             Assert.AreEqual(expectedHash, base64, "hashing bytes");
 
             var expectedPubKey = "lDS+SdM+aiVHbDyXapvrsgyKxFg9mJuHWPZb/INBRWY=";
@@ -120,6 +147,13 @@ namespace IOST.Test
             var signedBytes = IOST.CryptoSignEd25519(hash, seckey);
             var actualSigned = Convert.ToBase64String(signedBytes);
             Assert.AreEqual(expectedED25519Sig, actualSigned, "signing hash");
+
+            foreach(var sign in tx.PublisherSigs)
+            {
+                Assert.IsTrue(
+                        IOST.CryptoVerifyEd25519(sign.Signature_.ToByteArray(), txBytes, actualPubkey), 
+                        $"verifying signature: {sign.Signature_.ToBase64()}");
+            }
         }
 
         /// <summary>
