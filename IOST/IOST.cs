@@ -2,6 +2,7 @@ namespace IOST
 {
     using System;
     using System.Security.Cryptography;
+    using System.Text;
     using System.Threading.Tasks;
     using Newtonsoft.Json;
 
@@ -25,7 +26,7 @@ namespace IOST
         /// <summary>
         /// Ed225519 sign implementation
         /// </summary>
-        public static Func<byte[], byte[], byte[]> CryptoSignEd25519 { get; set; } = Sodium.PublicKeyAuth.Sign;
+        public static Func<byte[], byte[], byte[]> CryptoSignEd25519 { get; set; } = Sodium.PublicKeyAuth.SignDetached;
 
         /// <summary>
         /// Secp256k1 sign implementation
@@ -71,6 +72,12 @@ namespace IOST
         /// Base58 encoder
         /// </summary>
         public static Func<byte[], string> Base58Encode { get; set; } = Cryptography.ECDSA.Base58.Encode;
+
+        /// <summary>
+        /// Use UTF8 for protobuf strings
+        /// See: https://developers.google.com/protocol-buffers/docs/proto3#scalar
+        /// </summary>
+        public static Encoding DefaultTextEncoding { get; set; } = Encoding.UTF8;
 
         /// <summary>
         /// Configure gas limit, gas ratio, delay, expiration

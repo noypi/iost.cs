@@ -16,6 +16,9 @@ namespace IOST.Test
         //private string _TestServerUrl = "localhost:30002";
         private readonly string _TestServerUrl = "192.168.254.99:30002";
 
+        private readonly string ExamplePrivKey = "3Kq9jHWnoXEXE81BYjqiRYMMds5W8ZPb1M9VbginHNr9TTZcF82Fb5m4vuyC5wocMwjmLomttAcHMfdFREMuUsmi";
+        private readonly string ExamplePubKey = "42DuuQxdepiQFctVcGHyiBmnEC53otCERRnELXF62aC8";
+
         [TestMethod]
         public async Task TestGet()
         {
@@ -43,7 +46,7 @@ namespace IOST.Test
             var iost = new IOST(client, new Options { ExpirationInMillis = 5000 });
 
             var tx = iost.CreateTx()
-                        .Transfer("iost", "admin", "admin", 10.000, "");
+                        .Transfer("iost", "admin", "42DuuQxdepiQFctVcGHyiBmnEC53otCERRnELXF62aC8", 10.000, "");
 
             var kc = new Keychain("admin");
             kc.AddKey(IOST.Base58Decode("2yquS3ySrGWPEKywCPzX4RTJugqRh7kJSo5aehsLYPEWkUxBWA39oMrZ7ZxuM4fgyXYs2cPwh5n8aNNpH5x2VyK1"), "active");
@@ -51,6 +54,32 @@ namespace IOST.Test
             var hash = await iost.Send(tx, kc, "active");
             Debug.WriteLine(hash);
             Assert.IsFalse(string.IsNullOrEmpty(hash));
+        }
+
+        /// <summary>
+        /// Example generating keys
+        /// </summary>
+        [TestMethod]
+        public void PrintPublickKeyFroTesting()
+        {
+            var seckey = IOST.CryptoGeneratePrivateKeyEd25519(IOST.CryptoRandomSeed(32));
+            var pubkey = IOST.CryptoGetPubkeyEd25519(seckey);
+
+            var base58 = IOST.Base58Encode(seckey);
+            Debug.WriteLine("base58 public key:", base58);
+        }
+
+        /// <summary>
+        /// Example generating keys
+        /// </summary>
+        [TestMethod]
+        public void PrintPrivateKeyForTesting()
+        {
+            var seckey = IOST.Base58Decode(ExamplePrivKey);
+            var pubkey = IOST.CryptoGetPubkeyEd25519(seckey);
+
+            var base58 = IOST.Base58Encode(pubkey);
+            Debug.WriteLine("base58 private key:", base58);
         }
 
         /// <summary>
@@ -73,7 +102,7 @@ namespace IOST.Test
             tx.Actions.Add(Transaction.NewAction("token.iost", "transfer", "[\"iost\", \"testaccount\", \"anothertest\", \"100\", \"this is an example transfer\"]"));
             tx.AmountLimit.Add(Transaction.NewAmountLimit("*", "unlimited"));
 
-            var txBytes = Transaction.ToBytesForSigning(tx, Encoding.ASCII);
+            var txBytes = Transaction.ToBytesForSigning(tx);
             var hash = IOST.CryptoHashSha3_256(txBytes);
 
             string expectedHash = "/gB8TJQibGI7Kem1v4vJPcJ7vHP48GuShYfd/7NhZ3w=";
@@ -105,7 +134,6 @@ namespace IOST.Test
             tx.Actions.Add(Transaction.NewAction("cont", "abi", "[]"));
 
             var se = new SimpleEncoder(1000);
-            se.TextEncoding = Encoding.ASCII;
             se.PutList<Rpcpb.Action>(tx.Actions, Transaction.ActionToBytes);
 
             var bytes = se.GetBytes();

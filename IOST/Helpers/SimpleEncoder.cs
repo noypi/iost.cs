@@ -8,7 +8,7 @@ namespace IOST.Helpers
 
     public class SimpleEncoder : IDisposable
     {
-        public Encoding TextEncoding { get; set; } = Encoding.Unicode;
+        public Encoding TextEncoding { get; set; } = IOST.DefaultTextEncoding;
 
         private MemoryStream _buffer = new MemoryStream();
 

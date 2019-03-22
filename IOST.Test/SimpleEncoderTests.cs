@@ -17,7 +17,6 @@ namespace IOST.Test
         public void TestWriteBytes()
         {
             var se = new SimpleEncoder(1024);
-            se.TextEncoding = Encoding.ASCII;
             se.Put(new byte[] { (byte)'a', (byte)'a', (byte)'a' });
 
             var expected = new byte[] { 0, 0, 0, 0x3, (byte)'a', (byte)'a', (byte)'a' };
@@ -35,7 +34,6 @@ namespace IOST.Test
         public void TestWriteString()
         {
             var se = new SimpleEncoder(1024);
-            se.TextEncoding = Encoding.ASCII;
             se.Put("aaa");
             var actual = se.GetBytes();
             var expected = new byte[] { 0, 0, 0, 0x3, (byte)'a', (byte)'a', (byte)'a' };
@@ -46,7 +44,7 @@ namespace IOST.Test
         public void TestWriteLong()
         {
             var se = new SimpleEncoder(1024);
-            se.Put(1023);
+            se.Put((long)1023);
             var expected = new byte[] { 0, 0, 0, 0, 0, 0, 0x3, 0xff };
             CollectionAssert.AreEqual(expected, se.GetBytes());
         }
@@ -55,7 +53,6 @@ namespace IOST.Test
         public void TestWriteBytesSlice()
         {
             var se = new SimpleEncoder(1024);
-            se.TextEncoding = Encoding.ASCII;
             var data = new byte[][]{ new byte[] { (byte)'a', (byte)'a' } , new byte[]{ (byte)'b', (byte)'b' } };
             se.Put(data);
             var expected = new byte[] { 0, 0, 0, 0x2, 0, 0, 0, 0x2, (byte)'a', (byte)'a', 0, 0, 0, 0x2, (byte)'b', (byte)'b' };
@@ -66,7 +63,6 @@ namespace IOST.Test
         public void TestWriteStringSlice()
         {
             var se = new SimpleEncoder(1024);
-            se.TextEncoding = Encoding.ASCII;
             var data = new string[] { "aa", "bb" };
             se.Put(data);
             var expected = new byte[] { 0, 0, 0, 0x2, 0, 0, 0, 0x2, (byte)'a', (byte)'a', 0, 0, 0, 0x2, (byte)'b', (byte)'b' };
