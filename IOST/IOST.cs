@@ -1,6 +1,7 @@
 namespace IOST
 {
     using System;
+    using System.Security.Cryptography;
     using System.Threading.Tasks;
     using Newtonsoft.Json;
 
@@ -45,6 +46,21 @@ namespace IOST
         /// Get Secp256k1 public key (compressed)
         /// </summary>
         public static Func<byte[], byte[]> CryptoGetPubkeySecp256k1Compressed { get; set; } = (seckey) => Cryptography.ECDSA.Secp256K1Manager.GetPublicKey(seckey, true);
+
+        /// <summary>
+        /// Generate Ed25519 private key
+        /// </summary>
+        public static Func<byte[], byte[]> CryptoGeneratePrivateKeyEd25519 { get; set; } = (seed) => Sodium.PublicKeyAuth.GenerateKeyPair(seed).PrivateKey;
+
+        /// <summary>
+        /// Generate Secp256k1 private key
+        /// </summary>
+        public static Func<byte[], byte[]> CryptoGeneratePrivateKeySecp256k1 { get; set; } = (seed) => Cryptography.ECDSA.Secp256K1Manager.GenerateRandomKey();
+
+        /// <summary>
+        /// Get seed
+        /// </summary>
+        public static Func<int, byte[]> CryptoRandomSeed { get; set; } = (n) => Sodium.SodiumCore.GetRandomBytes(n);
 
         /// <summary>
         /// Base58 decoder

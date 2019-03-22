@@ -1,9 +1,8 @@
 ﻿namespace IOST
 {
+    using System.Text;
     using global::IOST.Helpers;
-    using Newtonsoft.Json;
-    using System;
-
+    
     public class Transaction
     {
         public Options Options { get; internal set; }
@@ -40,16 +39,19 @@
             return ToBytesForSigning(tx);
         }
 
-        public static byte[] ToBytesForSigning(Rpcpb.TransactionRequest tx)
+        public static byte[] ToBytesForSigning(Rpcpb.TransactionRequest tx, Encoding textEncoding = null)
         {
+            textEncoding = textEncoding ?? Encoding.Unicode;
+
             var encoder = new Helpers.SimpleEncoder(65536);
+            encoder.TextEncoding = textEncoding;
             encoder.Put(tx.Time)
                    .Put(tx.Expiration)
-                   .Put(tx.GasRatio * 100)
-                   .Put(tx.GasLimit * 100)
+                   .Put((long)(tx.GasRatio * 100))
+                   .Put((long)(tx.GasLimit * 100))
                    .Put(tx.Delay)
                    .Put(tx.ChainId)
-                   .Put(new byte[] { }) // reserved
+                   .Put((byte[])null) // reserved
                    .Put(tx.Signers)
                    .PutList<Rpcpb.Action>(tx.Actions, ActionToBytes)
                    .PutList<Rpcpb.AmountLimit>(tx.AmountLimit, AmountLimitToBytes)
@@ -77,26 +79,29 @@
             };
         }
 
-        protected static byte[] ActionToBytes(Rpcpb.Action action)
+        public static byte[] ActionToBytes(Rpcpb.Action action, Encoding encoding)
         {
             var se = new Helpers.SimpleEncoder(65536);
+            se.TextEncoding = encoding;
             se.Put(action.Contract)
               .Put(action.ActionName)
               .Put(action.Data);
             return se.GetBytes();
         }
 
-        protected static byte[] AmountLimitToBytes(Rpcpb.AmountLimit amountLimit)
+        public static byte[] AmountLimitToBytes(Rpcpb.AmountLimit amountLimit, Encoding encoding)
         {
             var se = new Helpers.SimpleEncoder(65536);
+            se.TextEncoding = encoding;
             se.Put(amountLimit.Token)
               .Put(amountLimit.Value);
             return se.GetBytes();
         }
 
-        protected static byte[] SignatureToBytes(Rpcpb.Signature signature)
+        public static byte[] SignatureToBytes(Rpcpb.Signature signature, Encoding encoding)
         {
             var se = new Helpers.SimpleEncoder(65536);
+            se.TextEncoding = encoding;
             se.Put((byte)signature.Algorithm)
               .Put(signature.Signature_.ToByteArray())
               .Put(signature.PublicKey.ToByteArray());

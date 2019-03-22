@@ -8,6 +8,8 @@ namespace IOST.Helpers
 
     public class SimpleEncoder : IDisposable
     {
+        public Encoding TextEncoding { get; set; } = Encoding.Unicode;
+
         private MemoryStream _buffer = new MemoryStream();
 
         public SimpleEncoder(int cap)
@@ -49,13 +51,18 @@ namespace IOST.Helpers
 
         public SimpleEncoder Put(String s)
         {
-            return Put(UnicodeEncoding.ASCII.GetBytes(s));
+            return Put(TextEncoding.GetBytes(s));
         }
 
         public SimpleEncoder Put(byte[] data)
         {
-            return Put(data.Length)
-                        .Append(data);
+            Put(data?.Length ?? 0);
+            if (0 < data?.Length)
+            {
+                Append(data);
+            }
+
+            return this;
         }
 
         public SimpleEncoder Put(IList<string> ss)
@@ -78,12 +85,12 @@ namespace IOST.Helpers
             return this;
         }
 
-        public SimpleEncoder PutList<T>(IList<T> ls, Func<T, byte[]> itemToBytes)
+        public SimpleEncoder PutList<T>(IList<T> ls, Func<T, Encoding, byte[]> itemToBytes)
         {
             var bb = new byte[ls.Count][];
             for (int i = 0; i < ls.Count; i++)
             {
-                bb[i] = itemToBytes(ls[i]);
+                bb[i] = itemToBytes(ls[i], TextEncoding);
             }
             Put(bb);
 

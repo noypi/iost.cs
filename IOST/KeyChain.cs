@@ -7,16 +7,16 @@ namespace IOST
 
     public class Keychain
     {
-        public string _ID { get; internal set; }
+        public string _AccountName { get; internal set; }
 
         private static readonly IAlgorithm _Ed25519 = new Crypto.Ed25519();
         private static readonly IAlgorithm _Secp256k1 = new Crypto.Secp256k1();
 
         private Dictionary<string, KeyPair> _keys = new Dictionary<string, KeyPair>();
 
-        public Keychain(string id)
+        public Keychain(string accountName)
         {
-            _ID = id;
+            _AccountName = accountName;
         }
 
         public void AddKey(byte[] seckey, params string[] perm)
@@ -30,7 +30,7 @@ namespace IOST
             }
         }
 
-        internal void Sign(Transaction tx, string perm)
+        public void Sign(Transaction tx, string perm)
         {
             if (!_keys.ContainsKey(perm))
             {
@@ -39,7 +39,7 @@ namespace IOST
 
             var txRequest = tx.TransactionRequest;
             var txBytes = tx.BytesForSigning();
-            txRequest.Publisher = _ID;
+            txRequest.Publisher = _AccountName;
 
             var kp = _keys[perm];
             var sig = kp.Sign(IOST.CryptoHashSha3_256(txBytes));

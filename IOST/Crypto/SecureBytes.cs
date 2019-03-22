@@ -10,10 +10,7 @@ namespace IOST.Crypto
 
         public SecureBytes(byte[] data)
         {
-            RNGCryptoServiceProvider rand = new RNGCryptoServiceProvider();
-            _entropy = new byte[16];
-            rand.GetBytes(_entropy);
-
+            _entropy = IOST.CryptoRandomSeed(16);
             _protected = ProtectedData.Protect(data, _entropy, DataProtectionScope.CurrentUser);
         }
 

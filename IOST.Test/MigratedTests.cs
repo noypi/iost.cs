@@ -1,4 +1,6 @@
+using IOST.Helpers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Diagnostics;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,6 +30,12 @@ namespace IOST.Test
             Assert.IsNotNull(chainInfoResponse);
         }
 
+        /// <summary>
+        /// See 
+        /// - txToBytes() https://github.com/iost-official/go-iost/blob/b201a7af2f8ba2d96476ef65a01c15f0563b415e/sdk/utils.go
+        /// - ToBytes()   https://github.com/iost-official/go-iost/blob/master/core/tx/tx.go
+        /// </summary>
+        /// <returns></returns>
         [TestMethod]
         public async Task TestSendTx()
         {
@@ -65,16 +73,38 @@ namespace IOST.Test
             tx.Actions.Add(Transaction.NewAction("token.iost", "transfer", "[\"iost\", \"testaccount\", \"anothertest\", \"100\", \"this is an example transfer\"]"));
             tx.AmountLimit.Add(Transaction.NewAmountLimit("*", "unlimited"));
 
-            var txBytes = Transaction.ToBytesForSigning(tx);
+            var txBytes = Transaction.ToBytesForSigning(tx, Encoding.ASCII);
             var hash = IOST.CryptoHashSha3_256(txBytes);
 
             string expectedHash = "/gB8TJQibGI7Kem1v4vJPcJ7vHP48GuShYfd/7NhZ3w=";
-            Assert.AreEqual(expectedHash, System.Convert.ToBase64String(hash));
+            var base64 = System.Convert.ToBase64String(hash);
+            var base58 = IOST.Base58Encode(hash);
+            Assert.AreEqual(expectedHash, base64);
 
             var expectedPubKey = "lDS+SdM+aiVHbDyXapvrsgyKxFg9mJuHWPZb/INBRWY=";
             var expectedPrivKey = "gkpobuI3gbFGstgfdymLBQAGR67ulguDzNmLXEJSWaGUNL5J0z5qJUdsPJdqm+uyDIrEWD2Ym4dY9lv8g0FFZg==";
             var expectedED25519Sig = "/K1HM0OEbfJ4+D3BmalpLmb03WS7BeCz4nVHBNbDrx3/A31aN2RJNxyEKhv+VSoWctfevDNRnL1kadRVxSt8CA==";
+        }
 
-           }
+        /// <summary>
+        /// Modified tests from
+        /// From https://github.com/iost-official/go-iost/blob/610079ad3d299da2ad1fa8fef389cda39f1236e4/core/tx/tx_test.go
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task TestActionToBytes()
+        {
+            var tx = new Rpcpb.TransactionRequest();
+            tx.Actions.Add(Transaction.NewAction("cont", "abi", "[]"));
+
+            var se = new SimpleEncoder(1000);
+            se.TextEncoding = Encoding.ASCII;
+            se.PutList<Rpcpb.Action>(tx.Actions, Transaction.ActionToBytes);
+
+            var bytes = se.GetBytes();
+
+            var expectedHexFromBytes = "000000010000001500000004636f6e7400000003616269000000025b5d";
+            Assert.AreEqual(expectedHexFromBytes, BitConverter.ToString(bytes).ToLowerInvariant().Replace("-", ""));
+        }
     }
 }
