@@ -19,6 +19,9 @@ namespace IOST.Test
         private readonly string ExamplePrivKey = "3Kq9jHWnoXEXE81BYjqiRYMMds5W8ZPb1M9VbginHNr9TTZcF82Fb5m4vuyC5wocMwjmLomttAcHMfdFREMuUsmi";
         private readonly string ExamplePubKey = "42DuuQxdepiQFctVcGHyiBmnEC53otCERRnELXF62aC8";
 
+        private readonly string ExampleAdminPrivKey = "2yquS3ySrGWPEKywCPzX4RTJugqRh7kJSo5aehsLYPEWkUxBWA39oMrZ7ZxuM4fgyXYs2cPwh5n8aNNpH5x2VyK1";
+        private readonly string ExampleAdminPubKey = "Gcv8c2tH8qZrUYnKdEEdTtASsxivic2834MQW6mgxqto";
+
         [TestMethod]
         public async Task TestGet()
         {
@@ -48,12 +51,11 @@ namespace IOST.Test
             var kc = new Keychain("admin");
             kc.AddKey(
                 IOST.Base58Decode(
-                    "2yquS3ySrGWPEKywCPzX4RTJugqRh7kJSo5aehsLYPEWkUxBWA39oMrZ7ZxuM4fgyXYs2cPwh5n8aNNpH5x2VyK1"), 
+                    ExamplePrivKey), 
                     "active");
 
-            var adminPubkey = IOST.Base58Encode( kc.GetPublicKey("active") );
             var tx = iost.CreateTx()
-                         .Transfer("iost", adminPubkey, "42DuuQxdepiQFctVcGHyiBmnEC53otCERRnELXF62aC8", 10.000, "");
+                         .Transfer("iost", "admin", "admin", 10.000, "");
 
             var hash = await iost.Send(tx, kc, "active");
             Debug.WriteLine(hash);

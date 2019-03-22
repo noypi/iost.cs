@@ -39,13 +39,12 @@ namespace IOST
                 throw new ArgumentException($"perm: '{perm}' not found.");
             }
 
-            var txRequest = tx.TransactionRequest;
-            var txBytes = tx.BytesForSigning();
-            txRequest.Publisher = _AccountName;
-
             var kp = _keys[perm];
-            var sig = kp.Sign(IOST.CryptoHashSha3_256(txBytes));
+            var sig = kp.Sign(GetTxHash(tx));
 
+            var txRequest = tx.TransactionRequest;
+            txRequest.Publisher = _AccountName;
+            
             var sigPb = new Rpcpb.Signature()
             {
                 PublicKey = Protobuf.ByteString.CopyFrom(kp.PubKey, 0, kp.PubKey.Length),
@@ -54,6 +53,11 @@ namespace IOST
             };
 
             txRequest.PublisherSigs.Add(sigPb);
+        }
+
+        protected byte[] GetTxHash(Transaction tx)
+        {
+            return IOST.CryptoHashSha3_256(tx.BytesForSigning());
         }
     }
 }

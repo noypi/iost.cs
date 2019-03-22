@@ -18,7 +18,7 @@ namespace IOST
             var tx = new Transaction(_options);
 
             Contract.Token.Token.Transfer(tx, token, from, to, amount, memo);
-            //tx.AddApprove("iost", amount);
+            tx.AddApprove("iost", amount.ToString());
 
             return tx;
         }
