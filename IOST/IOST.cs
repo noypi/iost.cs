@@ -117,13 +117,8 @@ namespace IOST
         /// <param name="tx"></param>
         /// <param name="keychain"></param>
         /// <returns>the transaction hash</returns>
-        public Task<string> Send(Transaction tx, Keychain keychain, params string[] perm)
+        public Task<string> Send(Transaction tx)
         {
-            foreach (var s in perm)
-            {
-                keychain.Sign(tx, s);
-            }
-
             return _client.SendTransaction(tx.TransactionRequest)
                           .ContinueWith<string>((task) => 
                            {

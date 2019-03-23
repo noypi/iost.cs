@@ -13,6 +13,15 @@ namespace IOST
             _options = options;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="token"></param>
+        /// <param name="from"></param>
+        /// <param name="to"></param>
+        /// <param name="amount"></param>
+        /// <param name="memo">maximum of 512 characters</param>
+        /// <returns></returns>
         public Transaction Transfer(string token, string from, string to, double amount, string memo)
         {
             var tx = new Transaction(_options);

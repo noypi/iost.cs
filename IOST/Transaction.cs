@@ -43,8 +43,10 @@
         {
             textEncoding = textEncoding ?? IOST.DefaultTextEncoding;
 
-            var encoder = new Helpers.SimpleEncoder(65536);
-            encoder.TextEncoding = textEncoding;
+            var encoder = new Helpers.SimpleEncoder(65536)
+            {
+                TextEncoding = textEncoding
+            };
             encoder.Put(tx.Time)
                    .Put(tx.Expiration)
                    .Put((long)(tx.GasRatio * 100))
@@ -81,8 +83,10 @@
 
         public static byte[] ActionToBytes(Rpcpb.Action action, Encoding encoding)
         {
-            var se = new Helpers.SimpleEncoder(65536);
-            se.TextEncoding = encoding;
+            var se = new Helpers.SimpleEncoder(65536)
+            {
+                TextEncoding = encoding
+            };
             se.Put(action.Contract)
               .Put(action.ActionName)
               .Put(action.Data);
@@ -91,8 +95,10 @@
 
         public static byte[] AmountLimitToBytes(Rpcpb.AmountLimit amountLimit, Encoding encoding)
         {
-            var se = new Helpers.SimpleEncoder(65536);
-            se.TextEncoding = encoding;
+            var se = new Helpers.SimpleEncoder(65536)
+            {
+                TextEncoding = encoding
+            };
             se.Put(amountLimit.Token)
               .Put(amountLimit.Value);
             return se.GetBytes();
@@ -100,8 +106,10 @@
 
         public static byte[] SignatureToBytes(Rpcpb.Signature signature, Encoding encoding)
         {
-            var se = new Helpers.SimpleEncoder(65536);
-            se.TextEncoding = encoding;
+            var se = new Helpers.SimpleEncoder(65536)
+            {
+                TextEncoding = encoding
+            };
             se.Put((byte)signature.Algorithm)
               .Put(signature.Signature_.ToByteArray())
               .Put(signature.PublicKey.ToByteArray());
