@@ -101,6 +101,47 @@ namespace IOST.Test
         }
 
         [TestMethod]
+        public async Task CreateNewAccount()
+        {
+            var client = new Client(_TestServerUrl);
+            var iost = new IOST(client, new Options { ExpirationInMillis = 5000 });
+
+            var tx = iost.CreateTx()
+                         .NewAccount("saifsolo", "admin", ExamplePubKey, ExamplePubKey, 1024, 100000);
+
+            tx.AddApprove("*", "unlimited");
+
+            var kc = new Keychain("admin");
+            kc.AddKey(
+                IOST.Base58Decode(
+                    ExampleAdminPrivKey),
+                    "active");
+
+            kc.Sign(tx);
+            var hash = await iost.Send(tx);
+        }
+
+        [TestMethod]
+        public async Task CreateDepositToTestAccount()
+        {
+            var client = new Client(_TestServerUrl);
+            var iost = new IOST(client, new Options { ExpirationInMillis = 5000 });
+
+            var tx = iost.CreateTx()
+                         .Transfer("iost", "admin", "saifsolo", 10000, "");
+
+            var kc = new Keychain("admin");
+            kc.AddKey(
+                IOST.Base58Decode(
+                    ExampleAdminPrivKey),
+                    "active");
+
+            kc.Sign(tx);
+            var hash = await iost.Send(tx);
+        }
+
+
+        [TestMethod]
         public async Task TestBalance()
         {
             var client = new Client(_TestServerUrl);
@@ -109,7 +150,7 @@ namespace IOST.Test
             var kc = new Keychain("admin");
             kc.AddKey(
                 IOST.Base58Decode(
-                    "2yquS3ySrGWPEKywCPzX4RTJugqRh7kJSo5aehsLYPEWkUxBWA39oMrZ7ZxuM4fgyXYs2cPwh5n8aNNpH5x2VyK1"),
+                    ExampleAdminPrivKey),
                     "active");
 
             var adminPubkey = IOST.Base58Encode(kc.GetPublicKey("active"));
