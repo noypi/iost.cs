@@ -63,44 +63,6 @@ namespace IOST.Test
         }
 
         [TestMethod]
-        public async Task AddTransferPermission()
-        {
-            var client = new Client(_TestServerUrl);
-            var iost = new IOST(client, new Options { ExpirationInMillis = 5000 });
-
-            var kc = new Keychain("admin");
-            kc.AddKey(
-                IOST.Base58Decode(
-                    ExamplePrivKey),
-                    "active");
-
-            var tx = new Transaction(iost.Options);
-            Contract.System.Auth.AssignPermission(tx, "admin", "transfer", ExampleAdminPubKey, 5);
-
-            kc.Sign(tx);
-            var hash = await iost.Send(tx);
-        }
-
-        [TestMethod]
-        public async Task IssueTokensToProducer000()
-        {
-            var client = new Client(_TestServerUrl);
-            var iost = new IOST(client, new Options { ExpirationInMillis = 5000 });
-
-            var kc = new Keychain("admin");
-            kc.AddKey(
-                IOST.Base58Decode(
-                    ExamplePrivKey),
-                    "active");
-
-            var tx = new Transaction(iost.Options);
-            Contract.Token.Token.Issue(tx, "iost", "producer000", "10000");
-
-            kc.Sign(tx);
-            var hash = await iost.Send(tx);
-        }
-
-        [TestMethod]
         public async Task CreateNewAccount()
         {
             var client = new Client(_TestServerUrl);
@@ -140,6 +102,24 @@ namespace IOST.Test
             var hash = await iost.Send(tx);
         }
 
+        [TestMethod]
+        public async Task CreateDepositToTestAccountPubkey()
+        {
+            var client = new Client(_TestServerUrl);
+            var iost = new IOST(client, new Options { ExpirationInMillis = 5000 });
+
+            var tx = iost.CreateTx()
+                         .Transfer("iost", "admin", ExamplePubKey, 500, "");
+
+            var kc = new Keychain("admin");
+            kc.AddKey(
+                IOST.Base58Decode(
+                    ExampleAdminPrivKey),
+                    "active");
+
+            kc.Sign(tx);
+            var hash = await iost.Send(tx);
+        }
 
         [TestMethod]
         public async Task TestBalance()
