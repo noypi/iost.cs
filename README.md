@@ -1,8 +1,14 @@
-## iost.cs
-IOST Blockchain SDK for C#
+# IOST Blockchain SDK for C# .Net Standard 2.0+ / .Net Framework 4.5+ 
 
 ## Features
 - Uses a Secure Keychain to keep your private key secured
+
+## Limitations
+For .Net Framework 4.5+, must define the following functions if Secp256k1 is needed
+- IOST.CryptoSignSecp256k1
+- IOST.CryptoGetPubkeySecp256k1
+- IOST.CryptoGetPubkeySecp256k1Compressed
+- IOST.CryptoGeneratePrivateKeySecp256k1
 
 ## Help
 ### How to create an account
