@@ -1,5 +1,6 @@
 # IOST Blockchain SDK for C# 
-Supports .Net Standard 2.0+ / .Net Framework 4.5+ 
+- SDK to create a wallet, upload a Smart Contract, or use the IOST blockchain for application integration
+- Supports .Net Standard 2.0+ / .Net Framework 4.5+ 
 
 ## SDK Features
 - Uses a Secure Keychain to keep the private key secured
