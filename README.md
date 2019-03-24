@@ -1,8 +1,11 @@
 # IOST Blockchain SDK for C# 
-Support .Net Standard 2.0+ / .Net Framework 4.5+ 
+Supports .Net Standard 2.0+ / .Net Framework 4.5+ 
 
 ## Features
 - Uses a Secure Keychain to keep the private key secured
+
+## Nuget reference
+- https://www.nuget.org/packages/IOST
 
 ## Using the System Contract
 
