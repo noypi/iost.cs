@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+    <metadata>
+        <!-- The identifier that must be unique within the hosting gallery -->
+        <id>IOST</id>
+
+        <!-- The package version number that is used when resolving dependencies -->
+        <version>1.0.0-beta</version>
+
+        <!-- Authors contain text that appears directly on the gallery -->
+        <authors>Noypi</authors>
+
+        <!-- 
+            Owners are typically nuget.org identities that allow gallery
+            users to easily find other packages by the same owners.  
+        -->
+        <owners>noypi</owners>
+        
+         <!-- Project URL provides a link for the gallery -->
+        <projectUrl>https://github.com/noypi/iost.cs</projectUrl>
+
+         <!-- License information is displayed on the gallery -->
+        <license type="expression">MIT</license>
+        
+
+        <!-- The icon is used in Visual Studio's package manager UI -->
+        <iconUrl>https://raw.githubusercontent.com/noypi/iost.cs/master/icon.png</iconUrl>
+
+        <!-- 
+            If true, this value prompts the user to accept the license when
+            installing the package. 
+        -->
+        <requireLicenseAcceptance>true</requireLicenseAcceptance>
+
+        <!-- Any details about this particular release -->
+        <releaseNotes>First beta version</releaseNotes>
+
+        <!-- 
+            The description can be used in package manager UI. Note that the
+            nuget.org gallery uses information you add in the portal. 
+        -->
+        <description>IOST Blockchain SDK for C#</description>
+
+        <!-- Copyright information -->
+        <copyright>Copyright ©2019 github.com/noypi</copyright>
+
+        <!-- Tags appear in the gallery and can be used for tag searches -->
+        <tags>iost blockchain cryptocurrency</tags>
+
+        <!-- Dependencies are automatically installed when the package is installed -->
+        <dependencies>
+            <group>
+                <dependency id="Newtonsoft.Json" version="11.0.0.0"/>
+                <dependency id="SHA3.Net" version="1.1.0.0"/>
+                <dependency id="libsodium" version="1.0.17" />
+                <dependency id="Google.Protobuf" version="3.7.0" />
+                <dependency id="Google.Api.Gax.Grpc" version="2.6.0" />
+                <dependency id="Grpc.Core" version="1.0.0.0"/>
+            </group>
+            
+            <group targetFramework="net45">
+                <dependency id="Google.Api.Gax.Grpc" version="2.6.0.0"/>
+            </group>
+            
+            <group targetFramework="netstandard2.0">
+                <dependency id="Cryptography.ECDSA.Secp256K1" version="1.1.2" />
+                <dependency id="System.Security.Cryptography.ProtectedData" version="4.5.0" />
+            </group>
+        </dependencies>
+    </metadata>
+
+    <!-- A readme.txt to display when the package is installed -->
+    <files>
+        <file src="..\IOST\bin\Release\netstandard2.0\IOST.dll" target="lib\netstandard2.0\IOST.dll" />
+		
+		<file src="..\IOST.Net45\bin\x64\Release\IOST.dll" target="runtimes\win10-x64\lib\net45\IOST.dll" />
+		<file src="..\IOST.Net45\bin\x86\Release\IOST.dll" target="runtimes\win10-x86\lib\net45\IOST.dll" />
+    </files>
+</package>
