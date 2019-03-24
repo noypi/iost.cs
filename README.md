@@ -4,6 +4,43 @@ Support .Net Standard 2.0+ / .Net Framework 4.5+
 ## Features
 - Uses a Secure Keychain to keep the private key secured
 
+## Using the System Contract
+
+```C#
+    using IOSTSdk.Contract.System;
+    ...
+    var tx = iost.NewTransaction();
+    tx.AuthSignUp(...);
+```
+
+## Using the Economic Contract
+
+```C#
+    using IOSTSdk.Contract.Economic;
+    ...
+    var tx = iost.NewTransaction();
+    tx.RamBuy(...);
+```
+
+## Using the Token Contract
+
+```C#
+    using IOSTSdk.Contract.Token;
+    ...
+    var tx = iost.NewTransaction();
+    tx.TokenTransfer(...);
+```
+
+## Some command transactions in TxBuilder
+
+```C#
+    using IOSTSdk;
+    ...
+    tx.NewAccount(...)
+    ...
+    tx.Transfer(...)
+```
+
 ## Buy me a pizza
 Thank you, my IOST account is: noypi
 
