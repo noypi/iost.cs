@@ -31,7 +31,7 @@ Support .Net Standard 2.0+ / .Net Framework 4.5+
     tx.TokenTransfer(...);
 ```
 
-## Some command transactions in TxBuilder
+## Some common transactions in TxBuilder
 
 ```C#
     using IOSTSdk;
