@@ -1,4 +1,4 @@
-namespace IOST.Crypto
+namespace IOSTSdk.Crypto
 {
     public class Secp256k1 : IAlgorithm
     {

@@ -14,6 +14,18 @@ For .Net Framework 4.5+, must define the following functions if Secp256k1 is nee
 - IOST.CryptoGetPubkeySecp256k1Compressed
 - IOST.CryptoGeneratePrivateKeySecp256k1
 
+## Setup
+### For .Net Framework, add the the following in the csproj file:
+```xml
+  <ItemGroup>
+    <Content Include="..\libsodium.1.0.17\runtimes\win-x64\native\*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>libsodium.dll</Link>
+    </Content>
+  </ItemGroup>
+```
+
 ## Help
 ### How to create an account
 Go to https://www.iostabc.com/wallet/createaccount 
+

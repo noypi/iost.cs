@@ -1,11 +1,11 @@
-using IOST.Crypto;
-using IOST.Helpers;
+using IOSTSdk.Crypto;
+using IOSTSdk.Helpers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IOST.Test
+namespace IOSTSdk.Test
 {
     [TestClass]
     public class CryptoTests

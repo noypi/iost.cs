@@ -1,6 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace IOST.Examples
+namespace IOSTSdk.Examples
 {
     [TestClass]
     public class UnitTest1

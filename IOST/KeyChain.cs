@@ -1,8 +1,8 @@
-namespace IOST
+namespace IOSTSdk
 {
     using System;
     using System.Collections.Generic;
-    using global::IOST.Crypto;
+    using global::IOSTSdk.Crypto;
     using Protobuf = Google.Protobuf;
 
     public class Keychain

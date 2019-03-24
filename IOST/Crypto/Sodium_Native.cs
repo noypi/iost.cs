@@ -1,4 +1,4 @@
-﻿namespace IOST.Crypto
+﻿namespace IOSTSdk.Crypto
 {
     using System.Runtime.InteropServices;
 

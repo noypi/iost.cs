@@ -1,11 +1,11 @@
-using IOST.Crypto;
-using IOST.Helpers;
+using IOSTSdk.Crypto;
+using IOSTSdk.Helpers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IOST.Test
+namespace IOSTSdk.Test
 {
     /// <summary>
     /// https://github.com/iost-official/go-iost/blob/6958d128390fecd99cd36a90692a7747fc8c0f57/common/serialize_test.go

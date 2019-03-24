@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace IOST.DevTools
+namespace IOSTSdk.DevTools
 {
     public static class HelperExt
     {

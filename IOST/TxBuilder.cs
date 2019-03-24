@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace IOST
+namespace IOSTSdk
 {
     public class TxBuilder
     {

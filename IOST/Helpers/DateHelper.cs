@@ -1,4 +1,4 @@
-namespace IOST.Helpers
+namespace IOSTSdk.Helpers
 {
     using System;
 

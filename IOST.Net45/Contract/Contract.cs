@@ -1,4 +1,4 @@
-namespace IOST.Contract
+namespace IOSTSdk.Contract
 {
     public class Contract
     {

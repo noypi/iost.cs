@@ -1,4 +1,4 @@
-﻿namespace IOST
+﻿namespace IOSTSdk
 {
     using System;
     using Google.Protobuf;

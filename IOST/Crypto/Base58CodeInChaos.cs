@@ -2,7 +2,7 @@
 /// by CodesInChaos
 /// https://gist.github.com/CodesInChaos/3175971#file-base58encoding-cs
 /// </summary>
-namespace IOST.Crypto
+namespace IOSTSdk.Crypto
 {
     using System;
     using System.Linq;

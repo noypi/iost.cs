@@ -1,7 +1,7 @@
-﻿namespace IOST
+﻿namespace IOSTSdk
 {
     using System.Text;
-    using global::IOST.Helpers;
+    using global::IOSTSdk.Helpers;
     
     public class Transaction
     {

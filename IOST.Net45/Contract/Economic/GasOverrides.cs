@@ -1,6 +1,6 @@
 using System;
 
-namespace IOST.Contract.Economic
+namespace IOSTSdk.Contract.Economic
 {
     /// <summary>
     /// 

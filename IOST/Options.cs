@@ -1,7 +1,4 @@
-﻿using IOST.Helpers;
-using System;
-
-namespace IOST
+﻿namespace IOSTSdk
 {
     public class Options
     {

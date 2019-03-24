@@ -1,6 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace IOST.DevTools
+namespace IOSTSdk.DevTools
 {
     using HtmlAgilityPack;
     using System;

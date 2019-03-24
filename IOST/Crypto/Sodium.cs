@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace IOST.Crypto
+namespace IOSTSdk.Crypto
 {
     /// <summary>
     /// https://download.libsodium.org/doc/public-key_cryptography

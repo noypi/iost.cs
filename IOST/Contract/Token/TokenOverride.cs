@@ -1,4 +1,4 @@
-namespace IOST.Contract.Token
+namespace IOSTSdk.Contract.Token
 {
     public partial class Token : Contract
     {

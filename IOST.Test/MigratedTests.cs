@@ -1,12 +1,12 @@
-using IOST.Crypto;
-using IOST.Helpers;
+using IOSTSdk.Crypto;
+using IOSTSdk.Helpers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Diagnostics;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IOST.Test
+namespace IOSTSdk.Test
 {
     /// <summary>
     /// Migrates tests from https://github.com/iost-official/go-sdk/blob/master/sdk_test.go

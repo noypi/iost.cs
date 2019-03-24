@@ -5,7 +5,7 @@
         <id>IOST</id>
 
         <!-- The package version number that is used when resolving dependencies -->
-        <version>1.0.0-beta</version>
+        <version>1.0.1-beta1</version>
 
         <!-- Authors contain text that appears directly on the gallery -->
         <authors>Noypi</authors>
@@ -48,23 +48,26 @@
         <tags>iost blockchain cryptocurrency</tags>
 
         <!-- Dependencies are automatically installed when the package is installed -->
-        <dependencies>
-            <group>
-                <dependency id="Newtonsoft.Json" version="11.0.0.0"/>
-                <dependency id="SHA3.Net" version="1.1.0.0"/>
+        <dependencies>            
+            <group targetFramework="net45">
+                <dependency id="Google.Api.Gax.Grpc" version="2.6.0"/>
+                <dependency id="Newtonsoft.Json" version="11.0.2"/>
+                <dependency id="SHA3.Net" version="1.1.1"/>
                 <dependency id="libsodium" version="1.0.17" />
                 <dependency id="Google.Protobuf" version="3.7.0" />
                 <dependency id="Google.Api.Gax.Grpc" version="2.6.0" />
-                <dependency id="Grpc.Core" version="1.0.0.0"/>
-            </group>
-            
-            <group targetFramework="net45">
-                <dependency id="Google.Api.Gax.Grpc" version="2.6.0.0"/>
+                <dependency id="Grpc.Core" version="1.19.0"/>
             </group>
             
             <group targetFramework="netstandard2.0">
                 <dependency id="Cryptography.ECDSA.Secp256K1" version="1.1.2" />
                 <dependency id="System.Security.Cryptography.ProtectedData" version="4.5.0" />
+                <dependency id="Newtonsoft.Json" version="11.0.2"/>
+                <dependency id="SHA3.Net" version="1.1.1"/>
+                <dependency id="libsodium" version="1.0.17" />
+                <dependency id="Google.Protobuf" version="3.7.0" />
+                <dependency id="Google.Api.Gax.Grpc" version="2.6.0" />
+                <dependency id="Grpc.Core" version="1.19.0"/>
             </group>
         </dependencies>
     </metadata>
@@ -72,8 +75,12 @@
     <!-- A readme.txt to display when the package is installed -->
     <files>
         <file src="..\IOST\bin\Release\netstandard2.0\IOST.dll" target="lib\netstandard2.0\IOST.dll" />
-		
-		<file src="..\IOST.Net45\bin\x64\Release\IOST.dll" target="runtimes\win10-x64\lib\net45\IOST.dll" />
-		<file src="..\IOST.Net45\bin\x86\Release\IOST.dll" target="runtimes\win10-x86\lib\net45\IOST.dll" />
+        
+        <file src="..\IOST.Net45\bin\x64\Release\IOST.dll" target="build\x64" />
+        <file src="..\IOST.Net45\bin\x64\Release\IOST.dll" target="lib\net45\IOST.dll" />
+        
+        <file src="..\IOST.Net45\bin\x86\Release\IOST.dll" target="build\x86" />
+        <file src="..\IOST.Net45\bin\x86\Release\IOST.dll" target="lib\net45\IOST.dll" />>
+        
     </files>
 </package>
