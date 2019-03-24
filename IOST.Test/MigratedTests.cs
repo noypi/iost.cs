@@ -1,3 +1,4 @@
+using IOST.Crypto;
 using IOST.Helpers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
@@ -152,7 +153,8 @@ namespace IOST.Test
             var seckey = IOST.CryptoGeneratePrivateKeyEd25519(IOST.CryptoRandomSeed(32));
             var pubkey = IOST.CryptoGetPubkeyEd25519(seckey);
 
-            var base58 = IOST.Base58Encode(seckey);
+            var base58 = string.Empty;
+            seckey.UseUnprotected(privkey => base58 = IOST.Base58Encode(privkey));
             Debug.WriteLine("base58 private key:" + base58);
             Debug.WriteLine("base58 public key:" + IOST.Base58Encode(pubkey));
         }
@@ -163,7 +165,7 @@ namespace IOST.Test
         [TestMethod]
         public void PrintPublickKeyFroTesting()
         {
-            var seckey = IOST.Base58Decode(ExamplePrivKey);
+            var seckey = new SecureBytes(IOST.Base58Decode(ExamplePrivKey));
             var pubkey = IOST.CryptoGetPubkeyEd25519(seckey);
 
             var base58 = IOST.Base58Encode(pubkey);
@@ -202,7 +204,7 @@ namespace IOST.Test
             var expectedPrivKey = "gkpobuI3gbFGstgfdymLBQAGR67ulguDzNmLXEJSWaGUNL5J0z5qJUdsPJdqm+uyDIrEWD2Ym4dY9lv8g0FFZg==";
             var expectedED25519Sig = "/K1HM0OEbfJ4+D3BmalpLmb03WS7BeCz4nVHBNbDrx3/A31aN2RJNxyEKhv+VSoWctfevDNRnL1kadRVxSt8CA==";
 
-            var seckey = Convert.FromBase64String(expectedPrivKey);
+            var seckey = new SecureBytes(Convert.FromBase64String(expectedPrivKey));
             var actualPubkey = IOST.CryptoGetPubkeyEd25519(seckey);
             Assert.AreEqual(Convert.ToBase64String(actualPubkey), expectedPubKey, "getting public key");
 

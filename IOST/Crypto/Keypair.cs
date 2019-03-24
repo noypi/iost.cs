@@ -9,15 +9,10 @@ namespace IOST.Crypto
         public KeyPair(SecureBytes seckey, IAlgorithm algo)
         {
             Algo = algo;
-            seckey.UseUnprotected(privk => PubKey = algo.GetPubkey(privk));
+            PubKey = algo.GetPubkey(seckey);
             PrivKey = seckey;
         }
 
-        public byte[] Sign(byte[] data)
-        {
-            byte[] result = null;
-            PrivKey.UseUnprotected(privk => result = Algo.Sign(data, privk));
-            return result;
-        }
+        public byte[] Sign(byte[] data) => Algo.Sign(data, PrivKey);
     }
 }

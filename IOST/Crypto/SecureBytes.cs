@@ -21,7 +21,7 @@ namespace IOST.Crypto
             DestroyData(unprotected);
         }
 
-        private static void DestroyData(byte[] data)
+        public static void DestroyData(byte[] data)
         {
             for(int i=0; i<data.Length; i++)
             {

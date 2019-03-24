@@ -20,7 +20,8 @@ namespace IOST.Test
             var expectedPubKey = "lDS+SdM+aiVHbDyXapvrsgyKxFg9mJuHWPZb/INBRWY=";
             var expectedPrivKey = "gkpobuI3gbFGstgfdymLBQAGR67ulguDzNmLXEJSWaGUNL5J0z5qJUdsPJdqm+uyDIrEWD2Ym4dY9lv8g0FFZg==";
 
-            var pubk = IOST.CryptoGetPubkeyEd25519(System.Convert.FromBase64String(expectedPrivKey));
+            var seckey = new SecureBytes(System.Convert.FromBase64String(expectedPrivKey));
+            var pubk = IOST.CryptoGetPubkeyEd25519(seckey);
             Assert.AreEqual(expectedPubKey, System.Convert.ToBase64String(pubk));
         }
 
@@ -38,7 +39,7 @@ namespace IOST.Test
             Assert.AreEqual(expectedSha3, Cryptography.ECDSA.Hex.ToString(mySha3), "sha3 test");
 
             var expectedPubkeySecp256k1 = "0314bf901a6640033ea07b39c6b3acb675fc0af6a6ab526f378216085a93e5c7a2";
-            var myPubkeySecp256k1 = IOST.CryptoGetPubkeySecp256k1Compressed(privkey);
+            var myPubkeySecp256k1 = IOST.CryptoGetPubkeySecp256k1Compressed(new SecureBytes(privkey));
             Assert.AreEqual(expectedPubkeySecp256k1, Cryptography.ECDSA.Hex.ToString(myPubkeySecp256k1), "Secp256k1 get pubkey test");
         }
 
@@ -49,10 +50,10 @@ namespace IOST.Test
         public void TestSecp256k1GetPubkey()
         {
             var testData = "c6e193266883a500c6e51a117e012d96ad113d5f21f42b28eb648be92a78f92f";
-            var privkey = Cryptography.ECDSA.Hex.HexToBytes(testData);
+            var seckey = new SecureBytes(Cryptography.ECDSA.Hex.HexToBytes(testData));
 
             var expectedPubkeySecp256k1 = "0314bf901a6640033ea07b39c6b3acb675fc0af6a6ab526f378216085a93e5c7a2";
-            var myPubkeySecp256k1 = IOST.CryptoGetPubkeySecp256k1Compressed(privkey);
+            var myPubkeySecp256k1 = IOST.CryptoGetPubkeySecp256k1Compressed(seckey);
             Assert.AreEqual(expectedPubkeySecp256k1, Cryptography.ECDSA.Hex.ToString(myPubkeySecp256k1), "Secp256k1 get pubkey test");
         }
     }
