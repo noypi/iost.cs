@@ -120,6 +120,15 @@
     <Compile Include="..\IOST\Client.cs">
       <Link>Client.cs</Link>
     </Compile>
+    <Compile Include="..\IOST\Contract\Economic\Gas.cs">
+      <Link>Contract\Economic\Gas.cs</Link>
+    </Compile>
+    <Compile Include="..\IOST\Contract\Economic\GasOverrides.cs">
+      <Link>Contract\Economic\GasOverrides.cs</Link>
+    </Compile>
+    <Compile Include="..\IOST\Contract\Economic\Ram.cs">
+      <Link>Contract\Economic\Ram.cs</Link>
+    </Compile>
     <Compile Include="..\IOST\Contract\System\Auth.cs">
       <Link>Contract\System\Auth.cs</Link>
     </Compile>
@@ -204,10 +213,6 @@
     <Compile Include="..\IOST\TxBuilder.cs">
       <Link>TxBuilder.cs</Link>
     </Compile>
-    <Compile Include="Contract\Contract.cs" />
-    <Compile Include="Contract\Economic\Gas.cs" />
-    <Compile Include="Contract\Economic\GasOverrides.cs" />
-    <Compile Include="Contract\Economic\Ram.cs" />
     <Compile Include="Overrides_Secp256k1Net45.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

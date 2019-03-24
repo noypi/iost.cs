@@ -8,7 +8,7 @@
         public Options Options { get; internal set; }
         internal Rpcpb.TransactionRequest TransactionRequest { get; set; }
 
-        public Transaction(Options options)
+        internal Transaction(Options options)
         {
             Options = options;
             TransactionRequest = new Rpcpb.TransactionRequest()

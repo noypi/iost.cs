@@ -20,12 +20,15 @@ namespace IOSTSdk.DevTools
         public List<ApiParameter> Parameters { get; } = new List<ApiParameter>();
 
         private readonly HtmlNode _apiNode;
+        private readonly string _apiPrefix;
         private HtmlNode _currentNode;
 
-        internal ApiParser(HtmlNode node)
+        internal ApiParser(HtmlNode node, string cid)
         {
             _apiNode = node;
             _currentNode = node;
+            _apiPrefix = cid.Replace(".iost", "");
+            _apiPrefix = Char.ToUpperInvariant(_apiPrefix[0]) + _apiPrefix.Substring(1);
 
             Api = ExtractApiName(node.InnerText);
 
@@ -118,7 +121,7 @@ namespace IOSTSdk.DevTools
             var name = Char.ToUpperInvariant(Api[0]) + Api.Substring(1);
             var args = CreateArgs();
 
-            var s = $"\r\n        public static void {name}({args})" +
+            var s = $"\r\n        public static Transaction {_apiPrefix}{name}(this {args})" +
                      "\r\n        {";
             writer.Write(s);
         }
@@ -143,7 +146,8 @@ namespace IOSTSdk.DevTools
         public void WriteBody(StreamWriter writer)
         {
             var parameters = GetCallParameters();
-            var s = $"\r\n            tx.AddAction(Cid, \"{Api}\", {parameters});";
+            var s = $"\r\n            tx.AddAction(Cid, \"{Api}\", {parameters});" +
+                     "\r\n            return tx;";
             writer.Write(s);
         }
 

@@ -64,7 +64,7 @@ namespace IOSTSdk.DevTools
             var node = NextApiHeader();
             while((node = NextApi()) != null)
             {
-                Apis.Add(new ApiParser(node));
+                Apis.Add(new ApiParser(node, Cid));
             }
 
             Debug.WriteLine("-InitApis");

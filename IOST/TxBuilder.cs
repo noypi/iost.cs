@@ -1,18 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace IOSTSdk
 {
-    public class TxBuilder
+    using System;
+    using IOSTSdk.Contract.Economic;
+    using IOSTSdk.Contract.System;
+    using IOSTSdk.Contract.Token;
+
+    public static class TxBuilderExt
     {
-        private readonly Options _options;
-
-        internal TxBuilder(Options options)
-        {
-            _options = options;
-        }
-
         /// <summary>
         /// Transfer a token to an account
         /// </summary>
@@ -22,11 +16,9 @@ namespace IOSTSdk
         /// <param name="amount">the amount to transfer</param>
         /// <param name="memo">maximum of 512 characters</param>
         /// <returns></returns>
-        public Transaction Transfer(string token, string from, string to, double amount, string memo)
+        public static Transaction Transfer(this Transaction tx, string token, string from, string to, double amount, string memo)
         {
-            var tx = new Transaction(_options);
-
-            Contract.Token.Token.Transfer(tx, token, from, to, amount, memo);
+            tx.TokenTransfer(token, from, to, amount, memo);
             tx.AddApprove("iost", amount.ToString());
 
             return tx;
@@ -42,7 +34,7 @@ namespace IOSTSdk
         /// <param name="initialGasPledge"></param>
         /// <param name="initialRAM"></param>
         /// <returns></returns>
-        public Transaction NewAccount(string name, string creator, string ownerkey, string activekey,
+        public static Transaction NewAccount(this Transaction tx, string name, string creator, string ownerkey, string activekey,
                                       double initialGasPledge = 1000000, int initialRAM = 1024)
         {
             if (!ValidatePubKey(ownerkey) || !ValidatePubKey(activekey))
@@ -50,16 +42,14 @@ namespace IOSTSdk
                 throw new ArgumentException("invalid public key");
             }
 
-            var tx = new Transaction(_options);
-
-            Contract.System.Auth.SignUp(tx, name, ownerkey, activekey);
-            Contract.Economic.Ram.Buy(tx, creator, name, initialRAM);
-            Contract.Economic.Gas.Pledge(tx, creator, name, initialGasPledge);
+            tx.AuthSignUp(name, ownerkey, activekey)
+              .RamBuy(creator, name, initialRAM)
+              .GasPledge(creator, name, initialGasPledge);
 
             return tx;
         }
 
-        protected bool ValidatePubKey(string key)
+        static bool ValidatePubKey(string key)
         {
             bool bRet = false;
             try

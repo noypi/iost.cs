@@ -1,10 +1,11 @@
-using IOSTSdk.Crypto;
-using IOSTSdk.Helpers;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Diagnostics;
 using System.Text;
 using System.Threading.Tasks;
+using IOSTSdk.Contract.Token;
+using IOSTSdk.Crypto;
+using IOSTSdk.Helpers;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace IOSTSdk.Test
 {
@@ -55,7 +56,7 @@ namespace IOSTSdk.Test
                     ExamplePrivKey), 
                     "active");
 
-            var tx = iost.CreateTx()
+            var tx = iost.NewTransaction()
                          .Transfer("iost", "admin", "admin", 10.000, "");
             kc.Sign(tx);
             var hash = await iost.Send(tx);
@@ -69,7 +70,7 @@ namespace IOSTSdk.Test
             var client = new Client(_TestServerUrl);
             var iost = new IOST(client, new Options { ExpirationInMillis = 5000 });
 
-            var tx = iost.CreateTx()
+            var tx = iost.NewTransaction()
                          .NewAccount("saifsolo", "admin", ExamplePubKey, ExamplePubKey, 1024, 100000);
 
             tx.AddApprove("*", "unlimited");
@@ -90,7 +91,7 @@ namespace IOSTSdk.Test
             var client = new Client(_TestServerUrl);
             var iost = new IOST(client, new Options { ExpirationInMillis = 5000 });
 
-            var tx = iost.CreateTx()
+            var tx = iost.NewTransaction()
                          .Transfer("iost", "admin", "saifsolo", 10000, "");
 
             var kc = new Keychain("admin");
@@ -109,7 +110,7 @@ namespace IOSTSdk.Test
             var client = new Client(_TestServerUrl);
             var iost = new IOST(client, new Options { ExpirationInMillis = 5000 });
 
-            var tx = iost.CreateTx()
+            var tx = iost.NewTransaction()
                          .Transfer("iost", "admin", ExamplePubKey, 500, "");
 
             var kc = new Keychain("admin");
@@ -135,8 +136,8 @@ namespace IOSTSdk.Test
                     "active");
 
             var adminPubkey = IOST.Base58Encode(kc.GetPublicKey("active"));
-            var tx = new Transaction(iost.Options);
-            Contract.Token.Token.BalanceOf(tx, "token.iost", adminPubkey);
+            var tx = iost.NewTransaction()
+                         .TokenBalanceOf("token.iost", adminPubkey);
 
             kc.Sign(tx);
             var hash = await iost.Send(tx);

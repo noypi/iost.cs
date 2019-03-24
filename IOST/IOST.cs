@@ -9,8 +9,6 @@ namespace IOSTSdk
         /// </summary>
         public Options Options { get; private set; }
 
-        private readonly TxBuilder _txBuilder;
-
         private Client _client;
 
         /// <summary>
@@ -21,15 +19,14 @@ namespace IOSTSdk
         public IOST(Client client, Options options)
         {
             Options = options;
-            _txBuilder = new TxBuilder(options);
             _client = client;
         }
 
         /// <summary>
-        /// Used to create common transactions
+        /// Create a new transaction
         /// </summary>
         /// <returns></returns>
-        public TxBuilder CreateTx() => _txBuilder;
+        public Transaction NewTransaction() => new Transaction(Options);
 
         /// <summary>
         /// Sends the transaction

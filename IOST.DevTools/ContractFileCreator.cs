@@ -49,7 +49,7 @@ namespace IOSTSdk.DevTools
 
                 using (var writer = new StreamWriter(File.Open(fpath, FileMode.Create)))
                 {
-                    var fullpackage = $"IOST.Contract.{_packageName}";
+                    var fullpackage = $"IOSTSdk.Contract.{_packageName}";
                     var contractWriter = new ContractApiWriter(fullpackage, parser, writer);
 
                     contractWriter.WriteBegin();
