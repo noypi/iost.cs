@@ -117,6 +117,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\IOST\Channels.cs">
+      <Link>Channels.cs</Link>
+    </Compile>
     <Compile Include="..\IOST\Client.cs">
       <Link>Client.cs</Link>
     </Compile>
@@ -206,6 +209,9 @@
     </Compile>
     <Compile Include="..\IOST\Rpcpb\Rpc.cs">
       <Link>Rpcpb\Rpc.cs</Link>
+    </Compile>
+    <Compile Include="..\IOST\Servers.cs">
+      <Link>Servers.cs</Link>
     </Compile>
     <Compile Include="..\IOST\Transaction.cs">
       <Link>Transaction.cs</Link>
