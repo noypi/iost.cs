@@ -10,13 +10,6 @@ pool:
   vmImage: 'vs2017-win2016'
 
 steps:
-- task: MSBuild@1
-  inputs:
-    solution: 'IOST.sln'
-    msbuildVersion: '15.0'
-    msbuildArchitecture: 'x64'
-    clean: true
-
 - task: VSBuild@1
   inputs:
     solution: IOST.sln
