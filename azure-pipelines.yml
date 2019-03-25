@@ -10,5 +10,26 @@ pool:
   vmImage: 'vs2017-win2016'
 
 steps:
-- script: call nuget/build.cmd
-  displayName: 'run build'
+- task: MSBuild@1
+  inputs:
+    solution: 'IOST.sln'
+    msbuildVersion: '15.0'
+    msbuildArchitecture: 'x64'
+    msbuildArguments: /target:IOST:Rebuild /property:Configuration=Release /property:Platform="Any CPU"
+    clean: true
+
+- task: MSBuild@1
+  inputs:
+    solution: 'IOST.sln'
+    msbuildVersion: '15.0'
+    msbuildArchitecture: 'x64'
+    msbuildArguments: /target:IOST_Net45:Rebuild /property:Configuration=Release /property:Platform=x64
+    clean: true
+
+- task: MSBuild@1
+  inputs:
+    solution: 'IOST.sln'
+    msbuildVersion: '15.0'
+    msbuildArchitecture: 'x64'
+    msbuildArguments: /target:IOST_Net45:Rebuild /property:Configuration=Release /property:Platform=x86
+    clean: true
