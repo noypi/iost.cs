@@ -45,7 +45,7 @@ steps:
 - task: NuGetCommand@2
   inputs:
     command: pack
-    arguments: "**\\*.nuspec"
+    packagesToPack: "nuget/IOST.nuspec"
 
 - task: NuGetCommand@2
   inputs:
