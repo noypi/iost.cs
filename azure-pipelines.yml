@@ -55,6 +55,6 @@ steps:
 - task: NuGetCommand@2
   inputs:
     command: push
-    packagesToPush: "*.nupkg"
+    packagesToPush: "**\\IOST*.nupkg"
     nuGetFeedType: External
     publishFeedCredentials: "nugetconnection"
