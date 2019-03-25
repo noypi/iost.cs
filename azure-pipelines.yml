@@ -45,5 +45,5 @@ steps:
 - task: NuGetCommand@2
   inputs:
     command: pack
-    arguments: nuget/IOST.nuspec
+    arguments: "**\\*.nuspec"
     packDestination: $(Build.ArtifactStagingDirectory)
