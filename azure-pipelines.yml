@@ -42,7 +42,8 @@ steps:
     configuration: Release
     clean: false
 
-- task: NuGetPackager@0
+- task: NuGetCommand@2
   inputs:
-    searchPattern: nuget/IOST.nuspec
-    outputdir: nuget/
+    command: pack
+    arguments: nuget/IOST.nuspec
+    packDestination: $(Build.ArtifactStagingDirectory)
