@@ -29,7 +29,7 @@ steps:
     solution: 'IOST.sln'
     msbuildArgs: /target:IOST_Net45:Rebuild /property:Configuration=Release /property:Platform=x64
     restoreNugetPackages: true
-    platform: "Release"
+    platform: "x64"
     configuration: Release
     clean: false
 
@@ -38,6 +38,6 @@ steps:
     solution: 'IOST.sln'
     msbuildArgs: /target:IOST_Net45:Rebuild /property:Configuration=Release /property:Platform=x86
     restoreNugetPackages: true
-    platform: "Release"
+    platform: "x86"
     configuration: Release
     clean: false
