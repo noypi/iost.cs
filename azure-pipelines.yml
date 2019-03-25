@@ -41,3 +41,8 @@ steps:
     platform: "x86"
     configuration: Release
     clean: false
+
+- task: NuGetPackager@0
+  inputs:
+    searchPattern: nuget/IOST.nuspec
+    outputdir: nuget/
