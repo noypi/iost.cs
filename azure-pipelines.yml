@@ -10,6 +10,11 @@ pool:
   vmImage: 'vs2017-win2016'
 
 steps:
+- task: NuGetToolInstaller@0
+  inputs:
+    versionSpec: '4.9.4' 
+    checkLatest: false
+
 - task: NuGetCommand@2
   inputs:
     command: restore
