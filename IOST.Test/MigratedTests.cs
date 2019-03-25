@@ -64,66 +64,7 @@ namespace IOSTSdk.Test
             Debug.WriteLine(hash);
             Assert.IsFalse(string.IsNullOrEmpty(hash));
         }
-
-        [TestMethod]
-        public async Task CreateNewAccount()
-        {
-            var client = new Client(_TestServerUrl);
-            var iost = new IOST(client, new Options { ExpirationInMillis = 5000 });
-
-            var tx = iost.NewTransaction()
-                         .NewAccount("saifsolo", "admin", ExamplePubKey, ExamplePubKey, 1024, 100000);
-
-            tx.AddApprove("*", "unlimited");
-
-            var kc = new Keychain("admin");
-            kc.AddKey(
-                IOST.Base58Decode(
-                    ExampleAdminPrivKey),
-                    "active");
-
-            kc.Sign(tx);
-            var hash = await iost.Send(tx);
-        }
-
-        [TestMethod]
-        public async Task CreateDepositToTestAccount()
-        {
-            var client = new Client(_TestServerUrl);
-            var iost = new IOST(client, new Options { ExpirationInMillis = 5000 });
-
-            var tx = iost.NewTransaction()
-                         .Transfer("iost", "admin", "saifsolo", 10000, "");
-
-            var kc = new Keychain("admin");
-            kc.AddKey(
-                IOST.Base58Decode(
-                    ExampleAdminPrivKey),
-                    "active");
-
-            kc.Sign(tx);
-            var hash = await iost.Send(tx);
-        }
-
-        [TestMethod]
-        public async Task CreateDepositToTestAccountPubkey()
-        {
-            var client = new Client(_TestServerUrl);
-            var iost = new IOST(client, new Options { ExpirationInMillis = 5000 });
-
-            var tx = iost.NewTransaction()
-                         .Transfer("iost", "admin", ExamplePubKey, 500, "");
-
-            var kc = new Keychain("admin");
-            kc.AddKey(
-                IOST.Base58Decode(
-                    ExampleAdminPrivKey),
-                    "active");
-
-            kc.Sign(tx);
-            var hash = await iost.Send(tx);
-        }
-
+        
         [TestMethod]
         public async Task TestBalance()
         {
@@ -144,35 +85,6 @@ namespace IOSTSdk.Test
             var hash = await iost.Send(tx);
             Debug.WriteLine(hash);
             Assert.IsFalse(string.IsNullOrEmpty(hash));
-        }
-
-        /// <summary>
-        /// Example generating keys
-        /// </summary>
-        [TestMethod]
-        public void PrintNewPrivateKeyForTesting()
-        {
-            var seckey = IOST.CryptoGeneratePrivateKeyEd25519(IOST.CryptoRandomSeed(32));
-            var pubkey = IOST.CryptoGetPubkeyEd25519(seckey);
-
-            var base58 = string.Empty;
-            seckey.UseUnprotected(privkey => base58 = IOST.Base58Encode(privkey));
-            Debug.WriteLine("base58 private key:" + base58);
-            Debug.WriteLine("base58 public key:" + IOST.Base58Encode(pubkey));
-        }
-
-        /// <summary>
-        /// Example generating keys
-        /// </summary>
-        [TestMethod]
-        public void PrintPublickKeyFroTesting()
-        {
-            var seckey = new SecureBytes(IOST.Base58Decode(ExamplePrivKey));
-            var pubkey = IOST.CryptoGetPubkeyEd25519(seckey);
-
-            var base58 = IOST.Base58Encode(pubkey);
-            Debug.WriteLine("base58 private key:" + ExamplePrivKey);
-            Debug.WriteLine("base58 public key:" + base58);
         }
 
         /// <summary>

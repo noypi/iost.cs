@@ -220,7 +220,7 @@ namespace IOSTSdk.DevTools
             s = s.ToLowerInvariant();
             if (s.Contains("number"))
             {
-                s = "double";
+                s = "int";
             }
             else if (s.Contains("json"))
             {
