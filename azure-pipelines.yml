@@ -46,4 +46,3 @@ steps:
   inputs:
     command: pack
     arguments: "**\\*.nuspec"
-    packDestination: $(Build.ArtifactStagingDirectory)
