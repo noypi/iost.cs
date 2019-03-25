@@ -20,8 +20,7 @@
          <!-- Project URL provides a link for the gallery -->
         <projectUrl>https://github.com/noypi/iost.cs</projectUrl>
 
-         <!-- License information is displayed on the gallery -->
-        <license type="expression">MIT</license>
+        <licenseUrl>https://github.com/noypi/iost.cs/blob/master/LICENSE</licenseUrl>
         
 
         <!-- The icon is used in Visual Studio's package manager UI -->
