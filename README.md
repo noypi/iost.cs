@@ -8,9 +8,6 @@
 - Implements all APIs
 - Implements all queries to IOST contracts: System, Economic, and Token
 
-## Nuget reference
-- https://www.nuget.org/packages/IOST
-
 ## Using the System Contract
 
 ```C#
