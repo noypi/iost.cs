@@ -57,4 +57,4 @@ steps:
     command: push
     packagesToPush: "*.nupkg"
     nuGetFeedType: External
-    publishFeedCredentials: nugetconnection
+    publishFeedCredentials: "nugetconnection"
