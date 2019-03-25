@@ -6,7 +6,7 @@
         <id>IOST</id>
 
         <!-- The package version number that is used when resolving dependencies -->
-        <version>1.0.0-beta</version>
+        <version>1.0.0-beta1</version>
 
         <!-- Authors contain text that appears directly on the gallery -->
         <authors>Noypi</authors>
@@ -35,10 +35,10 @@
         <!-- Any details about this particular release -->
         <releaseNotes>IOST Apis, and queries to System, Token, and Economic contract are fully implemented.</releaseNotes>
 		
-		<summary>SDK to create a wallet, or access the IOST blockchain for application integration</summary>
+		<summary>IOST Blockchain SDK for C#. SDK to create a wallet, upload a Smart Contract, or access the IOST blockchain for application integration</summary>
 
         <!-- Copyright information -->
-        <copyright>Copyright ©2019 github.com/noypi</copyright>
+        <copyright>Copyright ©2019 noypi</copyright>
 
         <!-- Tags appear in the gallery and can be used for tag searches -->
         <tags>iost blockchain cryptocurrency</tags>

@@ -16,9 +16,9 @@ namespace IOSTSdk
         /// </summary>
         /// <param name="client"></param>
         /// <param name="options"></param>
-        public IOST(Client client, Options options)
+        public IOST(Client client, Options options = null)
         {
-            Options = options;
+            Options = options ?? new Options();
             _client = client;
         }
 
@@ -26,7 +26,7 @@ namespace IOSTSdk
         /// Create a new transaction
         /// </summary>
         /// <returns></returns>
-        public Transaction NewTransaction() => new Transaction(Options);
+        public Transaction NewTransaction() => new Transaction(Options.Clone());
 
         /// <summary>
         /// Sends the transaction

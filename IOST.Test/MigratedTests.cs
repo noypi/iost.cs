@@ -2,6 +2,7 @@ using System;
 using System.Diagnostics;
 using System.Text;
 using System.Threading.Tasks;
+using Grpc.Core;
 using IOSTSdk.Contract.Token;
 using IOSTSdk.Crypto;
 using IOSTSdk.Helpers;

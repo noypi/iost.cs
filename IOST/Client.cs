@@ -10,6 +10,15 @@ namespace IOSTSdk
     {
         private ApiServerClient _asc = null;
 
+        public static Client NewAustrialia() => new Client(Channels.NewAustrialia());
+        public static Client NewCanada()     => new Client(Channels.NewCanada());
+        public static Client NewFrance()     => new Client(Channels.NewFrance());
+        public static Client NewGermany()    => new Client(Channels.NewGermany());
+        public static Client NewJapan()      => new Client(Channels.NewJapan());
+        public static Client NewKorea()      => new Client(Channels.NewKorea());
+        public static Client NewUK()         => new Client(Channels.NewUK());
+        public static Client NewUS()         => new Client(Channels.NewUS());
+
         /// <summary>
         /// Creates a new IOST from a url
         /// </summary>
