@@ -1,5 +1,6 @@
-[![Nuget](https://img.shields.io/nuget/v/IOST.svg)](http://www.nuget.org/packages/IOST/)
 # IOST Blockchain SDK for C# 
+[![Nuget](https://img.shields.io/nuget/v/IOST.svg)](http://www.nuget.org/packages/IOST/)
+[![Build Status](https://dev.azure.com/adrianmigraso0686/iost.cs/_apis/build/status/noypi.iost.cs?branchName=master)](https://dev.azure.com/adrianmigraso0686/iost.cs/_build/latest?definitionId=1&branchName=master)
 - SDK to create a wallet, upload a Smart Contract, or use the IOST blockchain for application integration
 - Supports .Net Standard 2.0+ / .Net Framework 4.5+ 
 
