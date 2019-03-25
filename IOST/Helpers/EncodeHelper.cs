@@ -1,9 +1,8 @@
 namespace IOSTSdk.Helpers
 {
     using System;
-    using System.Linq;
 
-    public class EncodeHelper
+    public static class EncodeHelper
     {
         public static byte[] ToBytes(long n)
         {

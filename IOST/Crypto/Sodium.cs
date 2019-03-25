@@ -7,17 +7,17 @@ namespace IOSTSdk.Crypto
     /// <summary>
     /// https://download.libsodium.org/doc/public-key_cryptography
     /// </summary>
-    public partial class SodiumEd25519
+    public static partial class SodiumEd25519
     {
         /// <summary>
         /// https://github.com/jedisct1/libsodium/blob/6934a8d0c8eea550e5ab664beff0352e4b569efd/src/libsodium/include/sodium/crypto_sign_ed25519.h
         /// </summary>
-        public const uint SEEDBYTES = 32;
-        public const uint PUBLICKEYBYTES = 32;
-        public const uint SECRETKEYBYTES = 64;
+        public static readonly uint SEEDBYTES = 32;
+        public static readonly uint PUBLICKEYBYTES = 32;
+        public static readonly uint SECRETKEYBYTES = 64;
 
         // crypto_sign_ed25519_BYTES 
-        public const uint SIGNBYTES = 64;
+        public static readonly uint SIGNBYTES = 64;
 
         private static readonly IAlgorithm _Ed25519 = new Crypto.Ed25519();
 

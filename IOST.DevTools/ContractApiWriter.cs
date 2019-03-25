@@ -59,7 +59,7 @@ namespace IOSTSdk.DevTools
 
         public void WriteDeclareVariables()
         {
-            var s = $"\r\n        public const string Cid = \"{_parser.Cid}\";";
+            var s = $"\r\n        public static readonly string Cid = \"{_parser.Cid}\";";
             _writer.Write(s);
         }
 

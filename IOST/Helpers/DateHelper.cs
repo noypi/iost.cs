@@ -4,7 +4,7 @@ namespace IOSTSdk.Helpers
 
     public class DateHelper
     {
-        public const int NanosecondsPerTick = 100;
+        public static readonly int NanosecondsPerTick = 100;
 
         public static long UnixNano()
         {

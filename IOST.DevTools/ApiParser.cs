@@ -100,14 +100,14 @@ namespace IOSTSdk.DevTools
             var next = _currentNode.NextSiblingIgnoreText();
             while (true)
             {
-                if (next.Name == "table")
+                if (next == null || next.Name == "h2")
+                {
+                    throw new InvalidOperationException($"failed to find Description for API: {Api}");
+                }
+                else if(next.Name == "table")
                 {
                     _currentNode = next;
                     break;
-                }
-                else if (next.Name == "h2" || next == null)
-                {
-                    throw new InvalidOperationException($"failed to find Description for API: {Api}");
                 }
 
                 next = next.NextSiblingIgnoreText();
@@ -193,13 +193,13 @@ namespace IOSTSdk.DevTools
         protected HtmlNode NextDescription()
         {
             var next = _currentNode.NextSiblingIgnoreText();
-            if (next.Name == "p")
-            {
-                _currentNode = next;
-            }
-            else if (next.Name == "h2" || next == null)
+            if (next == null || next.Name == "h2")
             {
                 throw new InvalidOperationException($"failed to find Description for API: {Api}");
+            }
+            else if (next.Name == "p")
+            {
+                _currentNode = next;
             }
 
             return next;
