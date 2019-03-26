@@ -6,7 +6,7 @@
         <id>IOST</id>
 
         <!-- The package version number that is used when resolving dependencies -->
-        <version>1.0.0-beta2</version>
+        <version>1.0.0</version>
 
         <!-- Authors contain text that appears directly on the gallery -->
         <authors>Saifuddin Migraso</authors>
@@ -33,7 +33,11 @@
         <requireLicenseAcceptance>true</requireLicenseAcceptance>
 
         <!-- Any details about this particular release -->
-        <releaseNotes>IOST Apis, and queries to System, Token, and Economic contract are fully implemented.</releaseNotes>
+        <releaseNotes>
+		[ IOST-1.0.0 ]
+		Complete implementation of IOST APIs, 
+		Complete implementation of contracts: System, Token, and Economic.
+		</releaseNotes>
 		
 		<summary>IOST Blockchain SDK for C#. SDK to create a wallet, upload a Smart Contract, or access the IOST blockchain for application integration</summary>
 
