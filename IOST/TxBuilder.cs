@@ -23,7 +23,7 @@ namespace IOSTSdk
 
             return tx;
         }
-
+        
         /// <summary>
         /// Creates a new account
         /// </summary>
@@ -34,7 +34,7 @@ namespace IOSTSdk
         /// <param name="initialGasPledge"></param>
         /// <param name="initialRAM"></param>
         /// <returns></returns>
-        public static Transaction NewAccount(this Transaction tx, string name, string creator, string ownerkey, string activekey,
+        public static Transaction CreateAccount(this Transaction tx, string name, string creator, string ownerkey, string activekey,
                                       double initialGasPledge = 1000000, int initialRAM = 1024)
         {
             if (!ValidatePubKey(ownerkey) || !ValidatePubKey(activekey))

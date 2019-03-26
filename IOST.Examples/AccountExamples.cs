@@ -36,7 +36,7 @@ namespace IOSTSdk.Examples
             var iost = new IOST(client, new Options { ExpirationInMillis = 5000 });
 
             var tx = iost.NewTransaction()
-                         .NewAccount("saifsolo", "admin", ExamplePubKey, ExamplePubKey, 1024, 100000);
+                         .CreateAccount("saifsolo", "admin", ExamplePubKey, ExamplePubKey, 1024, 100000);
 
             tx.AddApprove("*", "unlimited");
 

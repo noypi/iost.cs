@@ -32,7 +32,6 @@ namespace IOSTSdk
         /// Sends the transaction
         /// </summary>
         /// <param name="tx"></param>
-        /// <param name="keychain"></param>
         /// <returns>the transaction hash</returns>
         public Task<string> Send(Transaction tx)
         {
@@ -45,6 +44,16 @@ namespace IOSTSdk
                                }
                                return task.Result?.Hash;
                            });
+        }
+
+        /// <summary>
+        /// Executes the transaction
+        /// </summary>
+        /// <param name="tx"></param>
+        /// <returns>the transaction hash</returns>
+        public Task<Rpcpb.TxReceipt> Execute(Transaction tx)
+        {
+            return _client.ExecTransaction(tx.TransactionRequest);
         }
     }
 }
