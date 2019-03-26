@@ -1,5 +1,5 @@
 # IOST Blockchain SDK for C# 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/355b46fe6614483d9a91459ba173d1bf)](https://app.codacy.com/app/noypi/iost.cs?utm_source=github.com&utm_medium=referral&utm_content=noypi/iost.cs&utm_campaign=Badge_Grade_Dashboard)
+[![CodeFactor](https://www.codefactor.io/repository/github/noypi/iost.cs/badge)](https://www.codefactor.io/repository/github/noypi/iost.cs)
 [![Nuget](https://img.shields.io/nuget/v/IOST.svg)](http://www.nuget.org/packages/IOST/)
 [![Build Status](https://dev.azure.com/adrianmigraso0686/iost.cs/_apis/build/status/noypi.iost.cs?branchName=master)](https://dev.azure.com/adrianmigraso0686/iost.cs/_build/latest?definitionId=1&branchName=master)
 - SDK to create a wallet, upload a Smart Contract, or use the IOST blockchain for application integration
