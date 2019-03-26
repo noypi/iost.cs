@@ -15,8 +15,8 @@
 ```C#
     using IOSTSdk.Contract.System;
     ...
-    var tx = iost.NewTransaction();
-    tx.AuthSignUp(...);
+    var tx = iost.NewTransaction()
+                 .AuthSignUp(...);
 ```
 
 ### Using the Economic Contract
@@ -24,8 +24,8 @@
 ```C#
     using IOSTSdk.Contract.Economic;
     ...
-    var tx = iost.NewTransaction();
-    tx.RamBuy(...);
+    var tx = iost.NewTransaction()
+                 .RamBuy(...);
 ```
 
 ### Using the Token Contract
@@ -33,8 +33,8 @@
 ```C#
     using IOSTSdk.Contract.Token;
     ...
-    var tx = iost.NewTransaction();
-    tx.TokenTransfer(...);
+    var tx = iost.NewTransaction()
+                 .TokenTransfer(...);
 ```
 
 ### Some common transactions in TxBuilder
