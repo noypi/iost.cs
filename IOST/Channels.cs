@@ -13,6 +13,8 @@ namespace IOSTSdk
         internal static Channel NewUK() => NewServer(Servers.UK);
         internal static Channel NewUS() => NewServer(Servers.US);
 
+        internal static Channel NewTestNet() => NewServer(Servers.TestNet);
+
         internal static Channel NewServer(string loc) => new Channel(loc, ChannelCredentials.Insecure);
     }
 }

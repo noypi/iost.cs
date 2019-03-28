@@ -20,6 +20,13 @@ namespace IOSTSdk
         public static Client NewUS()         => new Client(Channels.NewUS());
 
         /// <summary>
+        /// Testnet Blockchain explorer - http://54.249.186.224/
+        /// Create a test account- http://54.249.186.224/applyIOST
+        /// </summary>
+        /// <returns></returns>
+        public static Client NewTestNet() => new Client(Channels.NewTestNet());
+
+        /// <summary>
         /// Creates a new IOST from a url
         /// </summary>
         /// <param name="url">Example: localhost:30002</param>

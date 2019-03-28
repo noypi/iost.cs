@@ -11,6 +11,7 @@ namespace IOSTSdk
         public static readonly string UK        = "35.176.24.11:30002";
         public static readonly string US        = "18.209.137.246:30002";
 
-        
+        public static readonly string TestNet = "13.52.105.102:30002";
+
     }
 }

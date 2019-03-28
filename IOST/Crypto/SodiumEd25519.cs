@@ -7,7 +7,7 @@ namespace IOSTSdk.Crypto
     /// <summary>
     /// https://download.libsodium.org/doc/public-key_cryptography
     /// </summary>
-    public static partial class SodiumEd25519
+    public static class SodiumEd25519
     {
         /// <summary>
         /// https://github.com/jedisct1/libsodium/blob/6934a8d0c8eea550e5ab664beff0352e4b569efd/src/libsodium/include/sodium/crypto_sign_ed25519.h
@@ -20,17 +20,11 @@ namespace IOSTSdk.Crypto
         public static readonly uint SIGNBYTES = 64;
 
         private static readonly IAlgorithm _Ed25519 = new Crypto.Ed25519();
-
-        static SodiumEd25519()
-        {
-            // https://download.libsodium.org/doc/advanced/scrypt#notes
-            sodium_init();
-        }
         
         public static byte[] RandomBytes(int n)
         {
             var buf = new byte[n];
-            randombytes_buf(buf, n);
+            Sodium.randombytes_buf(buf, n);
             return buf;
         }
         
@@ -39,7 +33,7 @@ namespace IOSTSdk.Crypto
             var publicKey = new byte[PUBLICKEYBYTES];
             var privateKey = new byte[SECRETKEYBYTES];
 
-            crypto_sign_seed_keypair(publicKey, privateKey, seed);
+            Sodium.crypto_sign_seed_keypair(publicKey, privateKey, seed);
 
             var kp = new KeyPair(new SecureBytes(privateKey), _Ed25519);
             SecureBytes.DestroyData(privateKey);
@@ -64,7 +58,7 @@ namespace IOSTSdk.Crypto
                 }
 
                 pubkey = new byte[PUBLICKEYBYTES];
-                if (0 != crypto_sign_ed25519_sk_to_pk(pubkey, privkey))
+                if (0 != Sodium.crypto_sign_ed25519_sk_to_pk(pubkey, privkey))
                 {
                     throw new InvalidOperationException("failed to extract public key");
                 }
@@ -81,7 +75,7 @@ namespace IOSTSdk.Crypto
                 throw new ArgumentOutOfRangeException("invalid parameter");
             }
 
-            return (0 == crypto_sign_verify_detached(signature, message, message.Length, pubkey));
+            return (0 == Sodium.crypto_sign_verify_detached(signature, message, message.Length, pubkey));
         }
 
         public static byte[] SignDetached(byte[] message, SecureBytes seckey)
@@ -96,7 +90,7 @@ namespace IOSTSdk.Crypto
                 }
 
                 long n = 0;
-                crypto_sign_detached(signed, ref n, message, message.Length, privkey);
+                Sodium.crypto_sign_detached(signed, ref n, message, message.Length, privkey);
             });
 
             return signed;

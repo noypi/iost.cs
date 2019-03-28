@@ -19,6 +19,8 @@ namespace IOSTSdk.Test
         //private string _TestServerUrl = "localhost:30002";
         private readonly string _TestServerUrl = "192.168.254.99:30002";
 
+        private readonly string TestNetPrivKey_SaifSolo = "2UWJovsJUVumcBjoatiZeMLs5Vux986rhaR527XS6QJLobs7vigjru3wgu6QKBvVzZetdYuyJYDyX4PBTLoKcUmn";
+
         private readonly string ExamplePrivKey = "3Kq9jHWnoXEXE81BYjqiRYMMds5W8ZPb1M9VbginHNr9TTZcF82Fb5m4vuyC5wocMwjmLomttAcHMfdFREMuUsmi";
         private readonly string ExamplePubKey = "42DuuQxdepiQFctVcGHyiBmnEC53otCERRnELXF62aC8";
 

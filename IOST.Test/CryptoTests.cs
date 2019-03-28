@@ -2,6 +2,7 @@ using IOSTSdk.Crypto;
 using IOSTSdk.Helpers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -55,6 +56,18 @@ namespace IOSTSdk.Test
             var expectedPubkeySecp256k1 = "0314bf901a6640033ea07b39c6b3acb675fc0af6a6ab526f378216085a93e5c7a2";
             var myPubkeySecp256k1 = IOST.CryptoGetPubkeySecp256k1Compressed(seckey);
             Assert.AreEqual(expectedPubkeySecp256k1, Cryptography.ECDSA.Hex.ToString(myPubkeySecp256k1), "Secp256k1 get pubkey test");
+        }
+
+        [TestMethod]
+        public void TestXChaCha()
+        {
+            var message = "some data";
+            var password = new SecureBytes(UnicodeEncoding.UTF8.GetBytes("the password"));
+            var (cipher, nonce) = SodiumXChaCha20Poly1305.Encrypt(password, UnicodeEncoding.UTF8.GetBytes(message));
+
+            CollectionAssert.AreNotEqual(UnicodeEncoding.UTF8.GetBytes(message), cipher);
+            var result = SodiumXChaCha20Poly1305.Decrypt(password, cipher, nonce);
+            Assert.AreEqual(message, UnicodeEncoding.UTF8.GetString(result));
         }
     }
 }
