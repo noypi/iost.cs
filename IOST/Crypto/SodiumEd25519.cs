@@ -1,9 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace IOSTSdk.Crypto
 {
+    using System;
+    using IOSTSdk.Helpers;
+    
     /// <summary>
     /// https://download.libsodium.org/doc/public-key_cryptography
     /// </summary>
@@ -36,7 +35,7 @@ namespace IOSTSdk.Crypto
             Sodium.crypto_sign_seed_keypair(publicKey, privateKey, seed);
 
             var kp = new KeyPair(new SecureBytes(privateKey), _Ed25519);
-            SecureBytes.DestroyData(privateKey);
+            DataHelper.DestroyData(privateKey);
 
             return kp;
         }

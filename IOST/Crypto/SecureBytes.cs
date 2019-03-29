@@ -1,5 +1,6 @@
 namespace IOSTSdk.Crypto
 {
+    using IOSTSdk.Helpers;
     using System;
     using System.Security.Cryptography;
 
@@ -18,15 +19,7 @@ namespace IOSTSdk.Crypto
         {
             byte[] unprotected = ProtectedData.Unprotect(_protected, _entropy, DataProtectionScope.CurrentUser);
             action(unprotected);
-            DestroyData(unprotected);
-        }
-
-        public static void DestroyData(byte[] data)
-        {
-            for(int i=0; i<data.Length; i++)
-            {
-                data[i] = 0;
-            }
+            DataHelper.DestroyData(unprotected);
         }
     }
 }

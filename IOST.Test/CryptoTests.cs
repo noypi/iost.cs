@@ -2,6 +2,7 @@ using IOSTSdk.Crypto;
 using IOSTSdk.Helpers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.IO;
 using System.Security;
 using System.Text;
 using System.Threading.Tasks;
@@ -68,6 +69,40 @@ namespace IOSTSdk.Test
             CollectionAssert.AreNotEqual(UnicodeEncoding.UTF8.GetBytes(message), cipher);
             var result = SodiumXChaCha20Poly1305.Decrypt(password, cipher, nonce);
             Assert.AreEqual(message, UnicodeEncoding.UTF8.GetString(result));
+        }
+
+        [TestMethod]
+        public void TestSecureStream()
+        {
+            var password = "some password";
+            SecureBytes secureBytes = null;
+
+            using (var secureStream = new SecureStream())
+            {
+                var writer = new StreamWriter(secureStream.Writer);
+                writer.Write("some data");
+                writer.Flush();
+                secureBytes = secureStream.ToSecureBytes();
+            }
+
+            string result = string.Empty;
+            secureBytes.UseUnprotected(bb => result = UnicodeEncoding.UTF8.GetString(bb));
+
+            Assert.AreEqual(password, result);
+        }
+
+        [TestMethod]
+        public void TestSecurePassword()
+        {
+            var sec = new SecurePassword();
+
+            sec.Append('a');
+            sec.Append('c');
+            sec.Append('d');
+            Assert.AreEqual("acd", sec.Unsecure(UnicodeEncoding.UTF8));
+
+            sec.InsertAt(1, 'b');
+            Assert.AreEqual("abcd", sec.Unsecure(UnicodeEncoding.UTF8));
         }
     }
 }

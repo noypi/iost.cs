@@ -1,6 +1,5 @@
 ﻿namespace IOSTSdk.Crypto
 {
-    using System;
     using System.Runtime.InteropServices;
 
 #pragma warning disable IDE1006 // Naming Styles

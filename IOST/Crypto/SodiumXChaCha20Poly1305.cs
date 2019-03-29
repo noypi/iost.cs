@@ -1,6 +1,7 @@
 namespace IOSTSdk.Crypto
 {
     using System;
+    using System.Runtime.InteropServices;
 
     public class SodiumXChaCha20Poly1305
     {
