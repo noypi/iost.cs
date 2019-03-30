@@ -38,6 +38,15 @@
             DataHelper.DestroyData(unprotected);
             DataHelper.DestroyData(newdata);
         }
+
+        public SecureBytes ToSecureBytes(Encoding encoding)
+        {
+            var bb = Unprotect();
+            var secbb = new SecureBytes(bb);
+            DataHelper.DestroyData(bb);
+            return secbb;
+        }
+
 #if DEBUG
         public string Unsecure(Encoding encoding) => encoding.GetString(Unprotect());
 #endif
