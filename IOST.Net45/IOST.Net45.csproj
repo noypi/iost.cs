@@ -56,6 +56,9 @@
     <Reference Include="BouncyCastle.Crypto, Version=1.8.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\BouncyCastle.NetCore.1.8.3\lib\net20\BouncyCastle.Crypto.dll</HintPath>
     </Reference>
+    <Reference Include="ChainPay, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <HintPath>..\packages\ChainPay.1.0.1\lib\net45\ChainPay.dll</HintPath>
+    </Reference>
     <Reference Include="Google.Api.CommonProtos, Version=1.5.0.0, Culture=neutral, PublicKeyToken=3ec5ea7f18953e47, processorArchitecture=MSIL">
       <HintPath>..\packages\Google.Api.CommonProtos.1.5.0\lib\net45\Google.Api.CommonProtos.dll</HintPath>
     </Reference>
@@ -92,8 +95,8 @@
     <Reference Include="Grpc.Core.Api, Version=0.0.0.0, Culture=neutral, PublicKeyToken=d754f35622e28bad, processorArchitecture=MSIL">
       <HintPath>..\packages\Grpc.Core.Api.1.19.0\lib\net45\Grpc.Core.Api.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="SHA3.Net, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SHA3.Net.1.1.1\lib\net45\SHA3.Net.dll</HintPath>
@@ -109,6 +112,9 @@
       <HintPath>..\..\..\..\..\..\Program Files (x86)\dotnet\sdk\NuGetFallbackFolder\microsoft.netcore.app\2.1.0\ref\netcoreapp2.1\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
     </Reference>
     <Reference Include="System.Security" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -177,11 +183,20 @@
     <Compile Include="..\IOST\Crypto\SecureBytes.cs">
       <Link>Crypto\SecureBytes.cs</Link>
     </Compile>
-    <Compile Include="..\IOST\Crypto\Sodium.cs">
-      <Link>Crypto\Sodium.cs</Link>
+    <Compile Include="..\IOST\Crypto\SecurePassword.cs">
+      <Link>Crypto\SecurePassword.cs</Link>
+    </Compile>
+    <Compile Include="..\IOST\Crypto\SodiumEd25519.cs">
+      <Link>Crypto\SodiumEd25519.cs</Link>
+    </Compile>
+    <Compile Include="..\IOST\Crypto\SodiumXChaCha20Poly1305.cs">
+      <Link>Crypto\SodiumXChaCha20Poly1305.cs</Link>
     </Compile>
     <Compile Include="..\IOST\Crypto\Sodium_Native.cs">
       <Link>Crypto\Sodium_Native.cs</Link>
+    </Compile>
+    <Compile Include="..\IOST\Helpers\DataHelper.cs">
+      <Link>Helpers\DataHelper.cs</Link>
     </Compile>
     <Compile Include="..\IOST\Helpers\DateHelper.cs">
       <Link>Helpers\DateHelper.cs</Link>

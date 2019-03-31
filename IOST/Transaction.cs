@@ -147,5 +147,10 @@
 
             return ChainPay.CreateSignatureResponse(response);
         }
+
+        public static SignatureResponse ReadSignatureResponse(StreamReader reader)
+        {
+            return ChainPay.ReadSignatureResponse(reader);
+        }
     }
 }

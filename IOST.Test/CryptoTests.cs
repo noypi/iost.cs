@@ -71,26 +71,6 @@ namespace IOSTSdk.Test
             Assert.AreEqual(message, UnicodeEncoding.UTF8.GetString(result));
         }
 
-        [TestMethod]
-        public void TestSecureStream()
-        {
-            var password = "some password";
-            SecureBytes secureBytes = null;
-
-            using (var secureStream = new SecureStream())
-            {
-                var writer = new StreamWriter(secureStream.Writer);
-                writer.Write("some data");
-                writer.Flush();
-                secureBytes = secureStream.ToSecureBytes();
-            }
-
-            string result = string.Empty;
-            secureBytes.UseUnprotected(bb => result = UnicodeEncoding.UTF8.GetString(bb));
-
-            Assert.AreEqual(password, result);
-        }
-
 #if DEBUG
         [TestMethod]
         public void TestSecurePassword()
