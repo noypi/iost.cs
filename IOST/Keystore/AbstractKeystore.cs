@@ -2,27 +2,27 @@ namespace IOSTSdk.Keystore
 {
     using IOSTSdk.Crypto;
     using IOSTSdk.Helpers;
-    using IOSTSdk.Keystore.v1;
     using System;
     using System.Collections.Generic;
     using System.Text;
 
-    public abstract class AbstractKeystore
+    public abstract class AbstractKeystore : IKeystore
     {
         private Dictionary<string, Keychain> _byAccount = new Dictionary<string, Keychain>();
         
         internal abstract void Initialize();
 
-        public abstract void Store(KeystoreModel kc);
+        public abstract void AddKey(SecureBytes password, string accountName, string label, SecureBytes privateKey);
+
+        public abstract void DeleteKey(string label, EncryptedKey enckey);
+
+        public abstract void Store();
 
         public abstract EncryptedKey[] EncryptedKeys { get; }
 
         public void Use(EncryptedKey enckey, SecureBytes password)
         {
-            var cipher = Convert.FromBase64String(enckey.Cipher);
-            var nonce = Convert.FromBase64String(enckey.Nonce);
-
-            var secure = new SecureBytes(SodiumXChaCha20Poly1305.Decrypt(password, cipher, nonce));
+            var secure = enckey.Decrypt(password);
 
             // parse account:key
             secure.UseUnprotected(bb =>
@@ -31,7 +31,7 @@ namespace IOSTSdk.Keystore
                 var ss = s.Split(':');
                 if (ss.Length != 2)
                 {
-                    throw new InvalidProgramException("invalid EncryptedKey, not enough data");
+                    throw new InvalidProgramException("Invalid EncryptedKey, not enough data");
                 }
                 var account = ss[0];
                 if (!_byAccount.ContainsKey(account))
@@ -42,14 +42,14 @@ namespace IOSTSdk.Keystore
                 if ((key.Length != Crypto.SodiumEd25519.SECRETKEYBYTES) ||
                     (key.Length != 32))//secp
                 {
-                    throw new InvalidProgramException("invalid EncryptedKey, unknown key.");
+                    throw new InvalidProgramException("Invalid EncryptedKey, unknown key.");
                 }
-                _byAccount[account].AddKey(key, enckey.Label);
+                _byAccount[account].AddKey(new SecureBytes(key), enckey.Label);
                 DataHelper.DestroyData(key);
             });
         }
 
-        public void Reset()
+        public void ClearCredentials()
         {
             _byAccount.Clear();
             _byAccount = new Dictionary<string, Keychain>();

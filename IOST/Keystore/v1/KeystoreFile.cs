@@ -2,8 +2,9 @@ namespace IOSTSdk.Keystore.v1
 {
     using System;
     using System.IO;
+    using System.Linq;
+    using IOSTSdk.Crypto;
     using Newtonsoft.Json;
-    
 
     internal class KeystoreFile : AbstractKeystore
     {
@@ -44,18 +45,63 @@ namespace IOSTSdk.Keystore.v1
             }
         }
 
-        public override void Store(KeystoreModel m)
+        public override void Store()
         {
-            if (File.Exists(_fpath))
-            {
-                File.Copy(_fpath, _fpath + ".backup");
-            }
+            Backup();
 
             using (var file = File.Open(_fpath, FileMode.OpenOrCreate))
             using (var writer = new StreamWriter(file))
             {
                 var serializer = new JsonSerializer();
-                serializer.Serialize(writer, m);
+                serializer.Serialize(writer, _keys);
+            }
+        }
+
+        public override void AddKey(SecureBytes password, string accountName, string label, SecureBytes privateKey)
+        {
+            byte[] cipher = null;
+            byte[] nonce = null;
+            privateKey.UseUnprotected(bb => (cipher, nonce) = SodiumXChaCha20Poly1305.Encrypt(password, bb));
+            var enckey = new EncryptedKey()
+            {
+                Label = label,
+                Cipher = $"{accountName}:{Convert.ToBase64String(cipher)}",
+                Nonce = Convert.ToBase64String(nonce)
+            };
+
+            var newkeys = new EncryptedKey[_keys.Keys.Length + 1];
+            Array.Copy(_keys.Keys, newkeys, _keys.Keys.Length);
+            newkeys[_keys.Keys.Length] = enckey;
+            _keys.Keys = newkeys;
+        }
+
+        public override void DeleteKey(string label, EncryptedKey enckey)
+        {
+            int index = -1;
+            for(int i=0; i<_keys.Keys.Length; i++)
+            {
+                var k = _keys.Keys[i];
+                if (enckey.Nonce == k.Nonce)
+                {
+                    index = i;
+                    break;
+                }
+            }
+
+            if (index >= 0)
+            {
+                _keys.Keys = _keys.Keys
+                                  .Where(x => (x.Nonce != enckey.Nonce) || (x.Label != enckey.Label))
+                                  .Select(x => x)
+                                  .ToArray();
+            }
+        }
+
+        protected void Backup()
+        {
+            if (File.Exists(_fpath))
+            {
+                File.Copy(_fpath, _fpath + ".backup");
             }
         }
     }

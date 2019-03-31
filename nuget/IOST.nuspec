@@ -6,7 +6,7 @@
         <id>IOST</id>
 
         <!-- The package version number that is used when resolving dependencies -->
-        <version>1.0.0</version>
+        <version>1.1.0-beta1</version>
 
         <!-- Authors contain text that appears directly on the gallery -->
         <authors>Saifuddin Migraso</authors>
@@ -57,6 +57,7 @@
                 <dependency id="Google.Protobuf" version="3.7.0" />
                 <dependency id="Google.Api.Gax.Grpc" version="2.6.0" />
                 <dependency id="Grpc.Core" version="1.19.0"/>
+                <dependency id="ChainPay" version="1.0.1" />
             </group>
             
             <group targetFramework="netstandard2.0">
@@ -68,6 +69,7 @@
                 <dependency id="Google.Protobuf" version="3.7.0" />
                 <dependency id="Google.Api.Gax.Grpc" version="2.6.0" />
                 <dependency id="Grpc.Core" version="1.19.0"/>
+                <dependency id="ChainPay" version="1.0.1" />
             </group>
         </dependencies>
     </metadata>

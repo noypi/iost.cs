@@ -35,7 +35,7 @@ namespace IOSTSdk
         /// <param name="initialRAM"></param>
         /// <returns></returns>
         public static Transaction CreateAccount(this Transaction tx, string name, string creator, string ownerkey, string activekey,
-                                      double initialGasPledge = 1000000, int initialRAM = 1024)
+                                      double initialGasPledge = 1, int initialRAM = 1024)
         {
             if (!ValidatePubKey(ownerkey) || !ValidatePubKey(activekey))
             {
@@ -43,8 +43,12 @@ namespace IOSTSdk
             }
 
             tx.AuthSignUp(name, ownerkey, activekey)
-              .RamBuy(creator, name, initialRAM)
-              .GasPledge(creator, name, initialGasPledge);
+              .RamBuy(creator, name, initialRAM);
+
+            if (!IsZero(initialGasPledge))
+            {
+                tx.GasPledge(creator, name, initialGasPledge);
+            }
 
             return tx;
         }
@@ -62,6 +66,11 @@ namespace IOSTSdk
                 bRet = false;
             }
             return bRet;
+        }
+
+        static bool IsZero(double d)
+        {
+            return (Math.Abs(d) < 0.00000001);
         }
     }
 }

@@ -1,6 +1,7 @@
 namespace IOSTSdk
 {
     using System;
+    using System.IO;
     using System.Text;
 
     public partial class IOST
@@ -13,7 +14,7 @@ namespace IOSTSdk
         /// <summary>
         /// Used to roundoff the value of coins
         /// </summary>
-        public static Func<double, double> MathRound { get; set; } = d => d;
+        public static Func<double, double> MathRound { get; set; } = d => Math.Round(d, 8);
 
         /// <summary>
         /// Hash function used to sign messages

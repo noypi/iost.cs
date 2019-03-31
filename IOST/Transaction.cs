@@ -1,8 +1,12 @@
 ﻿namespace IOSTSdk
 {
+    using System;
     using System.Text;
+    using ChainPay.Models;
+    using ChainPay;
     using global::IOSTSdk.Helpers;
-    
+    using System.IO;
+
     public class Transaction
     {
         public Options Options { get; internal set; }
@@ -114,6 +118,34 @@
               .Put(signature.Signature_.ToByteArray())
               .Put(signature.PublicKey.ToByteArray());
             return se.GetBytes();
+        }
+
+        public string CreateSignatureRequest(string tag, string transferMethod)
+        {
+            return ChainPay.CreateSignatureRequest<Rpcpb.TransactionRequest>(
+                    new SignatureRequest<Rpcpb.TransactionRequest>()
+                    {
+                        BlockchainCode = "IOST",
+                        BlockchainName = "Internet of Services Token",
+                        MessageHash = Convert.ToBase64String(IOST.CryptoHashSha3_256(BytesForSigning())),
+                        HashAlgo = "SHA3-256",
+                        Tag = tag,
+                        TransferDetails = TransactionRequest,
+                        TransferMethod = transferMethod
+                    });
+        }
+
+        public static SignatureRequest<Rpcpb.TransactionRequest> ReadSignatureRequest(StreamReader reader)
+        {
+            return ChainPay.ReadSignatureRequest<Rpcpb.TransactionRequest>(reader);
+        }
+
+        public string CreateSignatureResponse(SignatureResponse response)
+        {
+            response.BlockchainCode = "IOST";
+            response.BlockchainName = "Internet of Services Token";
+
+            return ChainPay.CreateSignatureResponse(response);
         }
     }
 }

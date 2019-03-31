@@ -18,7 +18,7 @@ namespace IOSTSdk.Keystore
 
         private static readonly string DEFAULT_KEYSTOREFILE_KEY = "DEFAULT_KEYSTORE_FILE";
             
-        private static Dictionary<string, Func<Options, AbstractKeystore>> _byName = new Dictionary<string, Func<Options, AbstractKeystore>>();
+        private static Dictionary<string, Func<Options, IKeystore>> _byName = new Dictionary<string, Func<Options, IKeystore>>();
 
         static Registry()
         {
@@ -31,12 +31,12 @@ namespace IOSTSdk.Keystore
             }
         }
 
-        public static void Register(string name, Func<Options, AbstractKeystore> constructor)
+        public static void Register(string name, Func<Options, IKeystore> constructor)
         {
             _byName[name] = constructor;
         }
 
-        public static AbstractKeystore Create(KeystoreType t, params string[] args)
+        public static IKeystore Create(KeystoreType t, params string[] args)
         {
             var opts = new Options(args);
 
@@ -95,9 +95,10 @@ namespace IOSTSdk.Keystore
 
         protected static AbstractKeystore New(string name, Options opts)
         {
-            return (!_byName.ContainsKey(name)) ?
-                            _byName[name](opts) :
-                            null;
+            var obj = (!_byName.ContainsKey(name)) ?
+                                _byName[name](opts) :
+                                null;
+            return (AbstractKeystore)obj;
         }
     }
 }

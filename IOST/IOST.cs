@@ -1,5 +1,6 @@
 namespace IOSTSdk
 {
+    using System;
     using System.Threading.Tasks;
 
     public partial class IOST
@@ -42,6 +43,11 @@ namespace IOSTSdk
                                {
                                    throw task.Exception;
                                }
+                               else if (task.Result.PreTxReceipt.StatusCode != Rpcpb.TxReceipt.Types.StatusCode.Success)
+                               {
+                                   throw new InvalidOperationException(task.Result.PreTxReceipt.Message);
+                               }
+                               
                                return task.Result?.Hash;
                            });
         }

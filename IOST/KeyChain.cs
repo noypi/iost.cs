@@ -19,11 +19,12 @@ namespace IOSTSdk
             _AccountName = accountName;
         }
 
-        public void AddKey(byte[] seckey, params string[] perm)
+        public void AddKey(SecureBytes seckey, params string[] perm)
         {
-            IAlgorithm algo = (seckey.Length == 64) ? _Ed25519 : _Secp256k1;
+            IAlgorithm algo = null;
+            seckey.UseUnprotected(pk => algo = (pk.Length == 64) ? _Ed25519 : _Secp256k1);
 
-            var keypair = new KeyPair(new SecureBytes(seckey), algo);
+            var keypair = new KeyPair(seckey, algo);
             foreach(var p in perm)
             {
                 _keys[p] = keypair;

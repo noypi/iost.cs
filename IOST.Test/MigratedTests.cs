@@ -55,8 +55,8 @@ namespace IOSTSdk.Test
 
             var kc = new Keychain("admin");
             kc.AddKey(
-                IOST.Base58Decode(
-                    ExamplePrivKey), 
+                new SecureBytes(IOST.Base58Decode(
+                    ExamplePrivKey)), 
                     "active");
 
             var tx = iost.NewTransaction()
@@ -75,8 +75,8 @@ namespace IOSTSdk.Test
 
             var kc = new Keychain("admin");
             kc.AddKey(
-                IOST.Base58Decode(
-                    ExampleAdminPrivKey),
+                new SecureBytes(IOST.Base58Decode(
+                    ExampleAdminPrivKey)),
                     "active");
 
             var adminPubkey = IOST.Base58Encode(kc.GetPublicKey("active"));

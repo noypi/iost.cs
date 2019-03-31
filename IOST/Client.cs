@@ -22,6 +22,7 @@ namespace IOSTSdk
         /// <summary>
         /// Testnet Blockchain explorer - http://54.249.186.224/
         /// Create a test account- http://54.249.186.224/applyIOST
+        /// API - http://13.52.105.102:30001
         /// </summary>
         /// <returns></returns>
         public static Client NewTestNet() => new Client(Channels.NewTestNet());

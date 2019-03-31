@@ -16,7 +16,7 @@ namespace IOSTSdk.Contract.Economic
         /// <param name="initialGasPledge">trims to 4 decimal places</param>
         public static Transaction GasPledge(this Transaction tx, string creator, string name, double initialGasPledge)
         {
-            var gas = Math.Round(initialGasPledge, 4).ToString();
+            var gas = IOST.MathRound(initialGasPledge).ToString();
             tx.AddAction(Gas.Cid, "pledge", creator, name, gas);
             return tx;
         }

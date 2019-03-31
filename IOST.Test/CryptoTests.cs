@@ -91,6 +91,7 @@ namespace IOSTSdk.Test
             Assert.AreEqual(password, result);
         }
 
+#if DEBUG
         [TestMethod]
         public void TestSecurePassword()
         {
@@ -104,5 +105,6 @@ namespace IOSTSdk.Test
             sec.InsertAt(1, 'b');
             Assert.AreEqual("abcd", sec.Unsecure(UnicodeEncoding.UTF8));
         }
+#endif
     }
 }
