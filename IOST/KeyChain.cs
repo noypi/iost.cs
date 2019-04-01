@@ -19,6 +19,12 @@ namespace IOSTSdk
             _AccountName = accountName;
         }
 
+        [Obsolete]
+        public void AddKey(byte[] privKey, params string[] perm)
+        {
+            AddKey(new SecureBytes(privKey), perm);
+        }
+
         public void AddKey(SecureBytes seckey, params string[] perm)
         {
             IAlgorithm algo = null;
@@ -32,6 +38,8 @@ namespace IOSTSdk
         }
 
         public byte[] GetPublicKey(string perm) => _keys[perm].PubKey;
+
+        public byte[] Sign(string perm, byte[] data) => _keys[perm].Sign(data);
 
         public void Sign(Transaction tx) => Sign(tx, "active");
 

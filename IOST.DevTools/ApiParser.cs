@@ -21,14 +21,15 @@ namespace IOSTSdk.DevTools
 
         private readonly HtmlNode _apiNode;
         private readonly string _apiPrefix;
+        private readonly ContractParser _parser;
         private HtmlNode _currentNode;
 
-        internal ApiParser(HtmlNode node, string cid)
+        internal ApiParser(HtmlNode node, string cid, ContractParser parser)
         {
+            _parser = parser;
             _apiNode = node;
             _currentNode = node;
-            _apiPrefix = cid.Replace(".iost", "");
-            _apiPrefix = Char.ToUpperInvariant(_apiPrefix[0]) + _apiPrefix.Substring(1);
+            _apiPrefix = _parser.GetClassName();
 
             Api = ExtractApiName(node.InnerText);
 

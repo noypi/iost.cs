@@ -23,7 +23,33 @@ namespace IOSTSdk
 
             return tx;
         }
-        
+
+        /// <summary>
+        /// Vote for a Servi Candidate
+        /// </summary>
+        /// <param name="tx"></param>
+        /// <param name="accountName"></param>
+        /// <param name="candidateName"></param>
+        /// <param name="numberOfVotes"></param>
+        /// <returns></returns>
+        public static Transaction VoteAServiCandidate(this Transaction tx, string accountName, string candidateName, string numberOfVotes)
+        {
+            return tx.VoteProducerVote(accountName, candidateName, numberOfVotes);
+        }
+
+        /// <summary>
+        /// Unvote for a Servi Candidate
+        /// </summary>
+        /// <param name="tx"></param>
+        /// <param name="accountName"></param>
+        /// <param name="candidateName"></param>
+        /// <param name="numberOfVotes"></param>
+        /// <returns></returns>
+        public static Transaction UnvoteAServiCandidate(this Transaction tx, string accountName, string candidateName, string numberOfVotes)
+        {
+            return tx.VoteProducerUnvote(accountName, candidateName, numberOfVotes);
+        }
+
         /// <summary>
         /// Creates a new account
         /// </summary>

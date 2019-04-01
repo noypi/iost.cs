@@ -35,6 +35,8 @@ namespace IOSTSdk.DevTools
             var desc = _parser.Description
                               .ReplaceNewLines("\r\n    /// ");
             var s =  "\r\n    /// <summary>" +
+                    $"\r\n    /// Contract ID: {_parser.Cid}" +
+                    $"\r\n    /// " +
                     $"\r\n    /// {desc}" +
                      "\r\n    /// " +
                     $"\r\n    /// Version: {_parser.Infos["language"]}" +
