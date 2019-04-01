@@ -44,7 +44,9 @@ namespace IOSTSdk
                                {
                                    throw task.Exception;
                                }
-                               else if (task.Result.PreTxReceipt.StatusCode != Rpcpb.TxReceipt.Types.StatusCode.Success)
+
+                               if ((task.Result.PreTxReceipt != null) &&
+                                   (task.Result.PreTxReceipt.StatusCode != Rpcpb.TxReceipt.Types.StatusCode.Success))
                                {
                                    throw new InvalidOperationException(task.Result.PreTxReceipt.Message);
                                }
