@@ -1,9 +1,11 @@
 namespace IOSTSdk
 {
     using System;
+    using System.IO;
     using IOSTSdk.Contract.Economic;
     using IOSTSdk.Contract.System;
     using IOSTSdk.Contract.Token;
+    using Newtonsoft.Json;
 
     public static class TxBuilderExt
     {
@@ -79,6 +81,62 @@ namespace IOSTSdk
             return tx;
         }
 
+        /// <summary>
+        /// Publish new contract 
+        /// </summary>
+        /// <param name="tx"></param>
+        /// <param name="contractID"></param>
+        /// <param name="abi"></param>
+        /// <param name="code"></param>
+        /// <returns></returns>
+        public static Transaction PublishContract(this Transaction tx, StreamReader abi, StreamReader code)
+        {
+            var scode = code.ReadLine();
+            var sabi = abi.ReadLine();
+            
+            var m = new
+            {
+                Code = scode,
+                Info = sabi
+            };
+
+            string json = JsonConvert.SerializeObject(m);
+            tx.SystemSetCode(json);
+
+            return tx;
+        }
+
+        /// <summary>
+        /// Updates the contract 
+        /// </summary>
+        /// <param name="tx"></param>
+        /// <param name="contractID"></param>
+        /// <param name="abi"></param>
+        /// <param name="code"></param>
+        /// <returns></returns>
+        public static Transaction UpdateContract(this Transaction tx, string contractID, StreamReader abi, StreamReader code)
+        {
+            var scode = code.ReadLine();
+            var sabi = abi.ReadLine();
+
+            var m = new
+            {
+                Id = contractID,
+                Code = scode,
+                Info = sabi
+            };
+
+            string json = JsonConvert.SerializeObject(m);
+            tx.SystemUpdateCode(json, "");
+
+            return tx;
+        }
+
+        /// <summary>
+        /// Validates public key
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
         static bool ValidatePubKey(string key)
         {
             bool bRet = false;
