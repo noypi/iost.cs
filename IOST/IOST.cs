@@ -2,6 +2,7 @@ namespace IOSTSdk
 {
     using System;
     using System.Threading.Tasks;
+    using IOSTSdk.Crypto;
 
     public partial class IOST
     {
@@ -60,6 +61,15 @@ namespace IOSTSdk
         public Task<Rpcpb.TxReceipt> Execute(Transaction tx)
         {
             return _client.ExecTransaction(tx.TransactionRequest);
+        }
+
+        /// <summary>
+        /// Generate a new keypair
+        /// </summary>
+        /// <returns>the new keypair</returns>
+        public KeyPair GenerateNewKeyPair()
+        {
+            return SodiumEd25519.NewKeyPair();
         }
     }
 }
