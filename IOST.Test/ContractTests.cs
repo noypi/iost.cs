@@ -1,6 +1,7 @@
 using IOSTSdk;
 using IOSTSdk.Crypto;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using IOSTSdk.Contract.Economic;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -23,37 +24,90 @@ namespace IOSTSdk.Test
                                                  IOST.CryptoGetPubkeyEd25519(new SecureBytes(IOST.Base58Decode(TestNetSaifsolo2PrivK))));
 
         static string HelloWorldJS =
-                        @"class HelloWorld {" +
-                        @"    init() {} // needs to provide an init function that will be called during deployment" +
-                        @"    hello(someone) {" +
-                        @"        return 'hello, ' + someone;" +
-                        @"    }" +
-                        @"}"+
-                        @"module.exports = HelloWorld;";
+                        "class HelloWorld {\r\n" +
+                        "    init() {} \r\n" +
+                        "    hello(someone) {\r\n" +
+                        "        return 'hello, ' + someone;\r\n" +
+                        "    } \r\n" +
+                        "} \r\n"+
+                        "module.exports = HelloWorld;\r\n";
 
         static string HelloWorldABI =
-                        @"{" +
-                        @"  'lang': 'javascript'," +
-                        @"  'version': '1.0.0'," +
-                        @"  'abi': [" +
-                        @"          {" +
-                        @"              'name' : 'hello'," +
-                        @"              'args' : [ 'string ' ]" +
-                        @"          }" +
-                        @"         ]" +
-                        @"}";
+                        "{" +
+                        "   \"lang\": \"javascript\"," +
+                        "   \"version\": \"1.0.1\"," +
+                        "   \"abi\": [" +
+                        "          {" +
+                        "              \"name\" : \"hello\"," +
+                        "              \"args\" : [ \"string\" ]" +
+                        "          }" +
+                        "         ]" +
+                        "}";
 
         Client _client = null;
         IOST _iost = null;
 
         [TestInitialize]
-        public async Task TestInitalize()
+        public void TestInitialize()
         {
             _client = new Client(_TestServerUrl);
             _iost = new IOST(_client, new Options { ExpirationInMillis = 5000 });
+        }
 
+        [TestMethod]
+        public async Task CreateTestAcount()
+        {
             var tx = _iost.NewTransaction()
-                         .CreateAccount("saifsolo2", "admin", TestNetSaifsolo2PubK, TestNetSaifsolo2PubK);
+                          .CreateAccount("saifsolo2", "admin", TestNetSaifsolo2PubK, TestNetSaifsolo2PubK, 1000, 10000)
+                          .Transfer("iost", "admin", "saifsolo2", 10000, "");
+
+            var kc = new Keychain("admin");
+            kc.AddKey(
+                new SecureBytes(IOST.Base58Decode(
+                    ExampleAdminPrivKey)),
+                    "active");
+            tx.AddApprove("*", "unlimited");
+            kc.Sign(tx);
+            var hash = await _iost.Send(tx);
+        }
+
+        [TestMethod]
+        public async Task PledgeGas()
+        {
+            var tx = _iost.NewTransaction()
+                         .GasPledge("saifsolo2", "saifsolo2", 1000);
+
+            var kc = new Keychain("saifsolo2");
+            kc.AddKey(
+                new SecureBytes(IOST.Base58Decode(
+                    TestNetSaifsolo2PrivK)),
+                    "active");
+            tx.AddApprove("*", "unlimited");
+            kc.Sign(tx);
+            var hash = await _iost.Send(tx);
+        }
+
+        [TestMethod]
+        public async Task BuyRam()
+        {
+            var tx = _iost.NewTransaction()
+                         .RamBuy("saifsolo2", "saifsolo2", 10000);
+
+            var kc = new Keychain("saifsolo2");
+            kc.AddKey(
+                new SecureBytes(IOST.Base58Decode(
+                    TestNetSaifsolo2PrivK)),
+                    "active");
+            tx.AddApprove("*", "unlimited");
+            kc.Sign(tx);
+            var hash = await _iost.Send(tx);
+        }
+
+        [TestMethod]
+        public async Task Transfer()
+        {
+            var tx = _iost.NewTransaction()
+                          .Transfer("iost", "admin", "saifsolo2", 10000, "");
 
             var kc = new Keychain("admin");
             kc.AddKey(
@@ -78,6 +132,33 @@ namespace IOSTSdk.Test
             using (var readerAbi = new StreamReader(memAbi))
             {
                 tx.PublishContract(readerAbi, readerJs);
+            }
+
+            var kc = new Keychain("saifsolo2");
+            kc.AddKey(
+                new SecureBytes(IOST.Base58Decode(
+                    TestNetSaifsolo2PrivK)),
+                    "active");
+            tx.AddApprove("*", "unlimited");
+            kc.Sign(tx);
+            var hash = await _iost.Send(tx);
+
+            Debug.WriteLine("hash: ", hash);
+        }
+
+        [TestMethod]
+        public async Task TestUpdateContract()
+        {
+            var client = new Client(_TestServerUrl);
+            var iost = new IOST(client);
+            var tx = iost.NewTransaction();
+
+            using (var memJs = new MemoryStream(UnicodeEncoding.UTF8.GetBytes(HelloWorldJS)))
+            using (var readerJs = new StreamReader(memJs))
+            using (var memAbi = new MemoryStream(UnicodeEncoding.UTF8.GetBytes(HelloWorldABI)))
+            using (var readerAbi = new StreamReader(memAbi))
+            {
+                tx.UpdateContract("ContractEQ5dZ8TWGHER4CUMWDg2v6yveRrNKwnpAFEF9YjCpfQA", readerAbi, readerJs);
             }
 
             var kc = new Keychain("saifsolo2");

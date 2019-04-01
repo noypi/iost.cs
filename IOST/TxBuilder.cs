@@ -83,6 +83,8 @@ namespace IOSTSdk
 
         /// <summary>
         /// Publish new contract 
+        ///    - the new contract will be ID is the "Contract" + transaction hash
+        ///      example: ContractEQ5dZ8TWGHER4CUMWDg2v6yveRrNKwnpAFEF9YjCpfQA
         /// </summary>
         /// <param name="tx"></param>
         /// <param name="contractID"></param>
@@ -91,13 +93,13 @@ namespace IOSTSdk
         /// <returns></returns>
         public static Transaction PublishContract(this Transaction tx, StreamReader abi, StreamReader code)
         {
-            var scode = code.ReadLine();
-            var sabi = abi.ReadLine();
+            var scode = code.ReadToEnd();
+            var sabi = abi.ReadToEnd();
             
             var m = new
             {
-                Code = scode,
-                Info = sabi
+                code = scode,
+                info = JsonConvert.DeserializeObject(sabi)
             };
 
             string json = JsonConvert.SerializeObject(m);
@@ -113,21 +115,25 @@ namespace IOSTSdk
         /// <param name="contractID"></param>
         /// <param name="abi"></param>
         /// <param name="code"></param>
+        /// <param name="updateID">
+        ///     parameter passed to can_update(updateID).
+        ///     can_update() is the javascript method called when trying to update.
+        /// </param>
         /// <returns></returns>
-        public static Transaction UpdateContract(this Transaction tx, string contractID, StreamReader abi, StreamReader code)
+        public static Transaction UpdateContract(this Transaction tx, string contractID, StreamReader abi, StreamReader code, string updateID)
         {
-            var scode = code.ReadLine();
-            var sabi = abi.ReadLine();
+            var scode = code.ReadToEnd();
+            var sabi = abi.ReadToEnd();
 
             var m = new
             {
-                Id = contractID,
-                Code = scode,
-                Info = sabi
+                ID = contractID,
+                code = scode,
+                info = JsonConvert.DeserializeObject(sabi)
             };
 
             string json = JsonConvert.SerializeObject(m);
-            tx.SystemUpdateCode(json, "");
+            tx.SystemUpdateCode(json, updateID);
 
             return tx;
         }
