@@ -10,8 +10,9 @@
 - Implements all APIs
 - Implements all queries to IOST contracts: System, Economic, and Token
 
-### Using the System Contract
+### Using the IOST Contracts
 
+#### System Contract
 ```C#
     using IOSTSdk.Contract.System;
     ...
@@ -19,7 +20,7 @@
                  .AuthSignUp(...);
 ```
 
-### Using the Economic Contract
+#### Economic Contract
 
 ```C#
     using IOSTSdk.Contract.Economic;
@@ -28,7 +29,7 @@
                  .RamBuy(...);
 ```
 
-### Using the Token Contract
+#### Token Contract
 
 ```C#
     using IOSTSdk.Contract.Token;
@@ -39,12 +40,42 @@
 
 ### Some common transactions in TxBuilder
 
+#### Creating a new account
+
 ```C#
-    using IOSTSdk;
-    ...
-    tx.NewAccount(...)
-    ...
-    tx.Transfer(...)
+	var client = Client.NewKorea();
+	var iost = new IOST(client, new Options { ExpirationInMillis = 5000 });
+
+	var tx = iost.NewTransaction()
+				 .CreateAccount(newAccountName, creatorsName, newAccountPublicKey, newAccountPublicKey);
+	
+	var kc = new Keychain(creatorsName);
+    
+	kc.AddKey(
+		new SecureBytes(IOST.Base58Decode(
+			creatorsPrivateKeyInBase58)),
+			"active");
+	tx.AddApprove("*", "unlimited");
+	kc.Sign(tx);
+	var hash = await iost.Send(tx);
+```
+
+#### Transfer IOST
+```C#
+	var client = Client.NewJapan();
+	var iost = new IOST(client, new Options { ExpirationInMillis = 5000 });
+
+	var tx = iost.NewTransaction()
+				 .Transfer("iost", fromAccountName, toAccountName, amount, "");
+
+	var kc = new Keychain(fromAccountName);
+	kc.AddKey(
+		new SecureBytes(IOST.Base58Decode(
+			fromAccountsPrivateKeyBase58)),
+			"active");
+
+	kc.Sign(tx);
+	var hash = await iost.Send(tx);
 ```
 
 ### Buy me a pizza
