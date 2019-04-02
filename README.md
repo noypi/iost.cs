@@ -47,7 +47,7 @@
 	var iost = new IOST(client, new Options { ExpirationInMillis = 5000 });
 
 	var tx = iost.NewTransaction()
-				 .CreateAccount(newAccountName, creatorsName, newAccountPublicKey, newAccountPublicKey);
+	             .CreateAccount(newAccountName, creatorsName, newAccountPublicKey, newAccountPublicKey);
 	
 	var kc = new Keychain(creatorsName);
     
@@ -66,7 +66,7 @@
 	var iost = new IOST(client, new Options { ExpirationInMillis = 5000 });
 
 	var tx = iost.NewTransaction()
-				 .Transfer("iost", fromAccountName, toAccountName, amount, "");
+		     .Transfer("iost", fromAccountName, toAccountName, amount, "");
 
 	var kc = new Keychain(fromAccountName);
 	kc.AddKey(
