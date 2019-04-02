@@ -6,7 +6,7 @@
         <id>IOST</id>
 
         <!-- The package version number that is used when resolving dependencies -->
-        <version>1.1.0-beta4</version>
+        <version>1.1.0-beta5</version>
 
         <!-- Authors contain text that appears directly on the gallery -->
         <authors>Saifuddin Migraso</authors>
@@ -95,6 +95,6 @@
         <file src="..\IOST.Net45\bin\x86\Release\IOST.dll" target="lib\net45\IOST.dll" />
         <file src="..\IOST.Net45\bin\x86\Release\IOST.xml" target="lib\net45\IOST.xml" />
         
-        <file src="readme.txt" target="" />
+        <file src="Readme.txt" target="" />
     </files>
 </package>

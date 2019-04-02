@@ -11,7 +11,7 @@ namespace IOSTSdk.Keystore
         FromNative
     }
 
-    public class Registry
+    public class KeystoreRegistry
     {
         public static readonly string KEYSTOREFILE_KEY_PREFIX = "keystore file v";
         public static readonly string KEYSTORENATIVE_KEY = "keystore native";
@@ -20,7 +20,7 @@ namespace IOSTSdk.Keystore
             
         private static Dictionary<string, Func<Options, IKeystore>> _byName = new Dictionary<string, Func<Options, IKeystore>>();
 
-        static Registry()
+        static KeystoreRegistry()
         {
             Register($"{KEYSTOREFILE_KEY_PREFIX}{v1.KeystoreFile.VERSION}", opts => new v1.KeystoreFile(opts));
             Register(DEFAULT_KEYSTOREFILE_KEY, opts => new v1.KeystoreFile(opts));
@@ -76,7 +76,7 @@ namespace IOSTSdk.Keystore
             {
                 var serializer = new JsonSerializer();
                 var kf = serializer.Deserialize(rdr, typeof(KeystoreFile)) as KeystoreFile;
-                version = kf.Version;
+                version = kf?.Version ?? "1.0";
             }
 
             var ks = New($"{KEYSTOREFILE_KEY_PREFIX}{version}", opts);
@@ -95,7 +95,7 @@ namespace IOSTSdk.Keystore
 
         protected static AbstractKeystore New(string name, Options opts)
         {
-            var obj = (!_byName.ContainsKey(name)) ?
+            var obj = (_byName.ContainsKey(name)) ?
                                 _byName[name](opts) :
                                 null;
             return (AbstractKeystore)obj;

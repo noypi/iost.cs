@@ -20,26 +20,35 @@
 
         public void InsertAt(int i, char c)
         {
+            char[] cs = { c };
+            InsertAt(i, UnicodeEncoding.UTF8.GetBytes(cs));
+        }
+
+        public void InsertAt(int i, byte[] bb)
+        {
             byte[] unprotected = (_protected != null) ?
                                         Unprotect() :
-                                        unprotected = new byte[] {};
+                                        unprotected = new byte[] { };
 
-            byte[] newdata = new byte[unprotected.Length + 1];
+            byte[] newdata = new byte[unprotected.Length + bb.Length];
             if (i < 0)
             {
                 // do append
                 i = unprotected.Length;
             }
+            // prepend
             Array.Copy(unprotected, 0, newdata, 0, i);
-            newdata[i] = (byte)c;
-            Array.Copy(unprotected, i, newdata, i+1, unprotected.Length - i);
+            // insert data
+            Array.Copy(bb, 0, newdata, i, bb.Length);
+            // append last part
+            Array.Copy(unprotected, i, newdata, i + bb.Length, unprotected.Length - i);
 
             _protected = ProtectedData.Protect(newdata, _entropy, DataProtectionScope.CurrentUser);
             DataHelper.DestroyData(unprotected);
             DataHelper.DestroyData(newdata);
         }
 
-        public SecureBytes ToSecureBytes(Encoding encoding)
+        public SecureBytes ToSecureBytes()
         {
             var bb = Unprotect();
             var secbb = new SecureBytes(bb);

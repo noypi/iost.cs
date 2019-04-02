@@ -9,5 +9,6 @@ namespace IOSTSdk.Keystore
         void Store();
         void ClearCredentials();
         void Use(EncryptedKey enckey, SecureBytes password);
+        EncryptedKey[] EncryptedKeys { get; }
     }
 }

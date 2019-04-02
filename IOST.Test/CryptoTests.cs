@@ -84,6 +84,12 @@ namespace IOSTSdk.Test
 
             sec.InsertAt(1, 'b');
             Assert.AreEqual("abcd", sec.Unsecure(UnicodeEncoding.UTF8));
+
+            sec.Append('?');
+            Assert.AreEqual("abcd?", sec.Unsecure(UnicodeEncoding.UTF8));
+
+            sec.InsertAt(2, '?');
+            Assert.AreEqual("ab?cd?", sec.Unsecure(UnicodeEncoding.UTF8));
         }
 #endif
     }

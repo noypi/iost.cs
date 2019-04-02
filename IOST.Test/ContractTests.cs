@@ -158,7 +158,7 @@ namespace IOSTSdk.Test
             using (var memAbi = new MemoryStream(UnicodeEncoding.UTF8.GetBytes(HelloWorldABI)))
             using (var readerAbi = new StreamReader(memAbi))
             {
-                tx.UpdateContract("ContractEQ5dZ8TWGHER4CUMWDg2v6yveRrNKwnpAFEF9YjCpfQA", readerAbi, readerJs);
+                tx.UpdateContract("ContractEQ5dZ8TWGHER4CUMWDg2v6yveRrNKwnpAFEF9YjCpfQA", readerAbi, readerJs, "");
             }
 
             var kc = new Keychain("saifsolo2");

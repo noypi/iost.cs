@@ -1,3 +1,11 @@
+IOST-1.1.0
+- Read / write a keystore file
+- Generate a signature request
+- Rename contract APIs remove "_" underscore, example Vote_producerXXX to VoteProducer
+- Implement SecurePassword
+- CreateAccount will have 1 IOST as default gas pledge
+- Fix null exception during Send() when receipt is null
+
 IOST-1.0.0
 - Implement all APIs
 - Implement all contracts: System, Economic, Token

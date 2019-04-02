@@ -83,7 +83,8 @@ namespace IOSTSdk
 
         /// <summary>
         /// Publish new contract 
-        ///    - the new contract will be ID is the "Contract" + transaction hash
+        ///    - will call the init() javascript function
+        ///    - the new contract's ID is "Contract" + transaction hash
         ///      example: ContractEQ5dZ8TWGHER4CUMWDg2v6yveRrNKwnpAFEF9YjCpfQA
         /// </summary>
         /// <param name="tx"></param>
@@ -110,6 +111,7 @@ namespace IOSTSdk
 
         /// <summary>
         /// Updates the contract 
+        ///   - will call the can_update(updateID) javascript function
         /// </summary>
         /// <param name="tx"></param>
         /// <param name="contractID"></param>

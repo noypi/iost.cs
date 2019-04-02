@@ -36,7 +36,11 @@ namespace IOSTSdk.Keystore.v1
             using (var rdr = new StreamReader(file))
             {
                 var serializer = new JsonSerializer();
-                var m = serializer.Deserialize(rdr, typeof(KeystoreModel)) as KeystoreModel;
+                var m = serializer.Deserialize(rdr, typeof(KeystoreModel)) as KeystoreModel
+                            ?? new KeystoreModel()
+                               {
+                                   Version = "1.0"
+                               };
                 if (m.Version != VERSION)
                 {
                     throw new ArgumentException($"was expected {VERSION}, current file is {m.Version}.");
@@ -52,8 +56,8 @@ namespace IOSTSdk.Keystore.v1
             using (var file = File.Open(_fpath, FileMode.OpenOrCreate))
             using (var writer = new StreamWriter(file))
             {
-                var serializer = new JsonSerializer();
-                serializer.Serialize(writer, _keys);
+                var json = JsonConvert.SerializeObject(_keys, Formatting.Indented);
+                writer.WriteLine(json);
             }
         }
 
