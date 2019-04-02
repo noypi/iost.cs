@@ -38,7 +38,7 @@
                  .TokenTransfer(...);
 ```
 
-### Some common transactions in TxBuilder
+### Examples
 
 #### Creating a new account
 
