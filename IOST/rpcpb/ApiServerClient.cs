@@ -109,7 +109,23 @@
                                                                                                 "GetProducerVoteInfo",
                                                                                                 __Marshaller_GetProducerVoteInfoRequest(),
                                                                                                 __Marshaller_GetProducerVoteInfoResponse());
-        
+
+        private static readonly
+            Func<Method<GetAccountRequest, CandidateBonus>> __Method_GetCandidateBonus = () => new Method<GetAccountRequest, CandidateBonus>(
+                                                                                                MethodType.Unary,
+                                                                                                "rpcpb.ApiService",
+                                                                                                "GetCandidateBonus",
+                                                                                                __Marshaller_GetAccountRequest(),
+                                                                                                __Marshaller_CandidateBonus());
+
+        private static readonly
+            Func<Method<GetAccountRequest, VoterBonus>> __Method_GetVoterBonus = () => new Method<GetAccountRequest, VoterBonus>(
+                                                                                                MethodType.Unary,
+                                                                                                "rpcpb.ApiService",
+                                                                                                "GetVoterBonus",
+                                                                                                __Marshaller_GetAccountRequest(),
+                                                                                                __Marshaller_VoterBonus());
+
         private static readonly
             Func<Method<TransactionRequest, SendTransactionResponse>> __Method_SendTransaction = () => new Method<TransactionRequest, SendTransactionResponse>(
                                                                                                 MethodType.Unary,
@@ -124,6 +140,22 @@
                                                                                                 "ExecTransaction",
                                                                                                 __Marshaller_TransactionRequest(),
                                                                                                 __Marshaller_TxReceipt());
+
+        private static readonly
+            Func<Method<SubscribeRequest, SubscribeResponse>> __Method_Subscribe = () => new Method<SubscribeRequest, SubscribeResponse>(
+                                                                                        MethodType.Unary,
+                                                                                        "rpcpb.ApiService",
+                                                                                        "Subscribe",
+                                                                                        __Marshaller_SubscribeRequest(),
+                                                                                        __Marshaller_SubscribeResponse());
+
+        private static readonly
+            Func<Method<GetTokenInfoRequest, TokenInfo>> __Method_GetTokenInfo = () => new Method<GetTokenInfoRequest, TokenInfo>(
+                                                                                        MethodType.Unary,
+                                                                                        "rpcpb.ApiService",
+                                                                                        "GetTokenInfo",
+                                                                                        __Marshaller_GetTokenInfoRequest(),
+                                                                                        __Marshaller_TokenInfo());
 
         // Marshallers
 
@@ -174,6 +206,15 @@
                                                                                                 arg => MessageExtensions.ToByteArray(arg),
                                                                                                 TransactionRequest.Parser.ParseFrom);
 
+        private static readonly
+            Func<Marshaller<SubscribeRequest>> __Marshaller_SubscribeRequest = () => Marshallers.Create<SubscribeRequest>(
+                                                                                                arg => MessageExtensions.ToByteArray(arg),
+                                                                                                SubscribeRequest.Parser.ParseFrom);
+
+        private static readonly
+            Func<Marshaller<GetTokenInfoRequest>> __Marshaller_GetTokenInfoRequest = () => Marshallers.Create<GetTokenInfoRequest>(
+                                                                                                arg => MessageExtensions.ToByteArray(arg),
+                                                                                                GetTokenInfoRequest.Parser.ParseFrom);
         // responses
         private static readonly
             Func<Marshaller<NodeInfoResponse>> __Marshaller_NodeInfoResponse = () => Marshallers.Create<NodeInfoResponse>(
@@ -231,9 +272,29 @@
                                                                                 GetProducerVoteInfoResponse.Parser.ParseFrom);
 
         private static readonly
+            Func<Marshaller<CandidateBonus>> __Marshaller_CandidateBonus = () => Marshallers.Create<CandidateBonus>(
+                                                                                arg => MessageExtensions.ToByteArray(arg),
+                                                                                CandidateBonus.Parser.ParseFrom);
+
+        private static readonly
+            Func<Marshaller<VoterBonus>> __Marshaller_VoterBonus = () => Marshallers.Create<VoterBonus>(
+                                                                                arg => MessageExtensions.ToByteArray(arg),
+                                                                                VoterBonus.Parser.ParseFrom);
+
+        private static readonly
             Func<Marshaller<SendTransactionResponse>> __Marshaller_SendTransactionResponse = () => Marshallers.Create<SendTransactionResponse>(
                                                                                 arg => MessageExtensions.ToByteArray(arg),
                                                                                 SendTransactionResponse.Parser.ParseFrom);
+
+        private static readonly
+            Func<Marshaller<SubscribeResponse>> __Marshaller_SubscribeResponse = () => Marshallers.Create<SubscribeResponse>(
+                                                                                arg => MessageExtensions.ToByteArray(arg),
+                                                                                SubscribeResponse.Parser.ParseFrom);
+
+        private static readonly
+            Func<Marshaller<TokenInfo>> __Marshaller_TokenInfo = () => Marshallers.Create<TokenInfo>(
+                                                                                arg => MessageExtensions.ToByteArray(arg),
+                                                                                TokenInfo.Parser.ParseFrom);
 
         private readonly string _host = null;
         private Channel _channel = null;
@@ -333,6 +394,16 @@
             return CallInvoker.AsyncUnaryCall<GetProducerVoteInfoRequest, GetProducerVoteInfoResponse>(__Method_GetProducerVoteInfo(), _host, options, request);
         }
 
+        public AsyncUnaryCall<CandidateBonus> GetCandidateBonus(GetAccountRequest request, CallOptions options)
+        {
+            return CallInvoker.AsyncUnaryCall<GetAccountRequest, CandidateBonus>(__Method_GetCandidateBonus(), _host, options, request);
+        }
+
+        public AsyncUnaryCall<VoterBonus> GetVoterBonus(GetAccountRequest request, CallOptions options)
+        {
+            return CallInvoker.AsyncUnaryCall<GetAccountRequest, VoterBonus>(__Method_GetVoterBonus(), _host, options, request);
+        }
+
         public AsyncUnaryCall<SendTransactionResponse> SendTransaction(TransactionRequest request, CallOptions options)
         {
             return CallInvoker.AsyncUnaryCall<TransactionRequest, SendTransactionResponse>(__Method_SendTransaction(), _host, options, request);
@@ -341,6 +412,16 @@
         public AsyncUnaryCall<TxReceipt> ExecTransaction(TransactionRequest request, CallOptions options)
         {
             return CallInvoker.AsyncUnaryCall<TransactionRequest, TxReceipt>(__Method_ExecTransaction(), _host, options, request);
+        }
+
+        public AsyncUnaryCall<SubscribeResponse> Subscribe(SubscribeRequest request, CallOptions options)
+        {
+            return CallInvoker.AsyncUnaryCall<SubscribeRequest, SubscribeResponse>(__Method_Subscribe(), _host, options, request);
+        }
+
+        public AsyncUnaryCall<TokenInfo> GetTokenInfo(GetTokenInfoRequest request, CallOptions options)
+        {
+            return CallInvoker.AsyncUnaryCall<GetTokenInfoRequest, TokenInfo>(__Method_GetTokenInfo(), _host, options, request);
         }
 
         protected override ApiServerClient NewInstance(ClientBaseConfiguration configuration)

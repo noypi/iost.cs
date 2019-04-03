@@ -76,7 +76,7 @@ namespace IOSTSdk
                        .ResponseAsync;
         }
 
-        public Task<Account> GetBlockByNumber(GetAccountRequest request)
+        public Task<Account> GetAccount(GetAccountRequest request)
         {
             return _asc.GetAccount(request, new CallOptions { })
                        .ResponseAsync;
@@ -112,6 +112,18 @@ namespace IOSTSdk
                        .ResponseAsync;
         }
 
+        public Task<CandidateBonus> GetCandidateBonus(GetAccountRequest request)
+        {
+            return _asc.GetCandidateBonus(request, new CallOptions { })
+                       .ResponseAsync;
+        }
+
+        public Task<VoterBonus> GetVoterBonus(GetAccountRequest request)
+        {
+            return _asc.GetVoterBonus(request, new CallOptions { })
+                       .ResponseAsync;
+        }
+
         public Task<SendTransactionResponse> SendTransaction(TransactionRequest request)
         {
             return _asc.SendTransaction(request, new CallOptions { })
@@ -121,6 +133,18 @@ namespace IOSTSdk
         public Task<TxReceipt> ExecTransaction(TransactionRequest request)
         {
             return _asc.ExecTransaction(request, new CallOptions { })
+                       .ResponseAsync;
+        }
+
+        public Task<SubscribeResponse> Subscribe(SubscribeRequest request)
+        {
+            return _asc.Subscribe(request, new CallOptions { })
+                       .ResponseAsync;
+        }
+
+        public Task<TokenInfo> GetTokenInfo(GetTokenInfoRequest request)
+        {
+            return _asc.GetTokenInfo(request, new CallOptions { })
                        .ResponseAsync;
         }
 
