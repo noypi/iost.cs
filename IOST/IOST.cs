@@ -1,6 +1,7 @@
 namespace IOSTSdk
 {
     using System;
+    using System.Collections.Generic;
     using System.Threading.Tasks;
     using IOSTSdk.Crypto;
 
@@ -72,6 +73,23 @@ namespace IOSTSdk
         public KeyPair GenerateNewKeyPair()
         {
             return SodiumEd25519.NewKeyPair();
+        }
+
+        /// <summary>
+        /// Gets at most 256 producers
+        /// </summary>
+        /// <returns></returns>
+        public Task<IList<string>> GetProducers256()
+        {
+            return _client.GetContractStorageFields(new Rpcpb.GetContractStorageFieldsRequest()
+                            {
+                                ByLongestChain = true,
+                                Key = "producerTable",
+                                Id = Contract.System.VoteProducer.Cid
+                            }).ContinueWith<IList<string>>(t => 
+                            {
+                                return t.Result.Fields;
+                            });
         }
     }
 }

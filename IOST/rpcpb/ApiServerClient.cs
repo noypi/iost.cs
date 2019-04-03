@@ -23,6 +23,21 @@
                                                                                                 "GetChainInfo",
                                                                                                 __Marshaller_EmptyRequest(),
                                                                                                 __Marshaller_ChainInfoResponse());
+
+        private static readonly
+            Func<Method<EmptyRequest, RAMInfoResponse>> __Method_GetRAMInfo = () => new Method<EmptyRequest, RAMInfoResponse>(
+                                                                                                MethodType.Unary,
+                                                                                                "rpcpb.ApiService",
+                                                                                                "GetRAMInfo",
+                                                                                                __Marshaller_EmptyRequest(),
+                                                                                                __Marshaller_RAMInfoResponse());
+        private static readonly
+            Func<Method<EmptyRequest, GasRatioResponse>> __Method_GetGasRatio = () => new Method<EmptyRequest, GasRatioResponse>(
+                                                                                                MethodType.Unary,
+                                                                                                "rpcpb.ApiService",
+                                                                                                "GetGasRatio",
+                                                                                                __Marshaller_EmptyRequest(),
+                                                                                                __Marshaller_GasRatioResponse());
         private static readonly
             Func<Method<TxHashRequest, TransactionResponse>> __Method_GetTxByHash = () => new Method<TxHashRequest, TransactionResponse>(
                                                                                                 MethodType.Unary,
@@ -81,6 +96,21 @@
                                                                                                 __Marshaller_GetContractStorageRequest(),
                                                                                                 __Marshaller_GetContractStorageResponse());
         private static readonly
+            Func<Method<GetContractStorageFieldsRequest, GetContractStorageFieldsResponse>> __Method_GetContractStorageFields = () => new Method<GetContractStorageFieldsRequest, GetContractStorageFieldsResponse>(
+                                                                                                MethodType.Unary,
+                                                                                                "rpcpb.ApiService",
+                                                                                                "GetContractStorageFields",
+                                                                                                __Marshaller_GetContractStorageFieldsRequest(),
+                                                                                                __Marshaller_GetContractStorageFieldsResponse());
+        private static readonly
+            Func<Method<GetProducerVoteInfoRequest, GetProducerVoteInfoResponse>> __Method_GetProducerVoteInfo = () => new Method<GetProducerVoteInfoRequest, GetProducerVoteInfoResponse>(
+                                                                                                MethodType.Unary,
+                                                                                                "rpcpb.ApiService",
+                                                                                                "GetProducerVoteInfo",
+                                                                                                __Marshaller_GetProducerVoteInfoRequest(),
+                                                                                                __Marshaller_GetProducerVoteInfoResponse());
+        
+        private static readonly
             Func<Method<TransactionRequest, SendTransactionResponse>> __Method_SendTransaction = () => new Method<TransactionRequest, SendTransactionResponse>(
                                                                                                 MethodType.Unary,
                                                                                                 "rpcpb.ApiService",
@@ -131,6 +161,15 @@
                                                                                                 arg => MessageExtensions.ToByteArray(arg),
                                                                                                 GetContractStorageRequest.Parser.ParseFrom);
         private static readonly
+            Func<Marshaller<GetContractStorageFieldsRequest>> __Marshaller_GetContractStorageFieldsRequest = () => Marshallers.Create<GetContractStorageFieldsRequest>(
+                                                                                                arg => MessageExtensions.ToByteArray(arg),
+                                                                                                GetContractStorageFieldsRequest.Parser.ParseFrom);
+        private static readonly
+            Func<Marshaller<GetProducerVoteInfoRequest>> __Marshaller_GetProducerVoteInfoRequest = () => Marshallers.Create<GetProducerVoteInfoRequest>(
+                                                                                        arg => MessageExtensions.ToByteArray(arg),
+                                                                                        GetProducerVoteInfoRequest.Parser.ParseFrom);
+
+        private static readonly
             Func<Marshaller<TransactionRequest>> __Marshaller_TransactionRequest = () => Marshallers.Create<TransactionRequest>(
                                                                                                 arg => MessageExtensions.ToByteArray(arg),
                                                                                                 TransactionRequest.Parser.ParseFrom);
@@ -144,6 +183,15 @@
             Func<Marshaller<ChainInfoResponse>> __Marshaller_ChainInfoResponse = () => Marshallers.Create<ChainInfoResponse>(
                                                                                                 arg => MessageExtensions.ToByteArray(arg),
                                                                                                 ChainInfoResponse.Parser.ParseFrom);
+        private static readonly
+    Func<Marshaller<RAMInfoResponse>> __Marshaller_RAMInfoResponse = () => Marshallers.Create<RAMInfoResponse>(
+                                                                                        arg => MessageExtensions.ToByteArray(arg),
+                                                                                        RAMInfoResponse.Parser.ParseFrom);
+
+        private static readonly
+            Func<Marshaller<GasRatioResponse>> __Marshaller_GasRatioResponse = () => Marshallers.Create<GasRatioResponse>(
+                                                                                        arg => MessageExtensions.ToByteArray(arg),
+                                                                                        GasRatioResponse.Parser.ParseFrom);
         private static readonly
             Func<Marshaller<TransactionResponse>> __Marshaller_TransactionResponse = () => Marshallers.Create<TransactionResponse>(
                                                                                                 arg => MessageExtensions.ToByteArray(arg),
@@ -172,6 +220,16 @@
             Func<Marshaller<GetContractStorageResponse>> __Marshaller_GetContractStorageResponse = () => Marshallers.Create<GetContractStorageResponse>(
                                                                                 arg => MessageExtensions.ToByteArray(arg),
                                                                                 GetContractStorageResponse.Parser.ParseFrom);
+        private static readonly
+            Func<Marshaller<GetContractStorageFieldsResponse>> __Marshaller_GetContractStorageFieldsResponse = () => Marshallers.Create<GetContractStorageFieldsResponse>(
+                                                                                arg => MessageExtensions.ToByteArray(arg),
+                                                                                GetContractStorageFieldsResponse.Parser.ParseFrom);
+
+        private static readonly
+            Func<Marshaller<GetProducerVoteInfoResponse>> __Marshaller_GetProducerVoteInfoResponse = () => Marshallers.Create<GetProducerVoteInfoResponse>(
+                                                                                arg => MessageExtensions.ToByteArray(arg),
+                                                                                GetProducerVoteInfoResponse.Parser.ParseFrom);
+
         private static readonly
             Func<Marshaller<SendTransactionResponse>> __Marshaller_SendTransactionResponse = () => Marshallers.Create<SendTransactionResponse>(
                                                                                 arg => MessageExtensions.ToByteArray(arg),
@@ -215,6 +273,16 @@
             return CallInvoker.AsyncUnaryCall<EmptyRequest, ChainInfoResponse>(__Method_GetChainInfo(), _host, options, new EmptyRequest());
         }
 
+        public AsyncUnaryCall<RAMInfoResponse> GetRamInfo(CallOptions options)
+        {
+            return CallInvoker.AsyncUnaryCall<EmptyRequest, RAMInfoResponse>(__Method_GetRAMInfo(), _host, options, new EmptyRequest());
+        }
+
+        public AsyncUnaryCall<GasRatioResponse> GetGasRatio(CallOptions options)
+        {
+            return CallInvoker.AsyncUnaryCall<EmptyRequest, GasRatioResponse>(__Method_GetGasRatio(), _host, options, new EmptyRequest());
+        }
+        
         public AsyncUnaryCall<TransactionResponse> GetTxByHash(TxHashRequest request, CallOptions options)
         {
             return CallInvoker.AsyncUnaryCall<TxHashRequest, TransactionResponse>(__Method_GetTxByHash(), _host, options, request);
@@ -253,6 +321,16 @@
         public AsyncUnaryCall<GetContractStorageResponse> GetContractStorage(GetContractStorageRequest request, CallOptions options)
         {
             return CallInvoker.AsyncUnaryCall<GetContractStorageRequest, GetContractStorageResponse>(__Method_GetContractStorage(), _host, options, request);
+        }
+
+        public AsyncUnaryCall<GetContractStorageFieldsResponse> GetContractStorageFields(GetContractStorageFieldsRequest request, CallOptions options)
+        {
+            return CallInvoker.AsyncUnaryCall<GetContractStorageFieldsRequest, GetContractStorageFieldsResponse>(__Method_GetContractStorageFields(), _host, options, request);
+        }
+
+        public AsyncUnaryCall<GetProducerVoteInfoResponse> GetProducerVoteInfo(GetProducerVoteInfoRequest request, CallOptions options)
+        {
+            return CallInvoker.AsyncUnaryCall<GetProducerVoteInfoRequest, GetProducerVoteInfoResponse>(__Method_GetProducerVoteInfo(), _host, options, request);
         }
 
         public AsyncUnaryCall<SendTransactionResponse> SendTransaction(TransactionRequest request, CallOptions options)

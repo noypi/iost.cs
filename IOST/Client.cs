@@ -100,6 +100,18 @@ namespace IOSTSdk
                        .ResponseAsync;
         }
 
+        public Task<GetContractStorageFieldsResponse> GetContractStorageFields(GetContractStorageFieldsRequest request)
+        {
+            return _asc.GetContractStorageFields(request, new CallOptions { })
+                       .ResponseAsync;
+        }
+
+        public Task<GetProducerVoteInfoResponse> GetProducerVoteInfo(GetProducerVoteInfoRequest request)
+        {
+            return _asc.GetProducerVoteInfo(request, new CallOptions { })
+                       .ResponseAsync;
+        }
+
         public Task<SendTransactionResponse> SendTransaction(TransactionRequest request)
         {
             return _asc.SendTransaction(request, new CallOptions { })
