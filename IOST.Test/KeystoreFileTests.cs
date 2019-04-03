@@ -28,12 +28,17 @@ namespace IOSTSdk.Test
 
             var password = createPassword("some password").ToSecureBytes();
             var privkey = new SecureBytes(IOST.Base58Decode(TestNetSaifsolo2PrivK));
-            ks.AddKey(password, "saifsolo2", "some new password", privkey);
+            ks.AddKey(privkey, password, "some new password");
 
             ks.Store();
 
             var ks2 = KeystoreRegistry.Create(KeystoreType.FromFile, $"file={tmpfile}");
             EncryptedKeysAreEqual(ks.EncryptedKeys, ks2.EncryptedKeys);
+
+            var secPrivKey = ks2.EncryptedKeys[0].Decrypt(createPassword("some password").ToSecureBytes());
+            secPrivKey.UseUnprotected(pk => CollectionAssert.AreEqual(
+                                                        IOST.Base58Decode(TestNetSaifsolo2PrivK), 
+                                                        pk));
 
             File.Delete(tmpfile + ".backup");
         }

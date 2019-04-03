@@ -6,6 +6,8 @@
     <IsPackable>false</IsPackable>
 
     <Platforms>AnyCPU;x64;x86</Platforms>
+
+    <RootNamespace>IOSTSdk.Test</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

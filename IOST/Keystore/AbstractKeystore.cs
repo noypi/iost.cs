@@ -12,7 +12,7 @@ namespace IOSTSdk.Keystore
         
         internal abstract void Initialize();
 
-        public abstract void AddKey(SecureBytes password, string accountName, string label, SecureBytes privateKey);
+        public abstract void AddKey(SecureBytes privateKey, SecureBytes password, string label);
 
         public abstract void DeleteKey(string label, EncryptedKey enckey);
 

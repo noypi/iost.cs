@@ -61,7 +61,7 @@ namespace IOSTSdk.Keystore.v1
             }
         }
 
-        public override void AddKey(SecureBytes password, string accountName, string label, SecureBytes privateKey)
+        public override void AddKey(SecureBytes privateKey, SecureBytes password, string label)
         {
             byte[] cipher = null;
             byte[] nonce = null;
@@ -69,7 +69,7 @@ namespace IOSTSdk.Keystore.v1
             var enckey = new EncryptedKey()
             {
                 Label = label,
-                Cipher = $"{accountName}:{Convert.ToBase64String(cipher)}",
+                Cipher = $"{Convert.ToBase64String(cipher)}",
                 Nonce = Convert.ToBase64String(nonce)
             };
 

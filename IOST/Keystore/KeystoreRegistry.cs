@@ -31,11 +31,22 @@ namespace IOSTSdk.Keystore
             }
         }
 
+        /// <summary>
+        /// Registers a new constructor
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="constructor"></param>
         public static void Register(string name, Func<Options, IKeystore> constructor)
         {
             _byName[name] = constructor;
         }
 
+        /// <summary>
+        /// Creates a new keystore 
+        /// </summary>
+        /// <param name="t"></param>
+        /// <param name="args"></param>
+        /// <returns></returns>
         public static IKeystore Create(KeystoreType t, params string[] args)
         {
             var opts = new Options(args);

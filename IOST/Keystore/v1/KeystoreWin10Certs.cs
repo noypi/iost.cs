@@ -15,7 +15,7 @@ namespace IOSTSdk.Keystore.v1
             throw new System.NotImplementedException();
         }
 
-        public override void AddKey(SecureBytes password, string accountName, string label, SecureBytes privateKey)
+        public override void AddKey(SecureBytes privateKey, SecureBytes password, string label)
         {
             throw new System.NotImplementedException();
         }
