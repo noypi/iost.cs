@@ -43,39 +43,118 @@
 #### Creating a new account
 
 ```C#
-	var client = Client.NewKorea();
-	var iost = new IOST(client, new Options { ExpirationInMillis = 5000 });
+    var client = Client.NewKorea();
+    var iost = new IOST(client, new Options { ExpirationInMillis = 5000 });
 
-	var tx = iost.NewTransaction()
-	             .CreateAccount(newAccountName, creatorsName, newAccountPublicKey, newAccountPublicKey);
-	
-	var kc = new Keychain(creatorsName);
+    var tx = iost.NewTransaction()
+                 .CreateAccount(newAccountName, creatorsName, newAccountPublicKey, newAccountPublicKey);
     
-	kc.AddKey(
-		new SecureBytes(IOST.Base58Decode(
-			creatorsPrivateKeyInBase58)),
-			"active");
-	tx.AddApprove("*", "unlimited");
-	kc.Sign(tx);
-	var hash = await iost.Send(tx);
+    var kc = new Keychain(creatorsName);
+    
+    kc.AddKey(
+        new SecureBytes(IOST.Base58Decode(
+            creatorsPrivateKeyInBase58)),
+            "active");
+    tx.AddApprove("*", "unlimited");
+    kc.Sign(tx);
+    var hash = await iost.Send(tx);
 ```
 
 #### Transfer IOST
 ```C#
-	var client = Client.NewJapan();
-	var iost = new IOST(client, new Options { ExpirationInMillis = 5000 });
+    var client = Client.NewJapan();
+    var iost = new IOST(client, new Options { ExpirationInMillis = 5000 });
 
-	var tx = iost.NewTransaction()
-		     .Transfer("iost", fromAccountName, toAccountName, amount, "");
+    var tx = iost.NewTransaction()
+             .Transfer("iost", fromAccountName, toAccountName, amount, "");
 
-	var kc = new Keychain(fromAccountName);
-	kc.AddKey(
-		new SecureBytes(IOST.Base58Decode(
-			fromAccountsPrivateKeyBase58)),
-			"active");
+    var kc = new Keychain(fromAccountName);
+    kc.AddKey(
+        new SecureBytes(IOST.Base58Decode(
+            fromAccountsPrivateKeyBase58)),
+            "active");
 
-	kc.Sign(tx);
-	var hash = await iost.Send(tx);
+    kc.Sign(tx);
+    var hash = await iost.Send(tx);
+```
+
+#### Vote
+```C#
+    var client = Client.NewKorea();
+    var iost = new IOST(client, new Options { ExpirationInMillis = 5000 });
+
+    var tx = iost.NewTransaction()
+                 .VoteProducerVote(accountName, candidateAccountName, "10000");
+
+    var kc = new Keychain(accountName);
+    kc.AddKey(
+        new SecureBytes(IOST.Base58Decode(
+            accountPrivateKey)),
+            "active");
+    tx.AddApprove("*", "unlimited");
+    kc.Sign(tx);
+    var hash = await iost.Send(tx);
+```
+
+#### Unvote
+```C#
+    var client = Client.NewJapan();
+    var iost = new IOST(client, new Options { ExpirationInMillis = 5000 });
+
+    var tx = iost.NewTransaction()
+                 .VoteProducerUnvote(accountName, candidateAccountName, "10000");
+
+    var kc = new Keychain(accountName);
+    kc.AddKey(
+        new SecureBytes(IOST.Base58Decode(
+            accountPrivateKey)),
+            "active");
+    tx.AddApprove("*", "unlimited");
+    kc.Sign(tx);
+    var hash = await iost.Send(tx);
+```
+
+#### Publish a new contract
+```C#
+    var tx = iost.NewTransaction();
+
+    using (var abiFile = File.OpenRead(Path.Combine(WORKDIR, "abi.json")))
+    using (var abiRdr = new StreamReader(abiFile))
+    using (var jsFile = File.OpenRead(Path.Combine(WORKDIR, "code.js")))
+    using (var jsRdr = new StreamReader(jsFile))
+    {
+        tx.PublishContract(abiRdr, jsRdr);
+    }
+
+    var kc = new Keychain(accountName);
+    kc.AddKey(
+        new SecureBytes(IOST.Base58Decode(
+            accountPrivateKey)),
+            "active");
+    tx.AddApprove("*", "unlimited");
+    kc.Sign(tx);
+    return iost.Send(tx);
+```
+
+#### Update contract
+```C#
+    var tx = _iost.NewTransaction();
+
+    using (var abiFile = File.OpenRead(Path.Combine(WORKDIR, "abi2.json")))
+    using (var abiRdr = new StreamReader(abiFile))
+    using (var jsFile = File.OpenRead(Path.Combine(WORKDIR, "code.js")))
+    using (var jsRdr = new StreamReader(jsFile))
+    {
+        tx.UpdateContract("ContractF5qwDudF1z5RFnUbJ9muguX4CF1ptex8nBbgZWmRuZ9b", abiRdr, jsRdr, "");
+    }
+
+    var kc = new Keychain(accountName);
+    kc.AddKey(
+        new SecureBytes(IOST.Base58Decode(
+            accountPrivateKey)),
+            "active");
+    kc.Sign(tx);
+    var hash = await _iost.Send(tx);
 ```
 
 ### Buy me a pizza
