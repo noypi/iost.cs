@@ -9,8 +9,9 @@
 
     public class Transaction
     {
-        public Options Options { get; internal set; }
-        internal Rpcpb.TransactionRequest TransactionRequest { get; set; }
+        public static readonly string SRTRANSFERMETHOD_MUSTREPLY = SignatureRequest<Rpcpb.TransactionRequest>.TRANSFERMETHOD_MUSTREPLY;
+
+        public static readonly string SRTRANSFERMETHOD_CLIENTCANTRANFER = SignatureRequest<Rpcpb.TransactionRequest>.TRANSFERMETHOD_CLIENTCANTRANSFER;
 
         internal Transaction(Options options)
         {
@@ -25,6 +26,10 @@
                 ChainId = options.ChainId
             };
         }
+
+        public Options Options { get; internal set; }
+
+        internal Rpcpb.TransactionRequest TransactionRequest { get; set; }
 
         public void AddAction(string contractID, string abi, params object[] args)
         {
@@ -122,17 +127,23 @@
 
         public string CreateSignatureRequest(string tag, string transferMethod)
         {
-            return ChainPay.CreateSignatureRequest<Rpcpb.TransactionRequest>(
-                    new SignatureRequest<Rpcpb.TransactionRequest>()
-                    {
-                        BlockchainCode = "IOST",
-                        BlockchainName = "Internet of Services Token",
-                        MessageHash = Convert.ToBase64String(IOST.CryptoHashSha3_256(BytesForSigning())),
-                        HashAlgo = "SHA3-256",
-                        Tag = tag,
-                        TransferDetails = TransactionRequest,
-                        TransferMethod = transferMethod
-                    });
+            var tx = new SignatureRequest<Rpcpb.TransactionRequest>()
+            {
+                BlockchainCode = "IOST",
+                BlockchainName = "Internet of Services Token",
+                MessageHash = Convert.ToBase64String(IOST.CryptoHashSha3_256(BytesForSigning())),
+                HashAlgo = "SHA3-256",
+                Tag = tag,
+                TransferDetails = TransactionRequest,
+                TransferMethod = transferMethod
+            };
+            
+            return ChainPay.CreateSignatureRequest<Rpcpb.TransactionRequest>(tx);
+        }
+
+        public static SignatureRequest<Rpcpb.TransactionRequest> ReadSignatureRequest(string sig)
+        {
+            return ChainPay.ReadSignatureRequest<Rpcpb.TransactionRequest>(sig);
         }
 
         public static SignatureRequest<Rpcpb.TransactionRequest> ReadSignatureRequest(StreamReader reader)
