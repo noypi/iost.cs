@@ -5,6 +5,7 @@ IOST-1.1.0
 - Implement SecurePassword
 - CreateAccount will have 1 IOST as default gas pledge
 - Fix null exception during Send() when receipt is null
+- Implement missing APIs
 
 IOST-1.0.0
 - Implement all APIs
