@@ -1,4 +1,7 @@
 IOST-1.1.1
+- Add ChangePassword() to IKeystore
+
+IOST-1.1.1
 - Expose Initialize() from IKeystore
 
 IOST-1.1.0

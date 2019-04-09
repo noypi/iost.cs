@@ -61,6 +61,24 @@ namespace IOSTSdk.Keystore.v1
             }
         }
 
+        public override void ChangePassword(SecureBytes oldPassword, SecureBytes newPassword)
+        {
+            var newKeys = new KeystoreModel()
+            {
+                Version = _keys.Version
+            };
+
+            var oldKeys = _keys.Keys;
+            _keys = newKeys;
+
+            foreach(var k in oldKeys)
+            {
+                AddKey(k.Decrypt(oldPassword), newPassword, k.Label);
+            }
+
+            Store();
+        }
+
         public override void AddKey(SecureBytes privateKey, SecureBytes password, string label)
         {
             byte[] cipher = null;

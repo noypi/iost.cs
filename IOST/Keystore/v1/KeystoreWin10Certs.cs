@@ -29,5 +29,10 @@ namespace IOSTSdk.Keystore.v1
         {
             throw new System.NotImplementedException();
         }
+
+        public override void ChangePassword(SecureBytes oldPassword, SecureBytes newPassword)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

@@ -43,6 +43,26 @@ namespace IOSTSdk.Test
             File.Delete(tmpfile + ".backup");
         }
 
+        [TestMethod]
+        public void TestChangePassword()
+        {
+            var tmpfile = Path.GetTempFileName();
+            var ks = KeystoreRegistry.Create(KeystoreType.FromFile, $"file={tmpfile}");
+
+            var password = createPassword("some password").ToSecureBytes();
+            var privkey = new SecureBytes(IOST.Base58Decode(TestNetSaifsolo2PrivK));
+            ks.AddKey(privkey, password, "some new password");
+
+            ks.ChangePassword(createPassword("some password").ToSecureBytes(), createPassword("new password").ToSecureBytes());
+
+            var secPrivKey = ks.EncryptedKeys[0].Decrypt(createPassword("new password").ToSecureBytes());
+            secPrivKey.UseUnprotected(pk => CollectionAssert.AreEqual(
+                                                        IOST.Base58Decode(TestNetSaifsolo2PrivK),
+                                                        pk));
+
+            File.Delete(tmpfile + ".backup");
+        }
+
         static SecurePassword createPassword(string password)
         {
             var secpass = new SecurePassword();
