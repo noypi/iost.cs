@@ -10,7 +10,7 @@ namespace IOSTSdk.Keystore.v1
         {
         }
 
-        internal override void Initialize()
+        public override void Initialize()
         {
             throw new System.NotImplementedException();
         }

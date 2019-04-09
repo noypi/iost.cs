@@ -30,7 +30,7 @@ namespace IOSTSdk.Keystore.v1
 
         public override EncryptedKey[] EncryptedKeys => _keys.Keys;
 
-        internal override void Initialize()
+        public override void Initialize()
         {
             using (var file = File.Open(_fpath, FileMode.Open))
             using (var rdr = new StreamReader(file))

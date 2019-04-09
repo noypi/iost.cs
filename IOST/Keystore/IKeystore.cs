@@ -4,6 +4,7 @@ namespace IOSTSdk.Keystore
 
     public interface IKeystore
     {
+        void Initialize();
         void AddKey(SecureBytes privateKey, SecureBytes password, string label);
         void DeleteKey(string label, EncryptedKey enckey);
         void Store();

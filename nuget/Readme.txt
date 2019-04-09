@@ -1,3 +1,6 @@
+IOST-1.1.1
+- Expose Initialize() from IKeystore
+
 IOST-1.1.0
 - Read / write a keystore file
 - Generate a signature request

@@ -7,8 +7,8 @@ namespace IOSTSdk.Keystore
 
     public enum KeystoreType
     {
-        FromFile,
-        FromNative
+        FromFile//,
+        //FromNative
     }
 
     public class KeystoreRegistry
@@ -57,8 +57,8 @@ namespace IOSTSdk.Keystore
                 case KeystoreType.FromFile:
                     ks = CreateFromFile(opts);
                     break;
-                case KeystoreType.FromNative:
-                    ks = CreateFromNative(opts);
+                //case KeystoreType.FromNative:
+                //    ks = CreateFromNative(opts);
                     break;
                 
             }

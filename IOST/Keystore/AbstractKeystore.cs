@@ -10,7 +10,7 @@ namespace IOSTSdk.Keystore
     {
         private Dictionary<string, Keychain> _byAccount = new Dictionary<string, Keychain>();
         
-        internal abstract void Initialize();
+        public abstract void Initialize();
 
         public abstract void AddKey(SecureBytes privateKey, SecureBytes password, string label);
 
