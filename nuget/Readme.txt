@@ -1,4 +1,8 @@
-IOST-1.1.1
+IOST-1.1.3
+- Decouple the experimental ChainPay library
+- IOST.Send to return the TxHash if TxReceipt is not successful, instead of throwing an Exception.
+
+IOST-1.1.2
 - Add ChangePassword() to IKeystore
 
 IOST-1.1.1

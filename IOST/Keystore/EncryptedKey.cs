@@ -23,5 +23,18 @@ namespace IOSTSdk.Keystore
 
             throw new InvalidOperationException($"Unsupported algo: {Algo}");
         }
+
+        public static EncryptedKey EncryptDefault(SecureBytes password, SecureBytes secretKey)
+        {
+            var enckey = new EncryptedKey { };
+            secretKey.UseUnprotected(pk =>
+            {
+                var (cipher, nonce) = SodiumXChaCha20Poly1305.Encrypt(password, pk);
+                enckey.Cipher = Convert.ToBase64String(cipher);
+                enckey.Nonce = Convert.ToBase64String(nonce);
+            });
+
+            return enckey;
+        }
     }
 }

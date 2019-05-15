@@ -6,7 +6,7 @@
         <id>IOST</id>
 
         <!-- The package version number that is used when resolving dependencies -->
-        <version>1.1.2</version>
+        <version>1.1.3</version>
 
         <!-- Authors contain text that appears directly on the gallery -->
         <authors>Saifuddin Migraso</authors>
@@ -34,6 +34,10 @@
 
         <!-- Any details about this particular release -->
         <releaseNotes>
+        [ IOST-1.1.3 ]
+        Decouple the experimental ChainPay library
+        IOST.Send to return the TxHash if TxReceipt is not successful, instead of throwing an Exception.
+
         [ IOST-1.1.2 ]
         Add ChangePassword() to IKeystore
         

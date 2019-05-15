@@ -25,7 +25,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ChainPay" Version="1.0.1" />
     <PackageReference Include="Cryptography.ECDSA.Secp256K1" Version="1.1.2" />
     <PackageReference Include="Google.Api.Gax.Grpc" Version="2.6.0" />
     <PackageReference Include="Google.Protobuf" Version="3.7.0" />

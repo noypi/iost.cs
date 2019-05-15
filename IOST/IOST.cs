@@ -45,12 +45,6 @@ namespace IOSTSdk
                                {
                                    throw task.Exception;
                                }
-
-                               if ((task.Result.PreTxReceipt != null) &&
-                                   (task.Result.PreTxReceipt.StatusCode != Rpcpb.TxReceipt.Types.StatusCode.Success))
-                               {
-                                   throw new InvalidOperationException(task.Result.PreTxReceipt.Message);
-                               }
                                
                                return task.Result?.Hash;
                            });

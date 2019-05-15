@@ -13,7 +13,7 @@ namespace IOSTSdk.Test
         {
 
         }
-
+#if false
         [TestMethod]
         public void TestReadGenerateSR()
         {
@@ -33,5 +33,6 @@ namespace IOSTSdk.Test
             CollectionAssert.AreEqual(bb1, Transaction.ToBytesForSigning(readSig.TransferDetails));
             
         }
+#endif
     }
 }

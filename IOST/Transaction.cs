@@ -2,17 +2,11 @@
 {
     using System;
     using System.Text;
-    using ChainPay.Models;
-    using ChainPay;
     using global::IOSTSdk.Helpers;
     using System.IO;
 
     public class Transaction
     {
-        public static readonly string SRTRANSFERMETHOD_MUSTREPLY = SignatureRequest<Rpcpb.TransactionRequest>.TRANSFERMETHOD_MUSTREPLY;
-
-        public static readonly string SRTRANSFERMETHOD_CLIENTCANTRANFER = SignatureRequest<Rpcpb.TransactionRequest>.TRANSFERMETHOD_CLIENTCANTRANSFER;
-
         internal Transaction(Options options)
         {
             Options = options;
@@ -125,6 +119,11 @@
             return se.GetBytes();
         }
 
+#if false // decouple ChainPay
+        public static readonly string SRTRANSFERMETHOD_MUSTREPLY = SignatureRequest<Rpcpb.TransactionRequest>.TRANSFERMETHOD_MUSTREPLY;
+
+        public static readonly string SRTRANSFERMETHOD_CLIENTCANTRANFER = SignatureRequest<Rpcpb.TransactionRequest>.TRANSFERMETHOD_CLIENTCANTRANSFER;
+
         public string CreateSignatureRequest(string tag, string transferMethod)
         {
             var tx = new SignatureRequest<Rpcpb.TransactionRequest>()
@@ -163,5 +162,6 @@
         {
             return ChainPay.ReadSignatureResponse(reader);
         }
+#endif
     }
 }
