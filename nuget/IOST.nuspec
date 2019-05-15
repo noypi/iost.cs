@@ -6,7 +6,7 @@
         <id>IOST</id>
 
         <!-- The package version number that is used when resolving dependencies -->
-        <version>1.1.3</version>
+        <version>1.1.4</version>
 
         <!-- Authors contain text that appears directly on the gallery -->
         <authors>Saifuddin Migraso</authors>
@@ -34,6 +34,9 @@
 
         <!-- Any details about this particular release -->
         <releaseNotes>
+        [ IOST-1.1.4 ]
+        Remove ChainPay from Nuget dependencies
+
         [ IOST-1.1.3 ]
         Decouple the experimental ChainPay library
         IOST.Send to return the TxHash if TxReceipt is not successful, instead of throwing an Exception.
@@ -72,7 +75,6 @@
                 <dependency id="Google.Protobuf" version="3.7.0" />
                 <dependency id="Google.Api.Gax.Grpc" version="2.6.0" />
                 <dependency id="Grpc.Core" version="1.19.0"/>
-                <dependency id="ChainPay" version="1.0.2" />
             </group>
             
             <group targetFramework="netstandard2.0">
@@ -84,7 +86,6 @@
                 <dependency id="Google.Protobuf" version="3.7.0" />
                 <dependency id="Google.Api.Gax.Grpc" version="2.6.0" />
                 <dependency id="Grpc.Core" version="1.19.0"/>
-                <dependency id="ChainPay" version="1.0.2" />
             </group>
         </dependencies>
     </metadata>
