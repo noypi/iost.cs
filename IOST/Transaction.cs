@@ -1,16 +1,15 @@
 ﻿namespace IOSTSdk
 {
-    using System;
-    using System.Text;
     using global::IOSTSdk.Helpers;
-    using System.IO;
+    using System.Linq;
+    using System.Text;
 
     public class Transaction
     {
         internal Transaction(Options options)
         {
             Options = options;
-            TransactionRequest = new Rpcpb.TransactionRequest()
+            TxRequest = new Rpcpb.TransactionRequest()
             {
                 Time = DateHelper.UnixNano(),
                 GasLimit = options.GasLimit,
@@ -23,22 +22,22 @@
 
         public Options Options { get; internal set; }
 
-        internal Rpcpb.TransactionRequest TransactionRequest { get; set; }
+        public Rpcpb.TransactionRequest TxRequest { get; set; }
 
         public void AddAction(string contractID, string abi, params object[] args)
         {
-            TransactionRequest.Actions.Add(NewAction(contractID, abi, IOST.JSONSerializer(args)));
+            TxRequest.Actions.Add(NewAction(contractID, abi, IOST.JSONSerializer(args)));
         }
 
         public void AddApprove(string token, string amount)
         {
-            TransactionRequest.AmountLimit
+            TxRequest.AmountLimit
                               .Add(NewAmountLimit(token, amount));
         }
 
         public byte[] BytesForSigning()
         {
-            var tx = TransactionRequest;
+            var tx = TxRequest;
             return ToBytesForSigning(tx);
         }
 

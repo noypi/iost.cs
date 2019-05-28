@@ -61,7 +61,7 @@ namespace IOSTSdk
             var kp = _keys[perm];
             var sig = kp.Sign(GetTxHash(tx));
 
-            var txRequest = tx.TransactionRequest;
+            var txRequest = tx.TxRequest;
             txRequest.Publisher = _AccountName;
             
             var sigPb = new Rpcpb.Signature()

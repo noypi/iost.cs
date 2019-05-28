@@ -30,7 +30,7 @@ namespace IOSTSdk.Test
         [TestMethod]
         public async Task TestGet()
         {
-            var client = new Client(_TestServerUrl);
+            var client = Client.NewTestNet();
 
             var nodeInfoResponse = await client.GetNodeInfo();
             Debug.WriteLine(nodeInfoResponse);

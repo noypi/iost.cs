@@ -1,15 +1,12 @@
 namespace IOSTSdk
 {
-    using System;
-    using System.Threading;
-    using System.Threading.Tasks;
     using Grpc.Core;
     using Rpcpb;
+    using System.Threading;
+    using System.Threading.Tasks;
 
-    public class Client : IDisposable
+    public class Client : ApiService.ApiServiceClient
     {
-        private ApiServerClient _asc = null;
-
         public static Client NewAustrialia() => new Client(Channels.NewAustrialia());
         public static Client NewCanada()     => new Client(Channels.NewCanada());
         public static Client NewFrance()     => new Client(Channels.NewFrance());
@@ -31,126 +28,36 @@ namespace IOSTSdk
         /// Creates a new IOST from a url
         /// </summary>
         /// <param name="url">Example: localhost:30002</param>
-        public Client(string url) : this(new Channel(url, ChannelCredentials.Insecure))
+        public Client(string url) : base(new Channel(url, ChannelCredentials.Insecure))
         {
         }
 
-        public Client(Channel channel)
+        public Client(Channel channel) : base(channel)
         {
-            _asc = new ApiServerClient(channel);
         }
 
         public Task<NodeInfoResponse> GetNodeInfo()
         {
-            return _asc.GetNodeInfo(new CallOptions(null, null, default(CancellationToken)))
+            return GetNodeInfoAsync(new EmptyRequest(), new CallOptions(null, null, default(CancellationToken)))
                        .ResponseAsync;
         }
 
         public Task<ChainInfoResponse> GetChainInfo()
         {
-            return _asc.GetChainInfo(new CallOptions { })
+            return GetChainInfoAsync(new EmptyRequest(), new CallOptions(null, null, default(CancellationToken)))
                        .ResponseAsync;
         }
 
-        public Task<TransactionResponse> GetTxByHash(TxHashRequest request)
+        public Task<RAMInfoResponse> GetRamInfo()
         {
-            return _asc.GetTxByHash(request, new CallOptions { })
+            return GetRAMInfoAsync(new EmptyRequest(), new CallOptions(null, null, default(CancellationToken)))
                        .ResponseAsync;
         }
 
-        public Task<TxReceipt> GetTxReceiptByTxHash(TxHashRequest request)
+        public Task<GasRatioResponse> GetGasRatio()
         {
-            return _asc.GetTxReceiptByTxHash(request, new CallOptions { })
+            return GetGasRatioAsync(new EmptyRequest(), new CallOptions(null, null, default(CancellationToken)))
                        .ResponseAsync;
-        }
-
-        public Task<BlockResponse> GetBlockByHash(GetBlockByHashRequest request)
-        {
-            return _asc.GetBlockByHash(request, new CallOptions { })
-                       .ResponseAsync;
-        }
-
-        public Task<BlockResponse> GetBlockByNumber(GetBlockByNumberRequest request)
-        {
-            return _asc.GetBlockByNumber(request, new CallOptions { })
-                       .ResponseAsync;
-        }
-
-        public Task<Account> GetAccount(GetAccountRequest request)
-        {
-            return _asc.GetAccount(request, new CallOptions { })
-                       .ResponseAsync;
-        }
-
-        public Task<GetTokenBalanceResponse> GetTokenBalance(GetTokenBalanceRequest request)
-        {
-            return _asc.GetTokenBalance(request, new CallOptions { })
-                       .ResponseAsync;
-        }
-
-        public Task<Rpcpb.Contract> GetContract(GetContractRequest request)
-        {
-            return _asc.GetContract(request, new CallOptions { })
-                       .ResponseAsync;
-        }
-
-        public Task<GetContractStorageResponse> GetContractStorage(GetContractStorageRequest request)
-        {
-            return _asc.GetContractStorage(request, new CallOptions { })
-                       .ResponseAsync;
-        }
-
-        public Task<GetContractStorageFieldsResponse> GetContractStorageFields(GetContractStorageFieldsRequest request)
-        {
-            return _asc.GetContractStorageFields(request, new CallOptions { })
-                       .ResponseAsync;
-        }
-
-        public Task<GetProducerVoteInfoResponse> GetProducerVoteInfo(GetProducerVoteInfoRequest request)
-        {
-            return _asc.GetProducerVoteInfo(request, new CallOptions { })
-                       .ResponseAsync;
-        }
-
-        public Task<CandidateBonus> GetCandidateBonus(GetAccountRequest request)
-        {
-            return _asc.GetCandidateBonus(request, new CallOptions { })
-                       .ResponseAsync;
-        }
-
-        public Task<VoterBonus> GetVoterBonus(GetAccountRequest request)
-        {
-            return _asc.GetVoterBonus(request, new CallOptions { })
-                       .ResponseAsync;
-        }
-
-        public Task<SendTransactionResponse> SendTransaction(TransactionRequest request)
-        {
-            return _asc.SendTransaction(request, new CallOptions { })
-                       .ResponseAsync;
-        }
-
-        public Task<TxReceipt> ExecTransaction(TransactionRequest request)
-        {
-            return _asc.ExecTransaction(request, new CallOptions { })
-                       .ResponseAsync;
-        }
-
-        public Task<SubscribeResponse> Subscribe(SubscribeRequest request)
-        {
-            return _asc.Subscribe(request, new CallOptions { })
-                       .ResponseAsync;
-        }
-
-        public Task<TokenInfo> GetTokenInfo(GetTokenInfoRequest request)
-        {
-            return _asc.GetTokenInfo(request, new CallOptions { })
-                       .ResponseAsync;
-        }
-
-        public void Dispose()
-        {
-            _asc?.Dispose();
         }
     }
 }

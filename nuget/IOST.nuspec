@@ -6,7 +6,7 @@
         <id>IOST</id>
 
         <!-- The package version number that is used when resolving dependencies -->
-        <version>1.1.4</version>
+        <version>1.1.5</version>
 
         <!-- Authors contain text that appears directly on the gallery -->
         <authors>Saifuddin Migraso</authors>
@@ -34,6 +34,10 @@
 
         <!-- Any details about this particular release -->
         <releaseNotes>
+        [ IOST-1.1.5 ]
+        Fixes in Rpcpb namespace.
+        Expose Transaction.TxRequest
+        
         [ IOST-1.1.4 ]
         Remove ChainPay from Nuget dependencies
 
@@ -74,7 +78,7 @@
                 <dependency id="libsodium" version="1.0.17" />
                 <dependency id="Google.Protobuf" version="3.7.0" />
                 <dependency id="Google.Api.Gax.Grpc" version="2.6.0" />
-                <dependency id="Grpc.Core" version="1.19.0"/>
+                <dependency id="Grpc.Core" version="1.21.0"/>
             </group>
             
             <group targetFramework="netstandard2.0">
@@ -85,7 +89,7 @@
                 <dependency id="libsodium" version="1.0.17" />
                 <dependency id="Google.Protobuf" version="3.7.0" />
                 <dependency id="Google.Api.Gax.Grpc" version="2.6.0" />
-                <dependency id="Grpc.Core" version="1.19.0"/>
+                <dependency id="Grpc.Core" version="1.21.0"/>
             </group>
         </dependencies>
     </metadata>
@@ -93,6 +97,8 @@
     <!-- A readme.txt to display when the package is installed -->
     <files>
         <file src="..\IOST\bin\Release\netstandard2.0\IOST.dll" target="lib\netstandard2.0\IOST.dll" />
+        <file src="..\IOST\bin\Release\netstandard2.0\IOST.Rpcpb.dll" target="lib\netstandard2.0\IOST.Rpcpb.dll" />
+		
         <file src="..\IOST\bin\Release\IOST.xml" target="lib\netstandard2.0\IOST.xml" />
         
         <file src="IOST.Net45.targets" target="build" />
@@ -100,10 +106,17 @@
         
         <file src="..\IOST.Net45\bin\x64\Release\IOST.dll" target="build\x64" />
         <file src="..\IOST.Net45\bin\x64\Release\IOST.dll" target="lib\net45\IOST.dll" />
-        <file src="..\IOST.Net45\bin\x64\Release\IOST.xml" target="lib\net45\IOST.xml" />
-        
+		
+		<file src="..\IOST.Net45\bin\x64\Release\IOST.Rpcpb.dll" target="build\x64" />
+        <file src="..\IOST.Net45\bin\x64\Release\IOST.Rpcpb.dll" target="lib\net45\IOST.Rpcpb.dll" />
+		
         <file src="..\IOST.Net45\bin\x86\Release\IOST.dll" target="build\x86" />
         <file src="..\IOST.Net45\bin\x86\Release\IOST.dll" target="lib\net45\IOST.dll" />
+		
+		<file src="..\IOST.Net45\bin\x86\Release\IOST.Rpcpb.dll" target="build\x86" />
+        <file src="..\IOST.Net45\bin\x86\Release\IOST.Rpcpb.dll" target="lib\net45\IOST.Rpcpb.dll" />
+		
+		<file src="..\IOST.Net45\bin\x64\Release\IOST.xml" target="lib\net45\IOST.xml" />
         <file src="..\IOST.Net45\bin\x86\Release\IOST.xml" target="lib\net45\IOST.xml" />
         
         <file src="Readme.txt" target="" />

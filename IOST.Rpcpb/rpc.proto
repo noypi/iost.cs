@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package rpcpb;
+package IOSTSdk.rpcpb;
 
 import "google/api/annotations.proto";
 

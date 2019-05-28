@@ -38,7 +38,8 @@ namespace IOSTSdk
         /// <returns>the transaction hash</returns>
         public Task<string> Send(Transaction tx)
         {
-            return _client.SendTransaction(tx.TransactionRequest)
+            return _client.SendTransactionAsync(tx.TxRequest)
+                          .ResponseAsync
                           .ContinueWith<string>((task) => 
                            {
                                if (task.Exception != null)
@@ -57,7 +58,7 @@ namespace IOSTSdk
         /// <returns>the transaction hash</returns>
         public Task<Rpcpb.TxReceipt> Execute(Transaction tx)
         {
-            return _client.ExecTransaction(tx.TransactionRequest);
+            return _client.ExecTransactionAsync(tx.TxRequest).ResponseAsync;
         }
 
         /// <summary>
@@ -75,12 +76,14 @@ namespace IOSTSdk
         /// <returns></returns>
         public Task<IList<string>> GetProducers256()
         {
-            return _client.GetContractStorageFields(new Rpcpb.GetContractStorageFieldsRequest()
+            return _client.GetContractStorageFieldsAsync(new Rpcpb.GetContractStorageFieldsRequest()
                             {
                                 ByLongestChain = true,
                                 Key = "producerTable",
                                 Id = Contract.System.VoteProducer.Cid
-                            }).ContinueWith<IList<string>>(t => 
+                            })
+                            .ResponseAsync
+                            .ContinueWith<IList<string>>(t => 
                             {
                                 return t.Result.Fields;
                             });

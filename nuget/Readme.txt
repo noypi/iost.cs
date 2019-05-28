@@ -1,3 +1,10 @@
+IOST-1.1.5
+- Fixes in Rpcpb namespace.
+- Expose Transaction.TxRequest
+
+IOST-1.1.4
+- Remove ChainPay from Nuget dependencies
+
 IOST-1.1.3
 - Decouple the experimental ChainPay library
 - IOST.Send to return the TxHash if TxReceipt is not successful, instead of throwing an Exception.
