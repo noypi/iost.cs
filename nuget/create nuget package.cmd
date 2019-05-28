@@ -3,4 +3,4 @@
 ::
 nuget pack IOST.nuspec
 
-pause
+:: pause

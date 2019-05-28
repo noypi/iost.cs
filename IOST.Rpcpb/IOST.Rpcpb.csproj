@@ -15,9 +15,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Protobuf Include="Google/Api/annotations.proto" />
-    <Protobuf Include="Google/Api/http.proto" />
-    <Protobuf Include="rpc.proto" Link="rpc.proto" />
+    <Protobuf Include="Google/Api/annotations.proto"/>
+    <Protobuf Include="Google/Api/http.proto"/>
+    <Protobuf Include="rpc.proto" Link="rpc.proto" CompileOutputs="false" OutputDir="."/>
   </ItemGroup>
 
 </Project>

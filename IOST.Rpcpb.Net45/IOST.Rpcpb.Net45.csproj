@@ -60,6 +60,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Rpc.cs" />
+    <Compile Include="RpcGrpc.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -67,7 +69,7 @@
   <ItemGroup>
     <Protobuf Include="..\IOST.Rpcpb\Google\Api\http.proto" Link="Google\Api\http.proto" ProtoRoot="..\IOST.Rpcpb" />
     <Protobuf Include="..\IOST.Rpcpb\Google\Api\annotations.proto" Link="Google\Api\annotations.proto" ProtoRoot="..\IOST.Rpcpb" />
-    <Protobuf Include="..\IOST.Rpcpb\rpc.proto" Link="rpc.proto" />
+    <Protobuf Include="..\IOST.Rpcpb\rpc.proto" Link="rpc.proto" ProtoRoot="..\IOST.Rpcpb" CompileOutputs="false" OutputDir="." />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
