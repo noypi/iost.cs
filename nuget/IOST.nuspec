@@ -6,7 +6,7 @@
         <id>IOST</id>
 
         <!-- The package version number that is used when resolving dependencies -->
-        <version>1.1.5</version>
+        <version>1.1.6-pre1</version>
 
         <!-- Authors contain text that appears directly on the gallery -->
         <authors>Saifuddin Migraso</authors>
@@ -34,31 +34,10 @@
 
         <!-- Any details about this particular release -->
         <releaseNotes>
-        [ IOST-1.1.5 ]
-        Fixes in Rpcpb namespace.
-        Expose Transaction.TxRequest
-        
-        [ IOST-1.1.4 ]
-        Remove ChainPay from Nuget dependencies
-
-        [ IOST-1.1.3 ]
-        Decouple the experimental ChainPay library
-        IOST.Send to return the TxHash if TxReceipt is not successful, instead of throwing an Exception.
-
-        [ IOST-1.1.2 ]
-        Add ChangePassword() to IKeystore
-        
-        [ IOST-1.1.1 ]
-        Expose Initialize() IKeystore
-        
-        [ IOST-1.1.0 ]
-        Add PublishContract() and UpdateContract() helpers
-        Support creating/reading an encrypted keystore file
-        Can create/generate a signature request
-        
-        [ IOST-1.0.0 ]
-        Complete implementation of IOST APIs, 
-        Complete implementation of contracts: System, Token, and Economic.
+          [ IOST-1.1.6 ]
+        Add IKeystore.RenameKeyLabel()
+        Add ChangeEncryptedKeyPassword()
+        Update dependency versions
         </releaseNotes>
         
         <summary>IOST Blockchain SDK for C#. SDK to create a wallet, upload a Smart Contract, or access the IOST blockchain for application integration</summary>
@@ -72,24 +51,24 @@
         <!-- Dependencies are automatically installed when the package is installed -->
         <dependencies>            
             <group targetFramework="net45">
-                <dependency id="Google.Api.Gax.Grpc" version="2.6.0"/>
-                <dependency id="Newtonsoft.Json" version="12.0.1"/>
+                <dependency id="Google.Api.Gax.Grpc" version="2.9.0"/>
+                <dependency id="BouncyCastle.NetCore" version="1.8.5"/>
+                <dependency id="Newtonsoft.Json" version="12.0.2"/>
                 <dependency id="SHA3.Net" version="1.1.1"/>
                 <dependency id="libsodium" version="1.0.17" />
-                <dependency id="Google.Protobuf" version="3.7.0" />
-                <dependency id="Google.Api.Gax.Grpc" version="2.6.0" />
-                <dependency id="Grpc.Core" version="1.21.0"/>
+                <dependency id="Google.Protobuf" version="3.9.0" />
+                <dependency id="Grpc.Core" version="1.22.0"/>
             </group>
             
             <group targetFramework="netstandard2.0">
                 <dependency id="Cryptography.ECDSA.Secp256K1" version="1.1.2" />
                 <dependency id="System.Security.Cryptography.ProtectedData" version="4.5.0" />
-                <dependency id="Newtonsoft.Json" version="12.0.1"/>
+                <dependency id="Newtonsoft.Json" version="12.0.2"/>
                 <dependency id="SHA3.Net" version="1.1.1"/>
-                <dependency id="libsodium" version="1.0.17" />
-                <dependency id="Google.Protobuf" version="3.7.0" />
-                <dependency id="Google.Api.Gax.Grpc" version="2.6.0" />
-                <dependency id="Grpc.Core" version="1.21.0"/>
+                <dependency id="libsodium" version="1.0.17.1" />
+                <dependency id="Google.Protobuf" version="3.9.0" />
+                <dependency id="Google.Api.Gax.Grpc" version="2.9.0" />
+                <dependency id="Grpc.Core" version="1.22.0"/>
             </group>
         </dependencies>
     </metadata>
@@ -98,7 +77,7 @@
     <files>
         <file src="..\IOST\bin\Release\netstandard2.0\IOST.dll" target="lib\netstandard2.0\IOST.dll" />
         <file src="..\IOST\bin\Release\netstandard2.0\IOST.Rpcpb.dll" target="lib\netstandard2.0\IOST.Rpcpb.dll" />
-		
+        
         <file src="..\IOST\bin\Release\IOST.xml" target="lib\netstandard2.0\IOST.xml" />
         
         <file src="IOST.Net45.targets" target="build" />
@@ -106,17 +85,17 @@
         
         <file src="..\IOST.Net45\bin\x64\Release\IOST.dll" target="build\x64" />
         <file src="..\IOST.Net45\bin\x64\Release\IOST.dll" target="lib\net45\IOST.dll" />
-		
-		<file src="..\IOST.Net45\bin\x64\Release\IOST.Rpcpb.dll" target="build\x64" />
+        
+        <file src="..\IOST.Net45\bin\x64\Release\IOST.Rpcpb.dll" target="build\x64" />
         <file src="..\IOST.Net45\bin\x64\Release\IOST.Rpcpb.dll" target="lib\net45\IOST.Rpcpb.dll" />
-		
+        
         <file src="..\IOST.Net45\bin\x86\Release\IOST.dll" target="build\x86" />
         <file src="..\IOST.Net45\bin\x86\Release\IOST.dll" target="lib\net45\IOST.dll" />
-		
-		<file src="..\IOST.Net45\bin\x86\Release\IOST.Rpcpb.dll" target="build\x86" />
+        
+        <file src="..\IOST.Net45\bin\x86\Release\IOST.Rpcpb.dll" target="build\x86" />
         <file src="..\IOST.Net45\bin\x86\Release\IOST.Rpcpb.dll" target="lib\net45\IOST.Rpcpb.dll" />
-		
-		<file src="..\IOST.Net45\bin\x64\Release\IOST.xml" target="lib\net45\IOST.xml" />
+        
+        <file src="..\IOST.Net45\bin\x64\Release\IOST.xml" target="lib\net45\IOST.xml" />
         <file src="..\IOST.Net45\bin\x86\Release\IOST.xml" target="lib\net45\IOST.xml" />
         
         <file src="Readme.txt" target="" />

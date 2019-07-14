@@ -79,6 +79,20 @@ namespace IOSTSdk.Keystore.v1
             Store();
         }
 
+        public override EncryptedKey ChangeEncryptedKeyPassword(EncryptedKey enckey, SecureBytes oldPassword, SecureBytes newPassword)
+        {
+            byte[] cipher = null;
+            byte[] nonce = null;
+            enckey.Decrypt(oldPassword).UseUnprotected(bb => (cipher, nonce) = SodiumXChaCha20Poly1305.Encrypt(newPassword, bb));
+
+            return new EncryptedKey
+            {
+                Label = enckey.Label,
+                Cipher = $"{Convert.ToBase64String(cipher)}",
+                Nonce = Convert.ToBase64String(nonce)
+            };
+        }
+
         public override void AddKey(SecureBytes privateKey, SecureBytes password, string label)
         {
             byte[] cipher = null;
@@ -97,26 +111,22 @@ namespace IOSTSdk.Keystore.v1
             _keys.Keys = newkeys;
         }
 
-        public override void DeleteKey(string label, EncryptedKey enckey)
+        public override void RenameKeyLabel(EncryptedKey enckey, string newLabel)
         {
-            int index = -1;
-            for(int i=0; i<_keys.Keys.Length; i++)
-            {
-                var k = _keys.Keys[i];
-                if (enckey.Nonce == k.Nonce)
-                {
-                    index = i;
-                    break;
-                }
-            }
+            var index = GetKeyIndex(enckey.Label, enckey);
 
             if (index >= 0)
             {
-                _keys.Keys = _keys.Keys
-                                  .Where(x => (x.Nonce != enckey.Nonce) || (x.Label != enckey.Label))
-                                  .Select(x => x)
-                                  .ToArray();
+                _keys.Keys[index].Label = newLabel;
             }
+        }
+
+        public override void DeleteKey(string label, EncryptedKey enckey)
+        {
+            _keys.Keys = _keys.Keys
+                                .Where(x => (x.Nonce != enckey.Nonce) || (x.Label != enckey.Label))
+                                .Select(x => x)
+                                .ToArray();
         }
 
         protected void Backup()
@@ -125,6 +135,22 @@ namespace IOSTSdk.Keystore.v1
             {
                 File.Copy(_fpath, _fpath + ".backup");
             }
+        }
+
+        protected int GetKeyIndex(string label, EncryptedKey enckey)
+        {
+            int index = -1;
+            for (int i = 0; i < _keys.Keys.Length; i++)
+            {
+                var k = _keys.Keys[i];
+                if (enckey.Nonce == k.Nonce && label == enckey.Label)
+                {
+                    index = i;
+                    break;
+                }
+            }
+
+            return index;
         }
     }
 }

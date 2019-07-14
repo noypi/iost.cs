@@ -20,6 +20,11 @@ namespace IOSTSdk.Keystore.v1
             throw new System.NotImplementedException();
         }
 
+        public override void RenameKeyLabel(EncryptedKey enckey, string newLabel)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public override void Store()
         {
             throw new System.NotImplementedException();
@@ -31,6 +36,11 @@ namespace IOSTSdk.Keystore.v1
         }
 
         public override void ChangePassword(SecureBytes oldPassword, SecureBytes newPassword)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override EncryptedKey ChangeEncryptedKeyPassword(EncryptedKey enckey, SecureBytes oldPassword, SecureBytes newPassword)
         {
             throw new System.NotImplementedException();
         }

@@ -1,7 +1,6 @@
 ﻿namespace IOSTSdk
 {
     using global::IOSTSdk.Helpers;
-    using System.Linq;
     using System.Text;
 
     public class Transaction
@@ -117,50 +116,5 @@
               .Put(signature.PublicKey.ToByteArray());
             return se.GetBytes();
         }
-
-#if false // decouple ChainPay
-        public static readonly string SRTRANSFERMETHOD_MUSTREPLY = SignatureRequest<Rpcpb.TransactionRequest>.TRANSFERMETHOD_MUSTREPLY;
-
-        public static readonly string SRTRANSFERMETHOD_CLIENTCANTRANFER = SignatureRequest<Rpcpb.TransactionRequest>.TRANSFERMETHOD_CLIENTCANTRANSFER;
-
-        public string CreateSignatureRequest(string tag, string transferMethod)
-        {
-            var tx = new SignatureRequest<Rpcpb.TransactionRequest>()
-            {
-                BlockchainCode = "IOST",
-                BlockchainName = "Internet of Services Token",
-                MessageHash = Convert.ToBase64String(IOST.CryptoHashSha3_256(BytesForSigning())),
-                HashAlgo = "SHA3-256",
-                Tag = tag,
-                TransferDetails = TransactionRequest,
-                TransferMethod = transferMethod
-            };
-            
-            return ChainPay.CreateSignatureRequest<Rpcpb.TransactionRequest>(tx);
-        }
-
-        public static SignatureRequest<Rpcpb.TransactionRequest> ReadSignatureRequest(string sig)
-        {
-            return ChainPay.ReadSignatureRequest<Rpcpb.TransactionRequest>(sig);
-        }
-
-        public static SignatureRequest<Rpcpb.TransactionRequest> ReadSignatureRequest(StreamReader reader)
-        {
-            return ChainPay.ReadSignatureRequest<Rpcpb.TransactionRequest>(reader);
-        }
-
-        public string CreateSignatureResponse(SignatureResponse response)
-        {
-            response.BlockchainCode = "IOST";
-            response.BlockchainName = "Internet of Services Token";
-
-            return ChainPay.CreateSignatureResponse(response);
-        }
-
-        public static SignatureResponse ReadSignatureResponse(StreamReader reader)
-        {
-            return ChainPay.ReadSignatureResponse(reader);
-        }
-#endif
     }
 }

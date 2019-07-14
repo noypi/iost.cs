@@ -1,3 +1,8 @@
+IOST-1.1.6
+- add IKeystore.RenameKeyLabel()
+- add ChangeEncryptedKeyPassword();
+- update dependency versions
+
 IOST-1.1.5
 - Fixes in Rpcpb namespace.
 - Expose Transaction.TxRequest

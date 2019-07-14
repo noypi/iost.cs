@@ -14,9 +14,13 @@ namespace IOSTSdk.Keystore
 
         public abstract void AddKey(SecureBytes privateKey, SecureBytes password, string label);
 
+        public abstract void RenameKeyLabel(EncryptedKey enckey, string newLabel);
+
         public abstract void DeleteKey(string label, EncryptedKey enckey);
 
         public abstract void ChangePassword(SecureBytes oldPassword, SecureBytes newPassword);
+
+        public abstract EncryptedKey ChangeEncryptedKeyPassword(EncryptedKey enckey, SecureBytes oldPassword, SecureBytes newPassword);
 
         public abstract void Store();
 

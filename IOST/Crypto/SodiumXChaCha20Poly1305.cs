@@ -71,7 +71,7 @@ namespace IOSTSdk.Crypto
             
             if (result != 0)
             {
-                throw new InvalidOperationException("unable to encrypt message");
+                throw new InvalidOperationException("unable to decrypt message");
             }
 
             return message;
