@@ -6,7 +6,7 @@
         <id>IOST</id>
 
         <!-- The package version number that is used when resolving dependencies -->
-        <version>1.1.6-pre2</version>
+        <version>1.1.6-pre3</version>
 
         <!-- Authors contain text that appears directly on the gallery -->
         <authors>Saifuddin Migraso</authors>
@@ -56,7 +56,7 @@
                 <dependency id="Newtonsoft.Json" version="12.0.2"/>
                 <dependency id="SHA3.Net" version="1.1.1"/>
                 <dependency id="libsodium" version="1.0.17" />
-                <dependency id="Google.Protobuf" version="3.9.0" />
+                <dependency id="Google.Protobuf" version="3.8.0" />
                 <dependency id="Grpc.Core" version="1.22.0"/>
             </group>
             
@@ -66,7 +66,7 @@
                 <dependency id="Newtonsoft.Json" version="12.0.2"/>
                 <dependency id="SHA3.Net" version="1.1.1"/>
                 <dependency id="libsodium" version="1.0.17.1" />
-                <dependency id="Google.Protobuf" version="3.9.0" />
+                <dependency id="Google.Protobuf" version="3.8.0" />
                 <dependency id="Google.Api.Gax.Grpc" version="2.9.0" />
                 <dependency id="Grpc.Core" version="1.22.0"/>
             </group>
