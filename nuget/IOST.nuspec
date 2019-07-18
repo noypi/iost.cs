@@ -6,7 +6,7 @@
         <id>IOST</id>
 
         <!-- The package version number that is used when resolving dependencies -->
-        <version>1.1.6-pre3</version>
+        <version>1.1.6</version>
 
         <!-- Authors contain text that appears directly on the gallery -->
         <authors>Saifuddin Migraso</authors>
