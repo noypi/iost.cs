@@ -1,7 +1,7 @@
 IOST-1.1.6
 - add IKeystore.RenameKeyLabel()
 - add ChangeEncryptedKeyPassword();
-- update dependency versions
+- update dependency versions (ProtoBuf remains 3.8.0 for a reason)
 
 IOST-1.1.5
 - Fixes in Rpcpb namespace.

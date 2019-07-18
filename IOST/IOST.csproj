@@ -27,7 +27,7 @@
   <ItemGroup>
     <PackageReference Include="Cryptography.ECDSA.Secp256K1" Version="1.1.2" />
     <PackageReference Include="Google.Api.Gax.Grpc" Version="2.9.0" />
-    <PackageReference Include="Google.Protobuf" Version="3.9.0" />
+    <PackageReference Include="Google.Protobuf" Version="3.8.0" />
     <PackageReference Include="libsodium" Version="1.0.17.1" />
     <PackageReference Include="SHA3.Net" Version="1.1.1" />
     <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="4.5.0" />

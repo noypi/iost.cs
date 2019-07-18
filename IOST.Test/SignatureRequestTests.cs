@@ -5,6 +5,8 @@ using System.Text;
 using Google.Protobuf;
 using ChainPay.Models;
 using ChainPay;
+using System.Threading.Tasks;
+using Rpcpb;
 
 namespace IOSTSdk.Test
 {
@@ -15,6 +17,24 @@ namespace IOSTSdk.Test
         public void Initialize()
         {
 
+        }
+
+        [TestMethod]
+        public async Task TestClient()
+        {
+            /*var client = Client.NewTestNet();
+            var task = client.GetAccountAsync(new Rpcpb.GetAccountRequest()
+            {
+                ByLongestChain = true,
+                Name = "saifsolo"
+            }).ResponseAsync;
+
+            var result = await task;*/
+
+            var typet = typeof(Google.Api.AnnotationsReflection);
+            var desc1 = Google.Api.AnnotationsReflection.Descriptor;
+            
+            //var desc = (result as IMessage).Descriptor;
         }
 
         [TestMethod]
