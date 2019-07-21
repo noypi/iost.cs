@@ -6,7 +6,7 @@
         <id>IOST</id>
 
         <!-- The package version number that is used when resolving dependencies -->
-        <version>1.1.6</version>
+        <version>1.1.7</version>
 
         <!-- Authors contain text that appears directly on the gallery -->
         <authors>Saifuddin Migraso</authors>
@@ -34,10 +34,8 @@
 
         <!-- Any details about this particular release -->
         <releaseNotes>
-          [ IOST-1.1.6 ]
-        Add IKeystore.RenameKeyLabel()
-        Add ChangeEncryptedKeyPassword()
-        Update dependency versions (except Protobuf, which is 3.8.0)
+          [ IOST-1.1.7 ]
+        Add SecureBytes for Android, and other OS
         </releaseNotes>
         
         <summary>IOST Blockchain SDK for C#. SDK to create a wallet, upload a Smart Contract, or access the IOST blockchain for application integration</summary>

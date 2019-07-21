@@ -1,3 +1,6 @@
+IOST-1.1.7
+- add SecureBytes for android and other OS
+
 IOST-1.1.6
 - add IKeystore.RenameKeyLabel()
 - add ChangeEncryptedKeyPassword();

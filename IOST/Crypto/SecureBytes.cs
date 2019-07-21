@@ -1,25 +1,26 @@
 namespace IOSTSdk.Crypto
 {
-    using IOSTSdk.Helpers;
     using System;
-    using System.Security.Cryptography;
 
-    public class SecureBytes
+    public class SecureBytes : ISecureBytes
     {
-        private readonly byte[] _entropy;
-        private readonly byte[] _protected;
+        private readonly ISecureBytes _secureBytes;
 
         public SecureBytes(byte[] data)
         {
-            _entropy = IOST.CryptoRandomSeed(16);
-            _protected = ProtectedData.Protect(data, _entropy, DataProtectionScope.CurrentUser);
+            if (Environment.OSVersion.Platform == PlatformID.Win32NT)
+            {
+                _secureBytes = new SecureBytesWin(data);
+            }
+            else
+            {
+                _secureBytes = new SecureBytesMobile(data);
+            }
         }
 
         public void UseUnprotected(Action<byte[]> action)
         {
-            byte[] unprotected = ProtectedData.Unprotect(_protected, _entropy, DataProtectionScope.CurrentUser);
-            action(unprotected);
-            DataHelper.DestroyData(unprotected);
+            _secureBytes.UseUnprotected(action);
         }
     }
 }

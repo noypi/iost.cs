@@ -146,6 +146,9 @@
     <Compile Include="..\IOST\Crypto\IAlgorithm.cs">
       <Link>Crypto\IAlgorithm.cs</Link>
     </Compile>
+    <Compile Include="..\IOST\Crypto\ISecureBytes.cs">
+      <Link>Crypto\ISecureBytes.cs</Link>
+    </Compile>
     <Compile Include="..\IOST\Crypto\Keypair.cs">
       <Link>Crypto\Keypair.cs</Link>
     </Compile>
@@ -154,6 +157,12 @@
     </Compile>
     <Compile Include="..\IOST\Crypto\SecureBytes.cs">
       <Link>Crypto\SecureBytes.cs</Link>
+    </Compile>
+    <Compile Include="..\IOST\Crypto\SecureBytesMobile.cs">
+      <Link>Crypto\SecureBytesMobile.cs</Link>
+    </Compile>
+    <Compile Include="..\IOST\Crypto\SecureBytesWin.cs">
+      <Link>Crypto\SecureBytesWin.cs</Link>
     </Compile>
     <Compile Include="..\IOST\Crypto\SecurePassword.cs">
       <Link>Crypto\SecurePassword.cs</Link>
