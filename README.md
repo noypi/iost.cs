@@ -171,9 +171,9 @@ For .Net Framework 4.5+, must define the following functions if Secp256k1 is nee
 #### For .Net Framework, add the the following in the csproj file:
 ```xml
   <ItemGroup>
-    <Content Include="..\libsodium.1.0.17\runtimes\win-$(Platform)\native\*">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <Content Include="..\packages\libsodium.1.0.17\runtimes\win-$(Platform)\native\libsodium.dll">
       <Link>libsodium.dll</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 ```
