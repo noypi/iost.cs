@@ -157,9 +157,6 @@
     var hash = await _iost.Send(tx);
 ```
 
-### Buy me a pizza
-Thank you, my IOST account is: noypi
-
 ### Limitations (for now)
 For .Net Framework 4.5+, must define the following functions if Secp256k1 is needed
 - IOST.CryptoSignSecp256k1
